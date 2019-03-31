@@ -27,4 +27,4 @@ HELP.md
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
+.vscode/**
