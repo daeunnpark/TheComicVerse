@@ -17,7 +17,7 @@
     />
   </head>
   <body>
-    <title>ComicVerse</title>
+    <title>TheComicVerse</title>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!--<a class="navbar-brand" href="#">ComicVerse</a>-->
       <button
@@ -69,10 +69,10 @@
       </div>
     </nav>
 
-    <div class="input-group mb-2">
+    <div class="input-group" style="margin: 20px auto;">
       <div class="input-group-prepend">
-        <nav class="navbar navbar-light bg-light">
-          <a class="navbar-brand">LOGO</a>
+        <nav class="navbar navbar-light">
+          <a class="navbar-brand" style="color: orange">TheComicVerse</a>
         </nav>
         <button
           class="btn btn-outline-secondary dropdown-toggle"
@@ -103,7 +103,9 @@
       <div class="row justify-content-center">
         <div class="col-4">
           <div class="card">
-            <div class="card-header">Login</div>
+            <div class="card-header" style="background-color: bisque;">
+              Login
+            </div>
             <div class="card-body">
               <form>
                 <div class="input-group mb-3">
@@ -135,51 +137,58 @@
                     aria-describedby="passwordAddon"
                   />
                 </div>
-                <button type="button" class="btn btn-outline-primary">
-                  Sign Up
-                </button>
-                <button type="button" class="btn btn-outline-success">
-                  Sign In
-                </button>
+
+                <div class="row">
+                  <div style="margin:0 auto;">
+                    <button type="button" class="btn btn-outline-primary">
+                      Sign Up
+                    </button>
+                    <button type="button" class="btn btn-outline-success">
+                      Sign In
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
 
-          <ul class="list-group">
+          <ul class="list-group" style="margin: 10px auto;">
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
+              style="background-color: bisque;"
             >
               Rank
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              Tom and Jerry
+              1. Tom and Jerry
               <span class="badge badge-primary badge-pill">New</span>
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              Spiderman
+              2. Spiderman
               <span class="badge badge-primary badge-pill">2↑</span>
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
             >
-              Batman
+              3. Batman
               <span class="badge badge-primary badge-pill">10↑</span>
             </li>
           </ul>
-          <p class = >
+          <p class>
             <button
-              class="btn btn-primary"
+              class="btn btn-secondary"
               type="button"
               data-toggle="collapse"
               data-target="#collapseExample"
               aria-expanded="false"
               aria-controls="collapseExample"
+              style="display: block; margin: 0 auto;"
             >
-              Help
+              Help Information
             </button>
           </p>
           <div class="collapse" id="collapseExample">
@@ -198,7 +207,31 @@
               />
               <div class="card-body">
                 <h5 class="card-title">Tom and Jerry</h5>
-                <a href="#" class="btn btn-primary">Follow</a>
+                <a href="#" class="btn btn-primary">Subscribe</a>
+              </div>
+            </div>
+            <div class="card">
+              <img
+                class="card-img-top"
+                src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/235/235._SX400_QL80_TTD_.jpg"
+                alt="Card image cap"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Batman</h5>
+                <a href="#" class="btn btn-primary">Subscribe</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-deck">
+            <div class="card">
+              <img
+                class="card-img-top"
+                src="https://images.booksense.com/images/544/425/9781481425544.jpg"
+                alt="Card image cap"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Snoopy</h5>
+                <a href="#" class="btn btn-primary">Subscribe</a>
               </div>
             </div>
             <div class="card">
@@ -209,7 +242,7 @@
               />
               <div class="card-body">
                 <h5 class="card-title">SpongeBob</h5>
-                <a href="#" class="btn btn-primary">Follow</a>
+                <a href="#" class="btn btn-primary">Subscribe</a>
               </div>
             </div>
           </div>
