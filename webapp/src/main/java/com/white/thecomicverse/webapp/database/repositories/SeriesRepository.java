@@ -1,0 +1,15 @@
+package java.com.white.thecomicverse.webapp.database.repositories;
+
+import java.com.white.thecomicverse.webapp.database.model.Series;
+
+import org.springframework.data.repository.CrudRepository;
+
+
+
+
+// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
+// CRUD refers Create, Read, Update, Delete
+
+public interface SeriesRepository extends CrudRepository<Series, Integer> {
+
+}
