@@ -15,8 +15,9 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller    // This means that this class is a Controller
-@RequestMapping(path="/sign_up_form")
+@RequestMapping(path="/login")
 public class LoginController {
+
     @Autowired
     private LoginRepository loginRepository;
 
@@ -44,26 +45,23 @@ public class LoginController {
 
     }
 
-    /*
     @RequestMapping(value="/checkLogin") // Map ONLY GET Requests
-    public String checkLogin (HttpServletRequest req, @RequestParam(value = "email") String email
+    public String checkLogin (HttpServletRequest req, @RequestParam(value = "username") String username
             ,@RequestParam(value = "password") String password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
         for (Login login : loginRepository.findAll()){
-            if (login.getEmail().equals(email)){
+            if (login.getUsername().equals(username)){
                 if (login.getPassword().equals(password)){
-
-                    name = email;
-                    return "redirect:/menu";
+                    return "redirect:/home";
                 }
 
             }
         }
 
 
-        return "redirect:/login?error";
+        return "redirect:/home?error";
 
     }
 
@@ -73,6 +71,5 @@ public class LoginController {
         // This returns a JSON or XML with the users
         return loginRepository.findAll();
     }
-*/
 
 }
