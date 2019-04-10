@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        lang="en"
+>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -74,7 +79,7 @@
       <div class="card-header">Sign Up Form</div>
       <div class="card-body">
         <div style="width:40vw; margin: auto;">
-          <form>
+          <form th:action="@{login/addLogin}" method = "post">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="usernameAddon"
