@@ -1,4 +1,6 @@
-package java.com.white.thecomicverse.webapp.database.controller;
+
+
+package com.white.thecomicverse.webapp.database.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.com.white.thecomicverse.webapp.database.model.Login;
-import java.com.white.thecomicverse.webapp.database.repositories.LoginRepository;
+import com.white.thecomicverse.webapp.database.model.Login;
+import com.white.thecomicverse.webapp.database.repositories.LoginRepository;
 import java.util.List;
 import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,7 @@ public class LoginController {
     private LoginRepository loginRepository;
 
     @RequestMapping(value="/addLogin") // Map ONLY GET Requests
-    public String addNewLogin (HttpServletRequest req, @RequestParam(value = "Email") String email, @RequestParam(value = "username") String username
+    public String addNewLogin (HttpServletRequest req, @RequestParam(value = "email") String email, @RequestParam(value = "username") String username
             ,@RequestParam(value = "password") String password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request

@@ -1,6 +1,6 @@
-package java.com.white.thecomicverse.webapp.database.repositories;
+package com.white.thecomicverse.webapp.database.repositories;
 
-import java.com.white.thecomicverse.webapp.database.model.Series;
+import com.white.thecomicverse.webapp.database.model.Series;
 
 import org.springframework.data.repository.CrudRepository;
 
