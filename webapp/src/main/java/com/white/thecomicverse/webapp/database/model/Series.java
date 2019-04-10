@@ -8,36 +8,21 @@ import java.sql.SQLException;
 import javax.sql.rowset.serial.SerialBlob;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Episode {
+public class Series {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int EpisodeID;
-
     private int SeriesID;
 
+    private String SeriesName;
+
+    private String author;
 
 
-    private String EpisdoeName;
 
-
-
-    private String DateCreated;
-
-    private int numView;
-
-    private int numLikes;
-
-    private int numDislikes;
+    private String categories;
 
     private Blob thumbnail;
 
-    public int getEpisodeID(){
-        return EpisodeID;
-    }
-
-    public void setEpisodeID(int EpisodeID){
-        this.EpisodeID = EpisodeID;
-    }
 
     public int getSeriesID() {
         return SeriesID;
@@ -47,45 +32,28 @@ public class Episode {
         SeriesID = seriesID;
     }
 
-
-    public String getEpisdoeName() {
-        return EpisdoeName;
+    public String getSeriesName() {
+        return SeriesName;
     }
 
-    public void setEpisdoeName(String episdoeName) {
-        EpisdoeName = episdoeName;
+    public void setSeriesName(String seriesName) {
+        SeriesName = seriesName;
     }
 
-    public String getDateCreated() {
-        return DateCreated;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setDateCreated(String dateCreated) {
-        DateCreated = dateCreated;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public int getNumView() {
-        return numView;
+    public String getCategories() {
+        return categories;
     }
 
-    public void setNumView(int numView) {
-        this.numView = numView;
-    }
-
-    public int getNumLikes() {
-        return numLikes;
-    }
-
-    public void setNumLikes(int numLikes) {
-        this.numLikes = numLikes;
-    }
-
-    public int getNumDislikes() {
-        return numDislikes;
-    }
-
-    public void setNumDislikes(int numDislikes) {
-        this.numDislikes = numDislikes;
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
     public byte[] getThumbnail(){

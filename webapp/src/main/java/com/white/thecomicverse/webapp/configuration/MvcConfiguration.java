@@ -1,4 +1,4 @@
-package com.white.thecomicverse.webapp.configuration;
+package java.com.white.thecomicverse.webapp.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

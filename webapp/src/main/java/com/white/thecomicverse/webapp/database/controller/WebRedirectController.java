@@ -1,4 +1,4 @@
-package com.white.thecomicverse.webapp.database.controller;
+package java.com.white.thecomicverse.webapp.database.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
