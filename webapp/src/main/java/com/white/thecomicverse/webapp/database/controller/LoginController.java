@@ -67,12 +67,11 @@ public class LoginController {
 
     }
 
-
+*/
     @GetMapping(path="/allLogin")
     public @ResponseBody Iterable<Login> getAllLogin() {
         // This returns a JSON or XML with the users
         return loginRepository.findAll();
     }
-*/
 
 }
