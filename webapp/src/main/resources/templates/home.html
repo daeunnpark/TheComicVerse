@@ -171,7 +171,9 @@
                     </button>
                   </div>
                 </div>
-
+              <div class="error_msg" th:if="${param.error}">
+                <p>Invalid username and/or password.</p>
+              </div>
             </div>
           </div>
 
