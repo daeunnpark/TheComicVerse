@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta
@@ -99,53 +101,74 @@
     <div class="card-header">Create a Comic Series</div>
     <div class="card-body">
         <div style="width:40vw; margin: auto;">
-            <form>
-                <div class="input-group mb-3">
-                    <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Comic Series Name"
-                            aria-label="Comic Series Name"
-                            aria-describedby="basic-addon2"
-                    />
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">
-                            Check Availability
-                        </button>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button
-                            class="btn btn-secondary dropdown-toggle"
-                            type="button"
-                            id="categorydropdownMenuButton"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            style="display: block; margin: 0 auto;"
-                    >
-                        Category
-                    </button>
-                    <div
-                            class="dropdown-menu"
-                            aria-labelledby="categorydropdownMenuButton"
-                    >
-                        <a class="dropdown-item" href="#">Category A</a>
-                        <a class="dropdown-item" href="#">Category B</a>
-                        <a class="dropdown-item" href="#">Category C</a>
-                        <a class="dropdown-item" href="#">Category D</a>
-                        <a class="dropdown-item" href="#">Category E</a>
-                    </div>
-                </div>
-                <br/>
-                <button
-                        type="submit"
-                        class="btn btn-primary"
-                        style="display: block; margin: 0 auto;"
-                >
-                    Create
+
+          <form id ="submitCreateSeries" th:action="@{series/createSeries}" method="POST">>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                name="seriesName"
+                class="form-control"
+                placeholder="Comic Series Name"
+                aria-label="Comic Series Name"
+                aria-describedby="basic-addon2"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" onclick= type="button">
+                  Check Availability
                 </button>
-            </form>
+                <div class="error_msg" th:if="${param.seriesNameExist}">
+                  <p>Series name already exists</p>
+                </div>
+                <div class="error_msg" th:if="${param.seriesNameNotExist}">
+                  <p>Series name is available</p>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                value=""
+                name="category"
+                id="categorydropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="display: block; margin: 0 auto;"
+              >
+                Category
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="categorydropdownMenuButton"
+              >
+                <a id="category1"class="dropdown-item" href="#"
+                   onclick="document.getElementById('categorydropdownMenuButton').setAttribute(value,document.getElementById('category1').innerText)">
+                  Category A</a>
+                <a id="category2"class="dropdown-item" href="#"
+                   onclick="document.getElementById('categorydropdownMenuButton').setAttribute(value,document.getElementById('category2').innerText)">
+                  Category B</a>
+                <a id="category3"class="dropdown-item" href="#"
+                   onclick="document.getElementById('categorydropdownMenuButton').setAttribute(value,document.getElementById('category3').innerText)">
+                  Category C</a>
+                <a id="category4"class="dropdown-item" href="#"
+                   onclick="document.getElementById('categorydropdownMenuButton').setAttribute(value,document.getElementById('category4').innerText)">
+                  Category D</a>
+                <a id="category5"class="dropdown-item" href="#"
+                   onclick="document.getElementById('categorydropdownMenuButton').setAttribute(value,document.getElementById('category5').innerText)">
+                  Category E</a>
+              </div>
+            </div>
+            <br />
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="display: block; margin: 0 auto;"
+            >
+              Create
+            </button>
+          </form>
+
         </div>
     </div>
 </div>

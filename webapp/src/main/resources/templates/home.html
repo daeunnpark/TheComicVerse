@@ -176,20 +176,20 @@
                     <div class="row">
                         <div style="margin:0 auto;">
 
-                            <form id="submitSignUp" action="/sign_up_form" method="GET">
-                                <button type="button" onclick="document.getElementById('submitSignUp').submit()"
-                                        class="btn btn-outline-primary">
-                                    Sign Up
-                                </button>
-                            </form>
-                            <button type="button" onclick="document.getElementById('submitLogin').submit()"
-                                    class="btn btn-outline-success">
-                                Sign In
-                            </button>
-                        </div>
-                    </div>
 
+                    <form id="submitSignUp" action="/sign_up_form" method="GET">
+                      <button type="button" onclick="document.getElementById('submitSignUp').submit()" class="btn btn-outline-primary">
+                      Sign Up
+                      </button>
+                    </form>
+                    <button type="button" onclick="document.getElementById('submitLogin').submit()" class="btn btn-outline-success">
+                      Sign In
+                    </button>
+                  </div>
                 </div>
+              <div class="error_msg" th:if="${param.error}">
+                <p>Invalid username and/or password.</p>
+              </div>
             </div>
 
             <ul class="list-group" style="margin: 10px auto;">
