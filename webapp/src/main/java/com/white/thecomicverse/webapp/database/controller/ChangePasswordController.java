@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class ChangePasswordController {
 
-    @RequestMapping(value = "/user/updatePassword", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/user/updatePassword", method = RequestMethod.POST)
     @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @ResponseBody
     public GenericResponse changeUserPassword(Locale locale,
@@ -25,6 +25,6 @@ public class ChangePasswordController {
         }
         userService.changeUserPassword(user, password);
         return new GenericResponse(messages.getMessage("message.updatePasswordSuc", null, locale));
-    }
+    }*/
 
 }
