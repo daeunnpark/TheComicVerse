@@ -16,7 +16,7 @@ public class SeriesController {
     private SeriesRepository seriesRepository;
 
     @RequestMapping(value="/createSeries") // Map ONLY GET Requests
-    public String addNewLogin (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName, @RequestParam(value = "category") String category) {
+    public String addNewLogin (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -29,14 +29,14 @@ public class SeriesController {
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
         newSeries.setAuthor("Dummy Author");
-        newSeries.setCategories(category);
+        newSeries.setCategories("category");
         this.seriesRepository.save(newSeries);
-        return "redirect:/create_comic_series?success";
+        return "redirect:/create_comic_series?success=" + seriesName;
 
     }
 
     @RequestMapping(value="/checkSeriesName") // Map ONLY GET Requests
-    public String addNewLogin (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
+    public String checkNewLogin (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
 
         for (Series series : seriesRepository.findAll()){
             if (series.getSeriesName().equals(seriesName)){

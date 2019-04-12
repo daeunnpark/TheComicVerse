@@ -152,6 +152,12 @@
                 >
                     Sign Up
                 </button>
+                <div class="error_msg" th:if="${param.userNameExist}">
+                    <p>User name already exists.</p>
+                </div>
+                <div class="error_msg" th:if="${param.EmailExist}">
+                    <p>Email already exists.</p>
+                </div>
             </form>
         </div>
     </div>
