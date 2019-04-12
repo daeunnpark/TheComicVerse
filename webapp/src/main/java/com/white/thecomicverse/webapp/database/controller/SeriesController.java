@@ -42,7 +42,7 @@ public class SeriesController {
 
 
     @RequestMapping(value="/checkSeriesName") // Map ONLY GET Requests
-    public Iterable<Series> getSeriesByName (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
+    public ModelAndView getSeriesByName (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
         List<Series> s = new ArrayList<Series>();
         for (Series series : seriesRepository.findAll()){
             if (series.getSeriesName().equals(seriesName)){
@@ -52,13 +52,13 @@ public class SeriesController {
 
         ModelAndView mv =  new ModelAndView("browse");
         mv.addObject(s);
-        return s;
+        return mv;
 
 
     }
 
     @RequestMapping(value="/checkSeriesAuthor") // Map ONLY GET Requests
-    public Iterable<Series> getSeriesByAuthor (HttpServletRequest req, @RequestParam(value = "authorName") String seriesAuthor) {
+    public ModelAndView getSeriesByAuthor (HttpServletRequest req, @RequestParam(value = "authorName") String seriesAuthor) {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()){
@@ -69,7 +69,7 @@ public class SeriesController {
 
         ModelAndView mv = new ModelAndView("browse");
         mv.addObject(s);
-        return s;
+        return mv;
 
     }
 
