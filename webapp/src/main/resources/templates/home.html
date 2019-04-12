@@ -239,6 +239,9 @@
               <div class="error_msg" th:if="${param.error}">
                 <p>Invalid username and/or password.</p>
               </div>
+              <div class="error_msg" th:if="${param.username}">
+                <p th:text="'Welcome '+${param.username}"></p>
+              </div>
             </div>
           </div>
 

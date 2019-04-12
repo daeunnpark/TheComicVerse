@@ -1,4 +1,4 @@
-package com.white.thecomicverse.webapp.database.controller;
+/*package com.white.thecomicverse.webapp.database.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,4 +27,4 @@ public class ChangePasswordController {
         return new GenericResponse(messages.getMessage("message.updatePasswordSuc", null, locale));
     }
 
-}
+}*/

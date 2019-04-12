@@ -43,7 +43,7 @@ public class LoginController {
         l.setusername(username);
         l.setPassword(password);
         this.loginRepository.save(l);
-        return "redirect:/sign_up_form";
+        return "redirect:/home";
 
     }
 
@@ -56,7 +56,7 @@ public class LoginController {
         for (Login login : loginRepository.findAll()){
             if (login.getUsername().equals(username)){
                 if (login.getPassword().equals(password)){
-                    return "redirect:/home";
+                    return "redirect:/home?username="+username;
                 }
 
             }
