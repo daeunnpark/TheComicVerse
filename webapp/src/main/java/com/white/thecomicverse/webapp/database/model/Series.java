@@ -17,8 +17,6 @@ public class Series {
 
     private String author;
 
-
-
     private String categories;
 
     private Blob thumbnail;
