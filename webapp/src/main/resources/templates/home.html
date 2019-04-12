@@ -173,7 +173,7 @@
             <div class="card-header" style="background-color: bisque;">
               Login
             </div>
-            <div class="card-body">
+            <div class="card-body" id="loginBody">
               <form
                 id="submitLogin"
                 th:action="@{login/checkLogin}"
@@ -187,6 +187,7 @@
                   </div>
                   <input
                     type="text"
+                    it="username"
                     name="username"
                     class="form-control"
                     placeholder="Username"
@@ -360,5 +361,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script type="text/javascript" src="../static/js/usersession.js" th:src="@{/js/usersession.js}"></script>
   </body>
 </html>
