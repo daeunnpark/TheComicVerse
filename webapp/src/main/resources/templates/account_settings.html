@@ -140,7 +140,7 @@
                             aria-describedby="passwordAddon"
                     />
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">
+                        <button class="btn btn-outline-secondary" type="button" onclick="savePass()">
                             Change Password
                         </button>
                     </div>
@@ -188,5 +188,27 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
 ></script>
+
+
+<script type="text/javascript">
+
+    var serverContext = [[@{/}]];
+        function savePass(){
+            var pass = $("#pass").val();
+            var valid = pass == $("#passConfirm").val();
+            if(!valid) {
+                $("#error").show();
+                return;
+            }
+            $.post(serverContext + "user/updatePassword",
+                {password: pass, oldpassword: $("#oldpass").val()} ,function(data){
+                    window.location.href = serverContext +"/home.html?message="+data.message;
+                })
+                .fail(function(data) {
+                    $("#errormsg").show().html(data.responseJSON.message);
+                });
+        }
+</script>
+
 </body>
 </html>
