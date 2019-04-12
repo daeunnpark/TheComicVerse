@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,16 +40,38 @@ public class SeriesController {
 
     }
 
-    @RequestMapping(value="/checkSeriesName") // Map ONLY GET Requests
-    public String checkNewLogin (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
 
+    @RequestMapping(value="/checkSeriesName") // Map ONLY GET Requests
+    public Iterable<Series> getSeriesByName (HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
+        List<Series> s = new ArrayList<Series>();
         for (Series series : seriesRepository.findAll()){
             if (series.getSeriesName().equals(seriesName)){
-                return "redirect:/create_comic_series?seriesNameExist";
+                s.add(series);
             }
         }
-        return "redirect:/create_comic_series?seriesNameNotExist";
+
+        ModelAndView mv =  new ModelAndView("browse");
+        mv.addObject(s);
+        return s;
+
 
     }
+
+    @RequestMapping(value="/checkSeriesAuthor") // Map ONLY GET Requests
+    public Iterable<Series> getSeriesByAuthor (HttpServletRequest req, @RequestParam(value = "authorName") String seriesAuthor) {
+        List<Series> s = new ArrayList<Series>();
+
+        for (Series series : seriesRepository.findAll()){
+            if (series.getAuthor().equals(seriesAuthor)){
+                s.add(series);
+            }
+        }
+
+        ModelAndView mv = new ModelAndView("browse");
+        mv.addObject(s);
+        return s;
+
+    }
+
 
 }
