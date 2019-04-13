@@ -136,44 +136,41 @@
 
     <!--Search Bar-->
     <div class="input-group" style="margin: 20px auto;">
-      <form id="searchBy" th:action="@{series/search}" method="post">
-        <div class="input-group-prepend">
-          <nav class="navbar navbar-light">
-            <a class="navbar-brand" style="color: orange">TheComicVerse</a>
-          </nav>
-          <button
-            class="btn btn-outline-secondary dropdown-toggle"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-            style="width:150px"
+      <div class="input-group-prepend">
+        <nav class="navbar navbar-light">
+          <a class="navbar-brand" style="color: orange">TheComicVerse</a>
+        </nav>
+        <button
+          class="btn btn-outline-secondary dropdown-toggle"
+          type="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          style="width:150px"
+        >
+          Search by
+        </button>
+
+        <div class="dropdown-menu">
+          <a class="dropdown-item" name="All" data-value="all" href="#">All</a>
+          <a class="dropdown-item" name="byTitle" data-value="title" href="#"
+            >Title</a
           >
-            Search by
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" name="All" data-value="all" href="#"
-              >All</a
-            >
-            <a class="dropdown-item" name="byTitle" data-value="title" href="#"
-              >Title</a
-            >
-            <a
-              class="dropdown-item"
-              name="byAuthor"
-              data-value="author"
-              href="#"
-              >Author</a
-            >
-          </div>
+          <a class="dropdown-item" name="byAuthor" data-value="author" href="#"
+            >Author</a
+          >
         </div>
-        <input
-          type="search"
-          class="form-control mr-sm-2"
-          placeholder="Search"
-          aria-label="Search"
-          name="keyword"
-        />
+
+        <form id="searchBy" th:action="@{series/search}" method="post">
+          <input type="hidden" name="searchOption" id="searchOption" />
+          <input
+            type="search"
+            class="form-control mr-sm-2"
+            placeholder="Search"
+            aria-label="Search"
+            name="keyword"
+          />
+        </form>
         <button
           class="btn btn-outline-success my-2 my-sm-0"
           type="submit"
@@ -181,8 +178,7 @@
         >
           Search
         </button>
-        <input type="hidden" name="searchOption" id="searchOption" />
-      </form>
+      </div>
     </div>
 
     <!--Log in-->
