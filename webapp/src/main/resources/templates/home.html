@@ -136,33 +136,53 @@
 
     <!--Search Bar-->
     <div class="input-group" style="margin: 20px auto;">
-      <div class="input-group-prepend">
-        <nav class="navbar navbar-light">
-          <a class="navbar-brand" style="color: orange">TheComicVerse</a>
-        </nav>
-        <button
-          class="btn btn-outline-secondary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Search by
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Title</a>
-          <a class="dropdown-item" href="#">Author</a>
+      <form id="searchBy" th:action="@{series/search}" method="post">
+        <div class="input-group-prepend">
+          <nav class="navbar navbar-light">
+            <a class="navbar-brand" style="color: orange">TheComicVerse</a>
+          </nav>
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="width:150px"
+          >
+            Search by
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" name="All" data-value="all" href="#"
+              >All</a
+            >
+            <a class="dropdown-item" name="byTitle" data-value="title" href="#"
+              >Title</a
+            >
+            <a
+              class="dropdown-item"
+              name="byAuthor"
+              data-value="author"
+              href="#"
+              >Author</a
+            >
+          </div>
         </div>
-      </div>
-      <input
-        type="search"
-        class="form-control mr-sm-2"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        Search
-      </button>
+        <input
+          type="search"
+          class="form-control mr-sm-2"
+          placeholder="Search"
+          aria-label="Search"
+          name="keyword"
+        />
+        <button
+          class="btn btn-outline-success my-2 my-sm-0"
+          type="submit"
+          onclick="document.getElementById('searchBy').submit()"
+        >
+          Search
+        </button>
+        <input type="hidden" name="searchOption" id="searchOption" />
+      </form>
     </div>
 
     <!--Log in-->
@@ -187,7 +207,7 @@
                   </div>
                   <input
                     type="text"
-                    it="username"
+                    id="username"
                     name="username"
                     class="form-control"
                     placeholder="Username"
@@ -203,6 +223,7 @@
                     >
                   </div>
                   <input
+                    sid="password"
                     type="text"
                     name="password"
                     class="form-control"
@@ -361,6 +382,11 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script type="text/javascript" src="../static/js/usersession.js" th:src="@{/js/usersession.js}"></script>
+    <script
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
+    ></script>
+    <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
   </body>
 </html>
