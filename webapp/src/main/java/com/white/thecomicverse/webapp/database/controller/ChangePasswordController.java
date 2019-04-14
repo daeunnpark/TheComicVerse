@@ -25,6 +25,6 @@ public class ChangePasswordController {
         }
         userService.changeUserPassword(user, password);
         return new GenericResponse(messages.getMessage("message.updatePasswordSuc", null, locale));
-    }*/
+    }
 
 }*/
