@@ -146,23 +146,39 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
+          style="width:150px"
         >
           Search by
         </button>
+
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Title</a>
-          <a class="dropdown-item" href="#">Author</a>
+          <a class="dropdown-item" name="All" data-value="all" href="#">All</a>
+          <a class="dropdown-item" name="byTitle" data-value="title" href="#"
+            >Title</a
+          >
+          <a class="dropdown-item" name="byAuthor" data-value="author" href="#"
+            >Author</a
+          >
         </div>
+
+        <form id="searchBy" th:action="@{series/search}" method="post">
+          <input type="hidden" name="searchOption" id="searchOption" />
+          <input
+            type="search"
+            class="form-control mr-sm-2"
+            placeholder="Search"
+            aria-label="Search"
+            name="keyword"
+          />
+        </form>
+        <button
+          class="btn btn-outline-success my-2 my-sm-0"
+          type="submit"
+          onclick="document.getElementById('searchBy').submit()"
+        >
+          Search
+        </button>
       </div>
-      <input
-        type="search"
-        class="form-control mr-sm-2"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        Search
-      </button>
     </div>
 
     <!--Log in-->
@@ -173,7 +189,7 @@
             <div class="card-header" style="background-color: bisque;">
               Login
             </div>
-            <div class="card-body">
+            <div class="card-body" id="loginBody">
               <form
                 id="submitLogin"
                 th:action="@{login/checkLogin}"
@@ -187,6 +203,7 @@
                   </div>
                   <input
                     type="text"
+                    id="username"
                     name="username"
                     class="form-control"
                     placeholder="Username"
@@ -202,6 +219,7 @@
                     >
                   </div>
                   <input
+                    sid="password"
                     type="text"
                     name="password"
                     class="form-control"
@@ -360,5 +378,11 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
+    ></script>
+    <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
   </body>
 </html>
