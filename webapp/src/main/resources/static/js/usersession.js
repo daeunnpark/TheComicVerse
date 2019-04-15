@@ -1,19 +1,20 @@
 var currentUsername;
 function updateUsername(newUsername) {
-    currentUsername = newUsername;
-    login(currentUsername);
+  currentUsername = newUsername;
+  login(currentUsername);
 }
 
-function login(currentUsername){
-    window.localStorage.setItem("username",currentUsername);
+function login(currentUsername) {
+  window.localStorage.setItem("username", currentUsername);
 }
 
 function getUsername() {
-    return window.localStorage.getItem("username");
+  console.log(window.localStorage.getItem("username"));
+  return window.localStorage.getItem("username");
 }
 
-function checkUsername(){
-    document.getElementById("temp0").innerHTML = getUsername();
+function checkUsername() {
+  document.getElementById("temp0").innerHTML = getUsername();
 }
 /*
 function hideLogin(){
@@ -23,7 +24,7 @@ $("#submitLogin").submit(function(e) {
     login($("#username").value);
     hideLogin();
 */
-    /*
+/*
     var value = document.getElementById("secret_word").value;
     if (is_valid(value)) {
         computerWord = value;
