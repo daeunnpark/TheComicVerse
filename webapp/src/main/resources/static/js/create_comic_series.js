@@ -12,6 +12,6 @@ $(".dropdown-menu a").click(function() {
     .find(".btn")
     .val($(this).data("value"));
 
-  // Update searchOption
-  $("#searchOption").val($(this).data("value"));
+  // Update dropdown
+  $("#categorydropdownMenuButton").val($(this).data("value"));
 });
