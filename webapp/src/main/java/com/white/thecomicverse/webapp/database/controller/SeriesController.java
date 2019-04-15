@@ -30,6 +30,8 @@ public class SeriesController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
+        System.out.println(categories);
+
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().equals(seriesName)) {
 
@@ -40,7 +42,7 @@ public class SeriesController {
 
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
-        newSeries.setAuthor("Tom");
+        newSeries.setAuthor(author);
         newSeries.setDescription(description);
         newSeries.setCategories(categories);
         newSeries.setThumbnail(thumbnail);
@@ -140,6 +142,12 @@ public class SeriesController {
         ModelAndView mv = new ModelAndView("browse");
         mv.addObject(s);
         return mv;
+    }
+
+    @GetMapping(path="/all")
+    public @ResponseBody Iterable<Series> getAllSeries() {
+        // This returns a JSON or XML with the users
+        return seriesRepository.findAll();
     }
 
 }
