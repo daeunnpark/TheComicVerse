@@ -41,6 +41,7 @@ public class SeriesController {
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
         newSeries.setAuthor(author);
+        newSeries.setDescription(description);
         newSeries.setCategories("category");
         newSeries.setThumbnail(thumbnail);
         this.seriesRepository.save(newSeries);
