@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
+    <!-- js file -->
+    <script
+            type="text/javascript"
+            src="../static/js/usersession.js"
+            th:src="@{/js/usersession.js}"
+    ></script>
+    <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -261,9 +268,7 @@
                 <p th:text="'Welcome '+${param.username}"></p>
                 <p id="temp0">before</p>
                 <script th:inline="javascript">
-
                   var message =[[${param.username}]];
-                  document.getElementById("temp0").innerHTML = message;
                   updateUsername(message);
                   checkUsername();
                 </script>
@@ -394,11 +399,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script
-      type="text/javascript"
-      src="../static/js/usersession.js"
-      th:src="@{/js/usersession.js}"
-    ></script>
-    <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
+
   </body>
 </html>

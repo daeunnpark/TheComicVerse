@@ -1,7 +1,9 @@
+function getUsername() {
+  return window.localStorage.getItem("username");
+}
 
 function checkUsername1(){
-  //document.getElementById("temp1").innerHTML = "after";
-  document.getElementById("temp1").innerHTML = "after";
+  document.getElementById("temp1").innerHTML = getUsername()
 }
 
 

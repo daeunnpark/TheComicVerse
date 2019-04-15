@@ -3,6 +3,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="en">
   <head>
+      <!-- js file -->
+      <script src="../static/js/create_comic_series.js" th:src="@{/js/create_comic_series.js}"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta
@@ -98,7 +100,7 @@
 </nav>
 
 <p id="temp1">before</p>
-<script>checkUsername1();</script>
+<script type="text/javascript">checkUsername1();</script>
 
 <div class="card">
     <div class="card-header">Create a Comic Series</div>
@@ -214,6 +216,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
 ></script>
-<script src="../static/js/create_comic_series.js" th:src="@{/js/create_comic_series.js}"></script>
+
 </body>
 </html>
