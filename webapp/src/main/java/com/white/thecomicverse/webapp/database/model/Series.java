@@ -19,7 +19,17 @@ public class Series {
 
     private String categories;
 
+    private String description;
+
     private Blob thumbnail;
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
 
 
     public int getSeriesID() {

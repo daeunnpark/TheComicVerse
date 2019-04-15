@@ -64,8 +64,7 @@ public class SeriesController {
         } else if (searchOption.equals("author")) {
             return getSeriesByAuthor(req, keyword);
         }
-        return null;
-        // Add searchOption.equals("all")
+        return getAllSeries(req);
 
     }
 
@@ -103,9 +102,16 @@ public class SeriesController {
     }
 
     @GetMapping(path = "/allSeries")
-    public @ResponseBody Iterable<Series> getAllSeries() {
-        // This returns a JSON or XML with the users
-        return seriesRepository.findAll();
+    public ModelAndView getAllSeries(HttpServletRequest req) {
+        List<Series> s = new ArrayList<Series>();
+
+        for (Series series : seriesRepository.findAll()) {
+            s.add(series);
+        }
+
+        ModelAndView mv = new ModelAndView("browse");
+        mv.addObject(s);
+        return mv;
     }
 
 }
