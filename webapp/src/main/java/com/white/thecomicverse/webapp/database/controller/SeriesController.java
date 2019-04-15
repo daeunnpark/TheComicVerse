@@ -40,14 +40,20 @@ public class SeriesController {
 
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
-        newSeries.setAuthor(author);
+        newSeries.setAuthor("Tom");
         newSeries.setDescription(description);
-        newSeries.setCategories("category");
+        newSeries.setCategories(categories);
         newSeries.setThumbnail(thumbnail);
         this.seriesRepository.save(newSeries);
         List<Series> seriesList = new ArrayList<Series>();
+
         for (Series s : seriesRepository.findAll()) {
-            seriesList.add(s);
+            if (s.getSeriesName().equals(seriesName)){
+                if (s.getAuthor().equals(author)){
+                    seriesList.add(s);
+                }
+            }
+
         }
 
         ModelAndView mv = new ModelAndView("manage_my_series");
