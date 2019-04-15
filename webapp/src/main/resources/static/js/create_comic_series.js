@@ -21,7 +21,22 @@ $(".dropdown-menu a").click(function() {
     .find(".btn")
     .val($(this).data("value"));
 
-  // Update searchOption
-  $("#searchOption").val($(this).data("value"));
+  // Update dropdown
+  $("#categorydropdownMenuButton").val($(this).data("value"));
+});
+
+$("#submitCreateSeries").submit(function (event) {
+
+  var url = "/series/create_series";
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: $("#submitCreateSeries").serialize(),
+    success: function(data){
+      alert(data);
+    }
+  });
+  return false;
 });
 

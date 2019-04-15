@@ -107,7 +107,7 @@
     <div class="card-body">
         <div style="width:40vw; margin: auto;">
 
-          <form id ="submitCreateSeries" th:action="@{series/createSeries}" method="POST">
+          <form id ="submitCreateSeries" th:action="@{series/createSeries}" onsubmit="image_to_binary()" method="POST">
             <div class="input-group mb-3">
               <input
                 type="text"
@@ -138,20 +138,23 @@
                           aria-label="Comic Series Description"
                   ></textarea>
               </div>
-              <label for="fileThumbnailInput">Upload Thumbnail:</label>
-              <input
-                      id="fileThumbnailInput"
-                      type="file"
-                      style="margin: 0 auto;border:1px solid grey;"
-                      accept="image/*"
-              />
+              <div class="input-group mb-3">
+                  <label for="fileThumbnailInput">Upload Thumbnail:</label>
+                  <input
+                          id="fileThumbnailInput"
+                          type="file"
+                          style="margin: 0 auto;border:1px solid grey;"
+                          accept="image/*"
+                  />
+              </div>
+
               <br>
             <div class="dropdown">
               <button
                 class="btn btn-secondary dropdown-toggle"
                 type="button"
                 value=""
-                name="category"
+                name="categories"
                 id="categorydropdownMenuButton"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -164,19 +167,19 @@
                 class="dropdown-menu"
                 aria-labelledby="categorydropdownMenuButton"
               >
-                <a id="category1"class="dropdown-item" href="#"
+                <a id="category1" class="dropdown-item" href="#"
                    onclick="document.getElementById('categorydropdownMenuButton').setAttribute('value',document.getElementById('category1').innerText)">
                   Category A</a>
-                <a id="category2"class="dropdown-item" href="#"
+                <a id="category2" class="dropdown-item" href="#"
                    onclick="document.getElementById('categorydropdownMenuButton').setAttribute('value',document.getElementById('category2').innerText)">
                   Category B</a>
-                <a id="category3"class="dropdown-item" href="#"
+                <a id="category3" class="dropdown-item" href="#"
                    onclick="document.getElementById('categorydropdownMenuButton').setAttribute('value',document.getElementById('category3').innerText)">
                   Category C</a>
-                <a id="category4"class="dropdown-item" href="#"
+                <a id="category4" class="dropdown-item" href="#"
                    onclick="document.getElementById('categorydropdownMenuButton').setAttribute('value',document.getElementById('category4').innerText)">
                   Category D</a>
-                <a id="category5"class="dropdown-item" href="#"
+                <a id="category5" class="dropdown-item" href="#"
                    onclick="document.getElementById('categorydropdownMenuButton').setAttribute('value',document.getElementById('category5').innerText)">
                   Category E</a>
               </div>
