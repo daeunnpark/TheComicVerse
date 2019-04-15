@@ -1,3 +1,10 @@
+
+function checkUsername1(){
+  //document.getElementById("temp1").innerHTML = "after";
+  document.getElementById("temp1").innerHTML = "after";
+}
+
+
 // Search dropdown box
 $(".dropdown-menu a").click(function() {
   // Update dropdown UI
@@ -15,3 +22,4 @@ $(".dropdown-menu a").click(function() {
   // Update dropdown
   $("#categorydropdownMenuButton").val($(this).data("value"));
 });
+

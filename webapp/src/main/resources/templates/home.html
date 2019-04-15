@@ -189,6 +189,7 @@
             <div class="card-header" style="background-color: bisque;">
               Login
             </div>
+            <p id="hel0"></p>
             <div class="card-body" id="loginBody">
               <form
                 id="submitLogin"
@@ -203,7 +204,6 @@
                   </div>
                   <input
                     type="text"
-                    id="username"
                     name="username"
                     class="form-control"
                     placeholder="Username"
@@ -259,6 +259,15 @@
               </div>
               <div class="error_msg" th:if="${param.username}">
                 <p th:text="'Welcome '+${param.username}"></p>
+                <p id="temp0">before</p>
+                <script th:inline="javascript">
+
+                  var message =[[${param.username}]];
+                  document.getElementById("temp0").innerHTML = message;
+                  updateUsername(message);
+                  checkUsername();
+                </script>
+
               </div>
             </div>
           </div>

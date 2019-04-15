@@ -24,6 +24,7 @@ public class SeriesController {
 
     @RequestMapping(value = "/createSeries") // Map ONLY GET Requests
     public ModelAndView createSeries(HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName,
+                                     @RequestParam(value = "description") String description,
             @RequestParam(value = "categories") String categories, @RequestParam(value = "author") String author,
             @RequestParam(value = "thumbnail") byte[] thumbnail) {
         // @ResponseBody means the returned String is the response, not a view name
@@ -40,6 +41,7 @@ public class SeriesController {
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
         newSeries.setAuthor(author);
+        newSeries.setDescription(description);
         newSeries.setCategories("category");
         newSeries.setThumbnail(thumbnail);
         this.seriesRepository.save(newSeries);
