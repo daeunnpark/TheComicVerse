@@ -1,5 +1,3 @@
-
-
 // Category dropdown box
 $(".dropdown-menu a").click(function() {
   // Update dropdown UI
@@ -14,8 +12,7 @@ $(".dropdown-menu a").click(function() {
     .find(".btn")
     .val($(this).data("value"));
 
-
-  $("#categorydropdownMenuButton").val($(this).data("value"));
+  $("#categories").val($(this).data("value"));
 });
 
 /*
