@@ -1,7 +1,8 @@
 var currentUsername;
-function updateUsername(newUsername) {
+function loginSuccessful(newUsername) {
     currentUsername = newUsername;
     login(currentUsername);
+    hideLogin();
 }
 
 function login(currentUsername){
@@ -12,17 +13,9 @@ function getUsername() {
     return window.localStorage.getItem("username");
 }
 
-function checkUsername(){
-    document.getElementById("temp0").innerHTML = getUsername();
-}
-/*
 function hideLogin(){
-    $("#loginBody").hide();
+    $("#loginBody").collapse;
 }
-$("#submitLogin").submit(function(e) {
-    login($("#username").value);
-    hideLogin();
-*/
     /*
     var value = document.getElementById("secret_word").value;
     if (is_valid(value)) {

@@ -266,11 +266,9 @@
               </div>
               <div class="error_msg" th:if="${param.username}">
                 <p th:text="'Welcome '+${param.username}"></p>
-                <p id="temp0">before</p>
                 <script th:inline="javascript">
                   var message =[[${param.username}]];
-                  updateUsername(message);
-                  checkUsername();
+                  loginSuccessful(message);
                 </script>
 
               </div>

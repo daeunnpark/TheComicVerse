@@ -24,7 +24,7 @@ public class EpisodeController{
     private EpisodeRepository EpiRepository;
 
     @RequestMapping(value="/addEpisode") // Map ONLY GET Requests
-    public String addNewLogin (HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID, @RequestParam(value = "episodeName") String episodeName
+    public String addEpisode (HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID, @RequestParam(value = "episodeName") String episodeName
             ,@RequestParam(value = "thumbnail") byte[] thumbnail) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
@@ -49,6 +49,27 @@ public class EpisodeController{
 
     }
 
+    /**
+        redirect to previous episode
+     **/
+    @RequestMapping(value="/prevEp")
+    public String prevEpisode (HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID, @RequestParam(value = "episodeName") String episodeName) {
+        return "";
+    }
 
+    /**
+        redirect to next episode
+     **/
+    @RequestMapping(value="/nextEp") // Map ONLY GET Requests
+    public String nextEpisdoe (HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID, @RequestParam(value = "episodeName") String episodeName) {
+        return "";
+    }
 
+    /**
+     *  retrieve episodes of a specific series
+     */
+    @RequestMapping(value="/nextEp") // Map ONLY GET Requests
+    public String allEpisodes (HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID) {
+        return "";
+    }
 }

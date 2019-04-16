@@ -23,6 +23,9 @@ public class LoginController {
     @Autowired
     private LoginRepository loginRepository;
 
+    /**
+     *  Sign up method
+     */
     @RequestMapping(value="/addLogin") // Map ONLY GET Requests
     public String addNewLogin (HttpServletRequest req, @RequestParam(value = "email") String email, @RequestParam(value = "username") String username
             ,@RequestParam(value = "password") String password) {
@@ -47,6 +50,9 @@ public class LoginController {
 
     }
 
+    /**
+     * Login method
+     */
     @RequestMapping(value="/checkLogin") // Map ONLY GET Requests
     public String checkLogin (HttpServletRequest req, @RequestParam(value = "username") String username
             ,@RequestParam(value = "password") String password) {
