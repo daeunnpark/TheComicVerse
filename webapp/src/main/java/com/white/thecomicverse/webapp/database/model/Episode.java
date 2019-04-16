@@ -15,11 +15,7 @@ public class Episode {
 
     private int SeriesID;
 
-
-
-    private String EpisdoeName;
-
-
+    private String EpisodeName;
 
     private String DateCreated;
 
@@ -32,7 +28,7 @@ public class Episode {
     private Blob thumbnail;
 
     public int getEpisodeID(){
-        return EpisodeID;
+        return this.EpisodeID;
     }
 
     public void setEpisodeID(int EpisodeID){
@@ -40,32 +36,31 @@ public class Episode {
     }
 
     public int getSeriesID() {
-        return SeriesID;
+        return this.SeriesID;
     }
 
     public void setSeriesID(int seriesID) {
-        SeriesID = seriesID;
+        this.SeriesID = seriesID;
     }
 
-
-    public String getEpisdoeName() {
-        return EpisdoeName;
+    public String getEpisodeName() {
+        return this.EpisodeName;
     }
 
-    public void setEpisdoeName(String episdoeName) {
-        EpisdoeName = episdoeName;
+    public void setEpisodeName(String episodeName) {
+        this.EpisodeName = episodeName;
     }
 
     public String getDateCreated() {
-        return DateCreated;
+        return this.DateCreated;
     }
 
     public void setDateCreated(String dateCreated) {
-        DateCreated = dateCreated;
+        this.DateCreated = dateCreated;
     }
 
     public int getNumView() {
-        return numView;
+        return this.numView;
     }
 
     public void setNumView(int numView) {
@@ -73,7 +68,7 @@ public class Episode {
     }
 
     public int getNumLikes() {
-        return numLikes;
+        return this.numLikes;
     }
 
     public void setNumLikes(int numLikes) {
@@ -81,7 +76,7 @@ public class Episode {
     }
 
     public int getNumDislikes() {
-        return numDislikes;
+        return this.numDislikes;
     }
 
     public void setNumDislikes(int numDislikes) {
