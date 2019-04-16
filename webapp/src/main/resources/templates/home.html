@@ -238,7 +238,6 @@
                 </div>
               </form>
 
-              <div class="row">
                 <div style="margin:0 auto;">
                   <form
                     id="submitSignUp"
@@ -246,6 +245,16 @@
                     method="GET"
                   ></form>
                   <button
+                          type="button"
+                          onclick="document.getElementById('submitLogin').submit()"
+                          class="btn btn-outline-success"
+                  >
+                    Sign In
+                  </button>
+                  <br>
+                  <label for="signupButton">Don't have an account?</label>
+                  <button
+                          id="signupButton"
                     type="submit"
                     onclick="document.getElementById('submitSignUp').submit()"
                     class="btn btn-outline-primary"
@@ -253,15 +262,8 @@
                     Sign Up
                   </button>
 
-                  <button
-                    type="button"
-                    onclick="document.getElementById('submitLogin').submit()"
-                    class="btn btn-outline-success"
-                  >
-                    Sign In
-                  </button>
+
                 </div>
-              </div>
               <div class="error_msg" th:if="${param.error}">
                 <p>Invalid username and/or password.</p>
               </div>
