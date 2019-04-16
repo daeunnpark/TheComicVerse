@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
-    <!-- js file -->
-    <script
-            type="text/javascript"
-            src="../static/js/usersession.js"
-            th:src="@{/js/usersession.js}"
-    ></script>
-    <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
-    <title>TheComicVerse</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -24,6 +15,15 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+
+    <!-- js file -->
+    <script
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
+    ></script>
+
+    <title>TheComicVerse</title>
   </head>
 
   <body>
@@ -167,17 +167,18 @@
             >Author</a
           >
         </div>
-
-        <form id="searchBy" th:action="@{series/search}" method="post">
-          <input type="hidden" name="searchOption" id="searchOption" />
-          <input
-            type="search"
-            class="form-control mr-sm-2"
-            placeholder="Search"
-            aria-label="Search"
-            name="keyword"
-          />
-        </form>
+      </div>
+      <form id="searchBy" th:action="@{series/search}" method="post">
+        <input type="hidden" name="searchOption" id="searchOption" />
+        <input
+          type="search"
+          class="form-control mr-sm-2"
+          placeholder="Search"
+          aria-label="Search"
+          name="keyword"
+        />
+      </form>
+      <div class="input-group-append">
         <button
           class="btn btn-outline-success my-2 my-sm-0"
           type="submit"
@@ -267,10 +268,9 @@
               <div class="error_msg" th:if="${param.username}">
                 <p th:text="'Welcome '+${param.username}"></p>
                 <script th:inline="javascript">
-                  var message =[[${param.username}]];
+                  var message = [[${ param.username }]];
                   loginSuccessful(message);
                 </script>
-
               </div>
             </div>
           </div>
@@ -330,9 +330,14 @@
               />
               <div class="card-body">
                 <h5 class="card-title">Tom and Jerry</h5>
-                <a class="btn btn-primary" th:href="@{/view_comic_series}">View Comic Page</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
 
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
             <div class="card">
@@ -343,9 +348,14 @@
               />
               <div class="card-body">
                 <h5 class="card-title">Batman</h5>
-                <a class="btn btn-primary" th:href="@{/view_comic_series}">View Comic Page</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
 
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
           </div>
@@ -358,9 +368,14 @@
               />
               <div class="card-body">
                 <h5 class="card-title">Snoopy</h5>
-                <a class="btn btn-primary" th:href="@{/view_comic_series}">View Comic Page</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
 
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
             <div class="card">
@@ -371,8 +386,13 @@
               />
               <div class="card-body">
                 <h5 class="card-title">SpongeBob</h5>
-                <a class="btn btn-primary" th:href="@{/view_comic_series}">View Comic Page</a>
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
           </div>
@@ -397,6 +417,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-
+    <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
   </body>
 </html>
