@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
@@ -15,6 +15,17 @@
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous"
     />
+
+    <script
+            type="text/javascript"
+            src="../static/js/usersession.js"
+            th:src="@{/js/usersession.js}"
+    ></script>
+
+    <script
+            src="../static/js/account_settings.js"
+            th:src="@{/js/account_settings.js}"
+    ></script>
 </head>
 
 <body>
@@ -107,6 +118,7 @@
                 >
                     </div>
                     <input
+                            id="usernameField"
                             type="text"
                             class="form-control"
                             placeholder="Username"
@@ -163,9 +175,30 @@
                         type="button"
                         class="btn btn-danger"
                         style="display: block; margin: 0 auto;"
+                        data-toggle="modal"
+                        data-target="#deleteConfirmationModal"
                 >
                     Delete Account
                 </button>
+                <div id="deleteConfirmationModal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete Confirmation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete your account?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -189,9 +222,8 @@
         crossorigin="anonymous"
 ></script>
 
-
 <script type="text/javascript">
-
+/*
     var serverContext = [[@{/}]];
         function savePass(){
             var pass = $("#pass").val();
@@ -207,7 +239,7 @@
                 .fail(function(data) {
                     $("#errormsg").show().html(data.responseJSON.message);
                 });
-        }
+        }*/
 </script>
 
 </body>
