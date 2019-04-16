@@ -169,13 +169,14 @@
         </div>
       </div>
       <form id="searchBy" th:action="@{series/search}" method="post">
-        <input type="hidden" name="searchOption" id="searchOption" />
+        <input type="hidden" name="searchOption" id="searchOption" style="height:0"/>
         <input
           type="search"
-          class="form-control mr-sm-2"
+          class="form-control"
           placeholder="Search"
           aria-label="Search"
           name="keyword"
+          style="height:100%;"
         />
       </form>
       <div class="input-group-append">
