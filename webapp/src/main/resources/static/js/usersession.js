@@ -1,7 +1,8 @@
 var currentUsername;
-function updateUsername(newUsername) {
+function loginSuccessful(newUsername) {
   currentUsername = newUsername;
   login(currentUsername);
+  hideLogin();
 }
 
 function login(currentUsername) {
@@ -9,28 +10,20 @@ function login(currentUsername) {
 }
 
 function getUsername() {
-  console.log(window.localStorage.getItem("username"));
   return window.localStorage.getItem("username");
 }
 
-function checkUsername() {
-  document.getElementById("temp0").innerHTML = getUsername();
+function hideLogin() {
+  $("#loginSection").hide();
 }
+
 /*
-function hideLogin(){
-    $("#loginBody").collapse;
+var value = document.getElementById("secret_word").value;
+if (is_valid(value)) {
+    computerWord = value;
+    set_secret_word_UI(value);
+    $("#secretWordModal").modal("hide");
 }
-$("#submitLogin").submit(function(e) {
-    login($("#username").value);
-    hideLogin();
+return false;
 */
-/*
-    var value = document.getElementById("secret_word").value;
-    if (is_valid(value)) {
-        computerWord = value;
-        set_secret_word_UI(value);
-        $("#secretWordModal").modal("hide");
-    }
-    return false;
-    */
 //});

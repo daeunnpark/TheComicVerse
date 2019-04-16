@@ -169,7 +169,12 @@
         </div>
       </div>
       <form id="searchBy" th:action="@{series/search}" method="post">
-        <input type="hidden" name="searchOption" id="searchOption" style="height:0"/>
+        <input
+          type="hidden"
+          name="searchOption"
+          id="searchOption"
+          style="height:0"
+        />
         <input
           type="search"
           class="form-control"
@@ -190,16 +195,17 @@
       </div>
     </div>
 
-    <!--Log in-->
+    <!-- Left Pane -->
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4">
-          <div class="card">
+          <!-- Log in Panel -->
+          <div class="card" id="loginSection">
             <div class="card-header" style="background-color: bisque;">
               Login
             </div>
             <p id="hel0"></p>
-            <div class="card-body" id="loginBody">
+            <div class="card-body">
               <form
                 id="submitLogin"
                 th:action="@{login/checkLogin}"
@@ -228,8 +234,8 @@
                     >
                   </div>
                   <input
-                    id="password"
-                    type="password"
+                    sid="password"
+                    type="text"
                     name="password"
                     class="form-control"
                     placeholder="Password"
@@ -239,6 +245,7 @@
                 </div>
               </form>
 
+              <div class="row">
                 <div style="margin:0 auto;">
                   <form
                     id="submitSignUp"
@@ -246,16 +253,6 @@
                     method="GET"
                   ></form>
                   <button
-                          type="button"
-                          onclick="document.getElementById('submitLogin').submit()"
-                          class="btn btn-outline-success"
-                  >
-                    Sign In
-                  </button>
-                  <br>
-                  <label for="signupButton">Don't have an account?</label>
-                  <button
-                          id="signupButton"
                     type="submit"
                     onclick="document.getElementById('submitSignUp').submit()"
                     class="btn btn-outline-primary"
@@ -263,8 +260,15 @@
                     Sign Up
                   </button>
 
-
+                  <button
+                    type="button"
+                    onclick="document.getElementById('submitLogin').submit()"
+                    class="btn btn-outline-success"
+                  >
+                    Sign In
+                  </button>
                 </div>
+              </div>
               <div class="error_msg" th:if="${param.error}">
                 <p>Invalid username and/or password.</p>
               </div>
@@ -274,6 +278,37 @@
                   var message = [[${ param.username }]];
                   loginSuccessful(message);
                 </script>
+              </div>
+              <script>
+                //$("#loginSection").hide();
+              </script>
+            </div>
+          </div>
+
+          <!-- Logged in Panel, hidden by default -->
+          <div class="card" id="loggedInSection">
+            <div class="card-header" style="background-color: bisque;">
+              IGNORE THIS SECTION - I'm WORKING ON IT NOW (Daeun)- Welcome to
+              TheComicVerse!
+            </div>
+            <div class="card-body " id="loggedInBody">
+              <div class="error_msg" th:if="${param.username}">
+                <p th:text="'Welcome '+${param.username}"></p>
+                <script th:inline="javascript">
+                  var message = [[${ param.username }]];
+                  loginSuccessful(message);
+                </script>
+              </div>
+              <div class="row">
+                <div style="margin:0 auto;">
+                  <button
+                    type="button"
+                    onclick="document.getElementById('submitSignout').submit()"
+                    class="btn btn-outline-success"
+                  >
+                    Sign Out
+                  </button>
+                </div>
               </div>
             </div>
           </div>
