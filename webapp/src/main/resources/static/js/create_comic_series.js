@@ -1,9 +1,4 @@
-function getUsername() {
-  return window.localStorage.getItem("username");
-}
-
-
-// Search dropdown box
+// Category dropdown box
 $(".dropdown-menu a").click(function() {
   // Update dropdown UI
   $(this)
@@ -17,9 +12,20 @@ $(".dropdown-menu a").click(function() {
     .find(".btn")
     .val($(this).data("value"));
 
-  // Update dropdown
-  $("#categorydropdownMenuButton").val($(this).data("value"));
+  $("#categories").val($(this).data("value"));
 });
+
+/*
+
+function getUsername() {
+  return window.localStorage.getItem("username");
+}
+
+function checkUsername1(){
+  document.getElementById("temp1").innerHTML = getUsername()
+}
+
+
 
 $("#submitCreateSeries").submit(function (event) {
 
@@ -35,4 +41,4 @@ $("#submitCreateSeries").submit(function (event) {
   });
   return false;
 });
-
+*/
