@@ -13,7 +13,7 @@ public class subscription {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int subscriptionID;
 
-    private String SeriesID;
+    private int SeriesID;
 
     private String username;
 
@@ -28,11 +28,11 @@ public class subscription {
         this.subscriptionID = subscriptionID;
     }
 
-    public String getSeriesID() {
+    public int getSeriesID() {
         return SeriesID;
     }
 
-    public void setSeriesID(String seriesID) {
+    public void setSeriesID(int seriesID) {
         SeriesID = seriesID;
     }
 

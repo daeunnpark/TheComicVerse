@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/subs")
@@ -29,7 +31,7 @@ public class SubscriptionController {
     private SeriesRepository seriesRepository;
 
     @RequestMapping(value="/addSubscription")
-    public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesName") int seriesID) {
+    public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         Date d = new Date();
@@ -53,7 +55,7 @@ public class SubscriptionController {
     }
 
     @RequestMapping(value="/deleteSubscription")
-    public ModelAndView unsubscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesName") String seriesID) {
+    public ModelAndView unsubscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         subscription sub = new subscription();
@@ -80,6 +82,28 @@ public class SubscriptionController {
 
 
     }
+
+    @RequestMapping(value="/checkSubscription")
+    public ModelAndView checkSub(HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+
+        subscription sub = new subscription();
+        for (subscription s : subscriptionRepository.findAll()){
+            if (s.getSeriesID() == seriesID){
+                if (s.getUsername().equals(username)){
+                    return unsubscribe(req, username, seriesID);
+                }
+            }
+        }
+
+
+        return subscribe(req, username, seriesID);
+
+
+    }
+
+
 
 /*
     @RequestMapping(value="/addLogin") // Map ONLY GET Requests
