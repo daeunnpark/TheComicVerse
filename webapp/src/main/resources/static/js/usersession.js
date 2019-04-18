@@ -1,22 +1,27 @@
-var currentUsername;
+var currentUsername = null;
 function loginSuccessful(newUsername) {
   currentUsername = newUsername;
   login(currentUsername);
-  hideLogin();
+
+  //hideLogin();
 }
 
 function login(currentUsername) {
-  window.localStorage.setItem("username", currentUsername);
+  window.sessionStorage.setItem("username", currentUsername);
 }
 
 function getUsername() {
-  return window.localStorage.getItem("username");
+  return sessionStorage.getItem("username");
 }
 
 function hideLogin() {
-  $("#loginSection").hide();
+  //sessionStorage.removeItem("username");
+  //$("#loginSection").hide();
+  //$("#loggedInSection").hide();
 }
+/*
 
+*/
 /*
 var value = document.getElementById("secret_word").value;
 if (is_valid(value)) {
