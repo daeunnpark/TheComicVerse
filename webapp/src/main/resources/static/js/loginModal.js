@@ -1,8 +1,8 @@
 jQuery(document).ready(function() {
-  $("#userNotLoggedInModal").hide();
+  $("#userNotLoggedInModal").modal("hide");
   console.log(window.sessionStorage.getItem("username"));
 
   if (window.sessionStorage.getItem("username") == null) {
-    $("#userNotLoggedInModal").show();
+    $("#userNotLoggedInModal").modal("show");
   }
 });
