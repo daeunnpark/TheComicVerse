@@ -1,4 +1,15 @@
 package com.white.thecomicverse.webapp.database.repositories;
 
-public class SubscriptionRepository {
+import com.white.thecomicverse.webapp.database.model.subscription;
+
+import org.springframework.data.repository.CrudRepository;
+
+
+
+
+// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
+// CRUD refers Create, Read, Update, Delete
+
+public interface SubscriptionRepository extends CrudRepository<subscription, Integer> {
+
 }
