@@ -29,7 +29,7 @@ public class SubscriptionController {
     private SeriesRepository seriesRepository;
 
     @RequestMapping(value="/addSubscription")
-    public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesName") String seriesID) {
+    public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesName") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         Date d = new Date();
@@ -38,6 +38,37 @@ public class SubscriptionController {
         sub.setSeriesID(seriesID);
         sub.setUsername(username);
         this.subscriptionRepository.save(sub);
+        Series s = new Series();
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID) {
+                s = series;
+            }
+        }
+
+        ModelAndView mv = new ModelAndView("view_comic_series");
+        mv.addObject(s);
+        return mv;
+
+
+    }
+
+    @RequestMapping(value="/deleteSubscription")
+    public ModelAndView unsubscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesName") String seriesID) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        subscription sub = new subscription();
+        for (subscription s : subscriptionRepository.findAll()){
+            if (s.getSeriesID() == seriesID){
+                if (s.getUsername().equals(username)){
+                    sub = s;
+                }
+            }
+        }
+
+
+        this.subscriptionRepository.delete(sub);
+
+
         Series s = new Series();
         for (Series series : seriesRepository.findAll()) {
             s= series;
