@@ -131,7 +131,7 @@
             <form id="submitSignout" action="/signout" method="GET">
               <a
                 class="nav-link pull-right"
-                id="signoutBtn1"
+                id="signoutBtn"
                 href="#"
                 onclick="document.getElementById('submitSignout').submit()"
                 >Sign Out</a
@@ -283,22 +283,21 @@
           <!-- Logged in Panel, hidden by default -->
           <div class="card" id="loggedInSection">
             <div class="card-header" style="background-color: bisque;">
-              Welcome to
-              TheComicVerse!
+              Welcome to TheComicVerse!
             </div>
             <div class="card-body " id="loggedInBody">
               <div class="error_msg" th:if="${param.username}">
                 <p th:text="'Welcome '+${param.username}"></p>
                 <script th:inline="javascript">
-                   var message = [[${ param.username }]];
-                   loginSuccessful(message);
+                  var message = [[${ param.username }]];
+                  loginSuccessful(message);
                 </script>
               </div>
               <div class="row">
                 <div style="margin:0 auto;">
                   <button
                     type="button"
-                    id="signoutBtn2"
+                    id="signoutBtn_loggedin"
                     onclick="document.getElementById('submitSignout').submit()"
                     class="btn btn-outline-success"
                   >
@@ -452,5 +451,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
+    <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
   </body>
 </html>

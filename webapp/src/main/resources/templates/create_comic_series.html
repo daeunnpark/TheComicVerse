@@ -129,6 +129,7 @@
             <form id="submitSignout" action="/signout" method="GET">
               <a
                 class="nav-link pull-right"
+                id="signoutBtn"
                 href="#"
                 onclick="document.getElementById('submitSignout').submit()"
                 >Sign Out</a
@@ -171,7 +172,7 @@
               />
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary">
-                    Check Availability
+                  Check Availability
                 </button>
                 <div class="error_msg" th:if="${param.seriesNameExist}">
                   <p>Series name already exists</p>
@@ -300,5 +301,6 @@
       src="../static/js/create_comic_series.js"
       th:src="@{/js/create_comic_series.js}"
     ></script>
+    <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
   </body>
 </html>

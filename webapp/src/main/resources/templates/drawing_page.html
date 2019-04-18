@@ -104,7 +104,7 @@
             </li>
             <li class="nav-item pull-right">
                 <form id="submitSignout" action="/signout" method="GET">
-                    <a class="nav-link pull-right" href="#" onclick="document.getElementById('submitSignout').submit()">Sign
+                    <a class="nav-link pull-right" id = "signoutBtn" href="#" onclick="document.getElementById('submitSignout').submit()">Sign
                         Out</a>
                 </form>
             </li>
@@ -331,5 +331,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
 ></script>
+<script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
 </body>
 </html>

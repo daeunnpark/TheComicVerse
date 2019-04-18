@@ -1,25 +1,24 @@
-// Update LoginUI 
+// Update LoginUI
 jQuery(document).ready(function() {
   updateLoginUI();
 });
 
 // Signout - Update LoginUI
-$("#signoutBtn1, #signoutBtn2").click(function() {
+$("#signoutBtn_loggedin").click(function() {
   window.sessionStorage.removeItem("username");
   updateLoginUI();
 });
 
 // Check username and Update LoginUI
 function updateLoginUI() {
-  console.log(window.sessionStorage.getItem("username"))
+  console.log(window.sessionStorage.getItem("username"));
+
   if (window.sessionStorage.getItem("username") == null) {
     $("#loginSection").show();
     $("#loggedInSection").hide();
-
   } else {
     $("#loginSection").hide();
     $("#loggedInSection").show();
-
   }
 }
 
