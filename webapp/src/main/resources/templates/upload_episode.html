@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
+    <title>The ComicVerse - Upload an Episode</title>
+
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -18,7 +20,6 @@
   </head>
 
   <body>
-    <title>The ComicVerse - Upload an Episode</title>
     <!--Menu Bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!--<a class="navbar-brand" href="#">ComicVerse</a>-->
@@ -163,6 +164,14 @@
             </div>
             <br />
             <input
+              type="text"
+              id="episodeTitle"
+              name="episodeName"
+              class="form-control"
+              placeholder="Episode Name"
+            />
+            <br>
+            <input
               type="file"
               style="display: block; margin: 0 auto;border:1px solid grey;"
               accept="image/*"
@@ -219,7 +228,6 @@
       </div>
     </div>
 
-    <form id="submitHome" action="/home" method="GET"></form>
     <form id="submitSignUp" action="/sign_up_form" method="GET"></form>
 
     <!-- Optional JavaScript -->
