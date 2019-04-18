@@ -194,13 +194,21 @@
               <label for="fileThumbnailInput">Upload Thumbnail:</label>
               <input
                 id="fileThumbnailInput"
-                name="thumbnail"
+                name="file"
+                onchange="encodeImageFileAsURL()"
                 type="file"
                 style="margin: 0 auto;border:1px solid grey;"
                 accept="image/*"
               />
             </div>
-
+            <div class="input-group mb-3">
+              <input
+                id="fileByteData"
+                name="thumbnail"
+                hidden
+                type="text"
+              />
+            </div>
             <br />
             <div class="dropdown">
               <button
