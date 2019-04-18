@@ -73,6 +73,28 @@ public class LoginController {
 
     }
 
+    @RequestMapping(value="/getUser") // Map ONLY GET Requests
+    public ModelAndView checkLogin (HttpServletRequest req, @RequestParam(value = "username") String username) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        Login l = new Login();
+
+        for (Login login : loginRepository.findAll()){
+            if (login.getUsername().equals(username)){
+                l = login;
+            }
+        }
+
+        ModelAndView mv = new ModelAndView("account_settings");
+        mv.addObject(l);
+        return mv;
+
+
+
+
+    }
+
+
     @GetMapping(path="/allLogin")
     public @ResponseBody Iterable<Login> getAllLogin() {
         // This returns a JSON or XML with the users
