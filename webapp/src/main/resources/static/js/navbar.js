@@ -15,3 +15,9 @@ function updateLoginUI() {
     $("#loggedInSection").show();
   }
 }
+
+var modal = document.getElementById("userNotLoggedInModal");
+$("#signoutBtn").click(function() {
+  window.sessionStorage.removeItem("username");
+  updateLoginUI();
+});

@@ -279,6 +279,47 @@
       </div>
     </div>
 
+    <div id="userNotLoggedInModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login Confirmation</h5>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              onclick="document.getElementById('submitHome').submit()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Please log in or sign up to continue.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="document.getElementById('submitHome').submit()"
+            >
+              Log In
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              onclick="document.getElementById('submitSignUp').submit()"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form id="submitHome" action="/home" method="GET"></form>
+    <form id="submitSignUp" action="/sign_up_form" method="GET"></form>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
@@ -302,5 +343,9 @@
       th:src="@{/js/create_comic_series.js}"
     ></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script
+      src="../static/js/loginModal.js"
+      th:src="@{/js/loginModal.js}"
+    ></script>
   </body>
 </html>
