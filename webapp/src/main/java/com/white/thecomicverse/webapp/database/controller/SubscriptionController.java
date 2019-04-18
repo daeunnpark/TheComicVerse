@@ -22,7 +22,7 @@ public class SubscriptionController {
 
     @Autowired
     private SubscriptionRepository subscriptionRepository;
-
+/*
 
     @RequestMapping(value="/checkSubscription")
     public String addNewLogin (HttpServletRequest req, @RequestParam(value = "email") String email, @RequestParam(value = "username") String username
@@ -43,11 +43,11 @@ public class SubscriptionController {
         l.setEmail(email);
         l.setusername(username);
         l.setPassword(password);
-        this.loginRepository.save(l);
+        this.subscriptionRepository.save(l);
         return "redirect:/home";
 
     }
-
+*/
 /*
     @RequestMapping(value="/addLogin") // Map ONLY GET Requests
     public String addNewLogin (HttpServletRequest req, @RequestParam(value = "email") String email, @RequestParam(value = "username") String username
