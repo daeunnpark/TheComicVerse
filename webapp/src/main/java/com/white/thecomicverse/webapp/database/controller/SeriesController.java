@@ -83,8 +83,10 @@ public class SeriesController {
 
         List<Series> s = new ArrayList<Series>();
         for (Series series : seriesRepository.findAll()) {
-            if (series.getSeriesName().equals(seriesName)) {
+            if (series.getSeriesName().toLowerCase().contains(seriesName.toLowerCase())) {
                 s.add(series);
+                //System.out.println(seriesName);
+
             }
         }
 
@@ -100,7 +102,8 @@ public class SeriesController {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-            if (series.getAuthor().equals(seriesAuthor)) {
+            if (series.getAuthor().toLowerCase().contains(seriesAuthor.toLowerCase())) {
+                //System.out.println(seriesAuthor);
                 s.add(series);
             }
         }
@@ -117,10 +120,11 @@ public class SeriesController {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-            if (series.getAuthor().equals(seriesInfo)) {
+            if (series.getAuthor().toLowerCase().contains(seriesInfo.toLowerCase())) {
+                //System.out.println(seriesInfo);
                 s.add(series);
             }
-            if (series.getSeriesName().equals(seriesInfo)) {
+            if (series.getSeriesName().toLowerCase().contains(seriesInfo.toLowerCase())) {
                 s.add(series);
             }
         }
