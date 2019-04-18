@@ -1,3 +1,28 @@
+// Update LoginUI 
+jQuery(document).ready(function() {
+  updateLoginUI();
+});
+
+// Signout - Update LoginUI
+$("#signoutBtn1, #signoutBtn2").click(function() {
+  window.sessionStorage.removeItem("username");
+  updateLoginUI();
+});
+
+// Check username and Update LoginUI
+function updateLoginUI() {
+  console.log(window.sessionStorage.getItem("username"))
+  if (window.sessionStorage.getItem("username") == null) {
+    $("#loginSection").show();
+    $("#loggedInSection").hide();
+
+  } else {
+    $("#loginSection").hide();
+    $("#loggedInSection").show();
+
+  }
+}
+
 // Search dropdown box
 $(".dropdown-menu a").click(function() {
   // Update dropdown UI
@@ -14,25 +39,4 @@ $(".dropdown-menu a").click(function() {
 
   // Update searchOption
   $("#searchOption").val($(this).data("value"));
-});
-
-jQuery(document).ready(function() {
-  console.log("this");
-  console.log(window.sessionStorage.getItem("username"));
-
-  if (window.sessionStorage.getItem("username") == null) {
-    console.log("here");
-    $("#loginSection").show();
-    $("#loggedInSection").hide();
-
-    //document.getElementById("loginSection").style.display = "block"
-    //document.getElementById("loggedInSection").style.display = "none"
-  } else {
-    $("#loginSection").hide();
-    $("#loggedInSection").show();
-    // document.getElementById("loginSection").style.display = "none"
-    //document.getElementById("loggedInSection").style.display = "block"
-  }
-  window.sessionStorage.removeItem("username");
-  console.log(window.sessionStorage.getItem("username"));
 });
