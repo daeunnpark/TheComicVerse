@@ -26,7 +26,7 @@ public class SeriesController {
     public ModelAndView createSeries(HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "categories") String categories, @RequestParam(value = "author") String author,
-            @RequestParam(value = "thumbnail") byte[] thumbnail) {
+            @RequestParam(value = "thumbnail") String thumbnail) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -39,13 +39,14 @@ public class SeriesController {
                 return mv2;
             }
         }
-
+        byte[] b = thumbnail.getBytes();
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
         newSeries.setAuthor(author);
         newSeries.setDescription(description);
         newSeries.setCategories(categories);
-        newSeries.setThumbnail(thumbnail);
+        newSeries.setThumbnail(b);
+        newSeries.setImageData(null);
         this.seriesRepository.save(newSeries);
 
         List<Series> seriesList = new ArrayList<Series>();
@@ -86,7 +87,9 @@ public class SeriesController {
         List<Series> s = new ArrayList<Series>();
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().toLowerCase().contains(seriesName.toLowerCase())) {
+                series.setImageData(series.getThumbnail().toString());
                 s.add(series);
+
                 // System.out.println(seriesName);
 
             }
@@ -107,6 +110,7 @@ public class SeriesController {
         for (Series series : seriesRepository.findAll()) {
             if (series.getAuthor().toLowerCase().contains(seriesAuthor.toLowerCase())) {
                 // System.out.println(seriesAuthor);
+                series.setImageData(series.getThumbnail().toString());
                 s.add(series);
             }
         }
@@ -125,9 +129,11 @@ public class SeriesController {
         for (Series series : seriesRepository.findAll()) {
             if (series.getAuthor().toLowerCase().contains(seriesInfo.toLowerCase())) {
                 // System.out.println(seriesInfo);
+                series.setImageData(series.getThumbnail().toString());
                 s.add(series);
             }
             if (series.getSeriesName().toLowerCase().contains(seriesInfo.toLowerCase())) {
+                series.setImageData(series.getThumbnail().toString());
                 s.add(series);
             }
         }
@@ -144,6 +150,7 @@ public class SeriesController {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
+            series.setImageData(series.getThumbnail().toString());
             s.add(series);
         }
 

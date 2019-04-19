@@ -59,7 +59,7 @@
           <li class="nav-item">
             <form
               id="submitBrowse"
-              th:action="@{series/allSeries}"
+              th:action="@{/series/allSeries}"
               method="POST"
             >
               <a
@@ -288,7 +288,7 @@
                 <div class="card">
                   <img
                     class="card-img-top"
-                    th:src="${serie.thumbnail}"
+                    th:src="${serie.imageData}"
                     alt="Card image cap"
                   />
                   <div class="card-body">
