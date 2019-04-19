@@ -24,7 +24,7 @@ public class SeriesController {
 
     @RequestMapping(value = "/createSeries") // Map ONLY GET Requests
     public ModelAndView createSeries(HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName,
-                                     @RequestParam(value = "description") String description,
+            @RequestParam(value = "description") String description,
             @RequestParam(value = "categories") String categories, @RequestParam(value = "author") String author,
             @RequestParam(value = "thumbnail") byte[] thumbnail) {
         // @ResponseBody means the returned String is the response, not a view name
@@ -47,11 +47,12 @@ public class SeriesController {
         newSeries.setCategories(categories);
         newSeries.setThumbnail(thumbnail);
         this.seriesRepository.save(newSeries);
+
         List<Series> seriesList = new ArrayList<Series>();
 
         for (Series s : seriesRepository.findAll()) {
-            if (s.getSeriesName().equals(seriesName)){
-                if (s.getAuthor().equals(author)){
+            if (s.getSeriesName().equals(seriesName)) {
+                if (s.getAuthor().equals(author)) {
                     seriesList.add(s);
                 }
             }
@@ -59,7 +60,7 @@ public class SeriesController {
         }
 
         ModelAndView mv = new ModelAndView("manage_my_series");
-        mv.addObject(seriesList);
+        mv.addObject(newSeries);
         return mv;
 
     }
@@ -85,13 +86,14 @@ public class SeriesController {
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().toLowerCase().contains(seriesName.toLowerCase())) {
                 s.add(series);
-                //System.out.println(seriesName);
+                // System.out.println(seriesName);
 
             }
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        mv.addObject(s);
+        // mv.addObject(s);
+        mv.addObject("series", s);
         return mv;
 
     }
@@ -103,25 +105,25 @@ public class SeriesController {
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getAuthor().toLowerCase().contains(seriesAuthor.toLowerCase())) {
-                //System.out.println(seriesAuthor);
+                // System.out.println(seriesAuthor);
                 s.add(series);
             }
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        mv.addObject(s);
+        // mv.addObject(s);
+        mv.addObject("series", s);
         return mv;
 
     }
 
     @RequestMapping(value = "/checkSeriesAll") // Map ONLY GET Requests
-    public ModelAndView getSeriesByAll(HttpServletRequest req,
-                                          @RequestParam(value = "authorName") String seriesInfo) {
+    public ModelAndView getSeriesByAll(HttpServletRequest req, @RequestParam(value = "authorName") String seriesInfo) {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getAuthor().toLowerCase().contains(seriesInfo.toLowerCase())) {
-                //System.out.println(seriesInfo);
+                // System.out.println(seriesInfo);
                 s.add(series);
             }
             if (series.getSeriesName().toLowerCase().contains(seriesInfo.toLowerCase())) {
@@ -130,12 +132,13 @@ public class SeriesController {
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        mv.addObject(s);
+        // mv.addObject(s);
+        mv.addObject("series", s);
         return mv;
 
     }
 
-    @GetMapping(path = "/allSeries")
+    @RequestMapping(value = "/allSeries")
     public ModelAndView getAllSeries(HttpServletRequest req) {
         List<Series> s = new ArrayList<Series>();
 
@@ -144,11 +147,12 @@ public class SeriesController {
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        mv.addObject(s);
+        // mv.addObject(s);
+        mv.addObject("series", s);
         return mv;
     }
 
-    @GetMapping(path="/all")
+    @GetMapping(path = "/all")
     public @ResponseBody Iterable<Series> getAllSeries() {
         // This returns a JSON or XML with the users
         return seriesRepository.findAll();

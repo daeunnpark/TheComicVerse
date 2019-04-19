@@ -138,6 +138,12 @@
     </nav>
 
     <div class="row" style="margin: 20px;">
+      <tr th:each="serie : ${series}">
+        <td th:text="${serie.SeriesName}"></td>
+        <td th:text="${serie.categories}"></td>
+        <td th:text="${serie.author}"></td>
+      </tr>
+
       <div class="col-sm-3">
         <div class="container">
           <h2>Browse</h2>
