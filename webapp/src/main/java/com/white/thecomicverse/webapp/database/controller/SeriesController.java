@@ -59,8 +59,9 @@ public class SeriesController {
 
         }
 
-        ModelAndView mv = new ModelAndView("manage_my_series");
-        mv.addObject(newSeries);
+        // ModelAndView mv = new ModelAndView("manage_my_series");
+        ModelAndView mv = new ModelAndView("manage_my_episodes");
+        mv.addObject("series", newSeries);
         return mv;
 
     }
