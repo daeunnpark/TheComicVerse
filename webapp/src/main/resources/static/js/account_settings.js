@@ -1,3 +1,4 @@
 $(document).ready(function() {
-    document.getElementById("usernameField").val(window.localStorage.getItem("username"));
+    console.log(window.localStorage.getItem("username"));
+    document.getElementById("usernameField").value=window.localStorage.getItem("username");
 });
