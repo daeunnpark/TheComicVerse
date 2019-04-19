@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -24,6 +24,12 @@
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
       crossorigin="anonymous"
     />
+
+    <script
+            type="text/javascript"
+            src="../static/js/usersession.js"
+            th:src="@{/js/usersession.js}"
+    ></script>
   </head>
 
   <body>
@@ -121,7 +127,14 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitSetting" action="/account_settings" method="GET">
+            <form id="submitSetting" action="/login/getUser" method="GET">
+              <input
+                      id="dummyUsernameForm"
+                      type="text"
+                      name="username"
+                      hidden
+              />
+
               <a
                 class="nav-link"
                 href="#"
@@ -354,5 +367,11 @@
       crossorigin="anonymous"
     ></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script>
+      $(document).ready(function () {
+        document.getElementById("dummyUsernameForm").value=getUsername();
+      });
+
+    </script>
   </body>
 </html>

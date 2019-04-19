@@ -17,6 +17,12 @@
       crossorigin="anonymous"
     />
 
+    <script
+            type="text/javascript"
+            src="../static/js/usersession.js"
+            th:src="@{/js/usersession.js}"
+    ></script>
+
 
   </head>
 
@@ -115,7 +121,13 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitSetting" action="/account_settings" method="GET">
+            <form id="submitSetting" action="/login/getUser" method="GET" >
+              <input
+                      id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
+              />
               <a
                 class="nav-link"
                 href="#"
@@ -143,6 +155,7 @@
       <div class="card-header">Account Information</div>
       <div class="card-body">
         <div style="width:40vw; margin: auto;">
+
           <form>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -170,6 +183,9 @@
                 class="form-control"
                 placeholder="Email"
                 aria-label="Email"
+                th:value="${{email}}"
+                readonly
+                contenteditable="false"
                 aria-describedby="emailAddon"
               />
             </div>
@@ -184,6 +200,7 @@
                 class="form-control"
                 placeholder="Password"
                 aria-label="Password"
+                th:value="${{password}}"
                 aria-describedby="passwordAddon"
               />
               <div class="input-group-append">
@@ -352,5 +369,11 @@
             src="../static/js/account_settings.js"
             th:src="@{/js/account_settings.js}"
     ></script>
+    <script>
+      $(document).ready(function () {
+        document.getElementById("dummyUsernameForm").value=getUsername();
+      });
+
+    </script>
   </body>
 </html>
