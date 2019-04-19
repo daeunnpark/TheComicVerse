@@ -138,7 +138,11 @@
       <div class="card-header">Upload an Episode</div>
       <div class="card-body">
         <div style="width:40vw; margin: auto;">
-          <form>
+          <form
+                  id="uploadEpisode"
+                  th:action="@{episodes/addEpisode}"
+                  method="POST"
+          >
             <div class="dropdown">
               <button
                 class="btn btn-secondary dropdown-toggle"
