@@ -108,7 +108,8 @@ public class LoginController {
         this.loginRepository.save(l);
 
         ModelAndView mv = new ModelAndView("account_settings");
-        mv.addObject(l);
+        mv.addObject("email", l.getEmail());
+        mv.addObject("password", l.getPassword());
         return mv;
 
     }
