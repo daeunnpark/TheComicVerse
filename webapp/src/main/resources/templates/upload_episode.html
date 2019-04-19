@@ -47,7 +47,11 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitBrowse" action="/browse" method="GET">
+            <form
+              id="submitBrowse"
+              th:action="@{series/allSeries}"
+              method="POST"
+            >
               <a
                 class="nav-link"
                 href="#"
@@ -170,7 +174,7 @@
               class="form-control"
               placeholder="Episode Name"
             />
-            <br>
+            <br />
             <input
               type="file"
               id="fileEpisodeThumbnailInput"
@@ -180,10 +184,10 @@
             />
             <br />
             <input
-                    id="fileEpisodeByteData"
-                    name="thumbnail"
-                    hidden
-                    type="text"
+              id="fileEpisodeByteData"
+              name="thumbnail"
+              hidden
+              type="text"
             />
             <br />
             <button
@@ -203,14 +207,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Login Confirmation</h5>
-             <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
             <p>Please log in or sign up to continue.</p>
@@ -261,8 +265,8 @@
       th:src="@{/js/loginModal.js}"
     ></script>
     <script
-            src="../static/js/upload_episode.js"
-            th:src="@{/js/upload_episode.js}"
+      src="../static/js/upload_episode.js"
+      th:src="@{/js/upload_episode.js}"
     ></script>
   </body>
 </html>

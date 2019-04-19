@@ -50,7 +50,11 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitBrowse" action="/browse" method="GET">
+            <form
+              id="submitBrowse"
+              th:action="@{series/allSeries}"
+              method="POST"
+            >
               <a
                 class="nav-link"
                 href="#"
