@@ -88,6 +88,7 @@ public class LoginController {
         }
 
         ModelAndView mv = new ModelAndView("account_settings");
+        
         mv.addObject("login", l);
         return mv;
     }
