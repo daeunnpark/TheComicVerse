@@ -18,16 +18,7 @@
       crossorigin="anonymous"
     />
 
-    <script
-      type="text/javascript"
-      src="../static/js/usersession.js"
-      th:src="@{/js/usersession.js}"
-    ></script>
 
-    <script
-      src="../static/js/account_settings.js"
-      th:src="@{/js/account_settings.js}"
-    ></script>
   </head>
 
   <body>
@@ -159,6 +150,8 @@
               <input
                 id="usernameField"
                 type="text"
+                contenteditable="false"
+                readonly
                 class="form-control"
                 placeholder="Username"
                 aria-label="Username"
@@ -350,6 +343,16 @@
     <script
       src="../static/js/loginModal.js"
       th:src="@{/js/loginModal.js}"
+    ></script>
+    <script
+            type="text/javascript"
+            src="../static/js/usersession.js"
+            th:src="@{/js/usersession.js}"
+    ></script>
+
+    <script
+            src="../static/js/account_settings.js"
+            th:src="@{/js/account_settings.js}"
     ></script>
   </body>
 </html>
