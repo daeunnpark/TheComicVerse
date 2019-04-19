@@ -23,6 +23,16 @@ public class Series {
 
     private Blob thumbnail;
 
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
+    }
+
+    private String imageData;
+
     public String getDescription(){
         return this.description;
     }
