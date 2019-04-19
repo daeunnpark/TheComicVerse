@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
+import java.security.MessageDigest;
 
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/login")
@@ -46,7 +46,7 @@ public class LoginController {
         Login l = new Login();
         l.setEmail(email);
         l.setusername(username);
-        l.setPassword(password);
+        l.setPassword(getHashedPassword(password));
         this.loginRepository.save(l);
         return "redirect:/home";
 
@@ -63,7 +63,7 @@ public class LoginController {
 
         for (Login login : loginRepository.findAll()){
             if (login.getUsername().equals(username)){
-                if (login.getPassword().equals(password)){
+                if (getHashedPassword(password).equals(login.getPassword())){
                     return "redirect:/home?username="+username;
                 }
 
@@ -104,7 +104,7 @@ public class LoginController {
                 l = login;
             }
         }
-        l.setPassword(password);
+        l.setPassword(getHashedPassword(password));
         this.loginRepository.save(l);
 
         ModelAndView mv = new ModelAndView("account_settings");
@@ -118,6 +118,27 @@ public class LoginController {
     public @ResponseBody Iterable<Login> getAllLogin() {
         // This returns a JSON or XML with the users
         return loginRepository.findAll();
+    }
+
+    public String getHashedPassword(String password){
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            return sb.toString();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    return null;
     }
 
 }
