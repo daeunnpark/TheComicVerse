@@ -17,7 +17,11 @@
       crossorigin="anonymous"
     />
 
-
+    <script
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
+    ></script>
   </head>
 
   <body>
@@ -115,7 +119,13 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitSetting" action="/account_settings" method="GET">
+            <form id="submitSetting" action="/login/getUser" method="GET">
+              <input
+                id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
+              />
               <a
                 class="nav-link"
                 href="#"
@@ -156,7 +166,6 @@
                 contenteditable="false"
                 readonly
                 class="form-control"
-                placeholder="Username"
                 aria-label="Username"
                 aria-describedby="usernameAddon"
               />
@@ -168,8 +177,10 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Email"
                 aria-label="Email"
+                th:value="${login.email}"
+                readonly
+                contenteditable="false"
                 aria-describedby="emailAddon"
               />
             </div>
@@ -182,9 +193,11 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Password"
                 aria-label="Password"
+                th:value="${login.password}"
                 aria-describedby="passwordAddon"
+                readonly
+                contenteditable="false"
               />
               <div class="input-group-append">
                 <button
@@ -205,8 +218,11 @@
               <input
                 type="text"
                 class="form-control"
+                readonly
+                contenteditable="false"
                 placeholder="Rewards"
                 aria-label="Rewards"
+                th:value = "10"
                 aria-describedby="rewardsAddon"
               />
             </div>
@@ -343,14 +359,19 @@
       th:src="@{/js/loginModal.js}"
     ></script>
     <script
-            type="text/javascript"
-            src="../static/js/usersession.js"
-            th:src="@{/js/usersession.js}"
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
     ></script>
 
     <script
-            src="../static/js/account_settings.js"
-            th:src="@{/js/account_settings.js}"
+      src="../static/js/account_settings.js"
+      th:src="@{/js/account_settings.js}"
     ></script>
+    <script>
+      $(document).ready(function() {
+        document.getElementById("dummyUsernameForm").value = getUsername();
+      });
+    </script>
   </body>
 </html>

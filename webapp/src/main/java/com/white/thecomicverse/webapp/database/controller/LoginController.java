@@ -88,9 +88,9 @@ public class LoginController {
         }
 
         ModelAndView mv = new ModelAndView("account_settings");
+        
         mv.addObject("login", l);
         return mv;
-
     }
 
     @RequestMapping(value="/changePassword") // Map ONLY GET Requests
@@ -108,7 +108,7 @@ public class LoginController {
         this.loginRepository.save(l);
 
         ModelAndView mv = new ModelAndView("account_settings");
-        mv.addObject(l);
+        mv.addObject("login", l);
         return mv;
 
     }

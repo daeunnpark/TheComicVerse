@@ -122,7 +122,14 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitSetting" action="/account_settings" method="GET">
+            <form id="submitSetting" action="/login/getUser" method="GET">
+              <input
+                      id="dummyUsernameForm"
+                      type="text"
+                      name="username"
+                      hidden
+              />
+
               <a
                 class="nav-link"
                 href="#"
@@ -457,5 +464,11 @@
     ></script>
     <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script>
+      $(document).ready(function () {
+        document.getElementById("dummyUsernameForm").value=getUsername();
+      });
+
+    </script>
   </body>
 </html>

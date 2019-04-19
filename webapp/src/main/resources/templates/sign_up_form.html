@@ -21,6 +21,12 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+
+    <script
+            type="text/javascript"
+            src="../static/js/usersession.js"
+            th:src="@{/js/usersession.js}"
+    ></script>
   </head>
 
   <body>
@@ -118,7 +124,14 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitSetting" action="/account_settings" method="GET">
+            <form id="submitSetting" action="/login/getUser" method="GET">
+              <input
+                      id="dummyUsernameForm"
+                      type="text"
+                      name="username"
+                      hidden
+              />
+
               <a
                 class="nav-link"
                 href="#"
@@ -218,5 +231,11 @@
       crossorigin="anonymous"
     ></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script>
+      $(document).ready(function () {
+        document.getElementById("dummyUsernameForm").value=getUsername();
+      });
+
+    </script>
   </body>
 </html>
