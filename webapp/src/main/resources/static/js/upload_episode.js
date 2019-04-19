@@ -7,3 +7,4 @@ function encodeImageFileAsURL() {
     };
     reader.readAsDataURL(file);
 }
+

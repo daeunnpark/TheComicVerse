@@ -15,22 +15,6 @@ public class EpisodeImageController {
     @Autowired
     EpisodeImageRepository episodeImageRepository;
 
-    @RequestMapping(value="addImage")
-    public String addImage(@RequestParam(value="episodeID") int episodeID, @RequestParam(value="thumbnail") byte[] thumbnail){
 
-        int max = 0;
-        for (EpisodeImage episodeImage : episodeImageRepository.findAll()){
-            if (episodeImage.getEpisodeID()==episodeID && episodeImage.getIndex()>max){
-                max = episodeImage.getIndex();
-            }
-        }
-
-        EpisodeImage newEpisodeImage = new EpisodeImage();
-        newEpisodeImage.setEpisodeID(episodeID);
-        newEpisodeImage.setIndex(max);
-        newEpisodeImage.setThumbnail(thumbnail);
-        this.episodeImageRepository.save(newEpisodeImage);
-        return "redirect:/upload_episode";
-    }
 
 }
