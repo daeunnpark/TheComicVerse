@@ -48,7 +48,7 @@ public class LoginController {
         l.setusername(username);
         l.setPassword(getHashedPassword(password));
         this.loginRepository.save(l);
-        return "redirect:/home";
+        return "redirect:/home?username=" + username;
 
     }
 
