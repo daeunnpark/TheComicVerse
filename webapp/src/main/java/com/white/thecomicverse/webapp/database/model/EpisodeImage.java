@@ -56,7 +56,7 @@ public class EpisodeImage {
 
     }
 
-    public void setThumbnail(byte[] byteArray){
+    public void setImageData(byte[] byteArray){
 
         try {
             this.imageData = new SerialBlob(byteArray);
