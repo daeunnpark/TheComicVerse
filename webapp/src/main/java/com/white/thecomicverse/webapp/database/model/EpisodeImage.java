@@ -20,23 +20,23 @@ public class EpisodeImage {
     private Blob imageData;
 
     public int getEpisodeImageID() {
-        return EpisodeImageID;
+        return this.EpisodeImageID;
     }
 
     public void setEpisodeImageID(int episodeImageID) {
-        EpisodeImageID = episodeImageID;
+        this.EpisodeImageID = episodeImageID;
     }
 
     public int getEpisodeID() {
-        return EpisodeID;
+        return this.EpisodeID;
     }
 
     public void setEpisodeID(int episodeID) {
-        EpisodeID = episodeID;
+        this.EpisodeID = episodeID;
     }
 
     public int getIndex() {
-        return index;
+        return this.index;
     }
 
     public void setIndex(int index) {

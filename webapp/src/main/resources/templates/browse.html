@@ -22,11 +22,11 @@
     />
 
     <script
-            type="text/javascript"
-            src="../static/js/usersession.js"
-            th:src="@{/js/usersession.js}"
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
     ></script>
-
+    <script src="../static/js/browse.js" th:src="@{/js/browse.js}"></script>
   </head>
 
   <body>
@@ -126,10 +126,10 @@
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                      id="dummyUsernameForm"
-                      type="text"
-                      name="username"
-                      hidden
+                id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
               />
 
               <a
@@ -282,27 +282,39 @@
             <td th:text="${serie.author}"></td>
           </tr>
           -->
+
           <div class="row">
-            <tr th:each="serie : ${series}">
-              <div class="col-sm-4">
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    th:src="${serie.imageData}"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span th:text="${serie.SeriesName}"></span>
-                    </h5>
-                    <a class="btn btn-primary" th:href="@{/view_comic_series}"
-                      >View Comic Page</a
-                    >
-                    <a href="#" class="btn btn-primary">Subscribe</a>
+            <div th:if="${series} != null">
+              <tr th:each="serie : ${series}">
+                <!--
+                <script th:inline="javascript">
+                  var url = [[${serie.imageData}]];
+                  console.log(url.length)
+                  readURL(url);
+                  //readURL("${serie.imageData}");
+                </script>
+-->
+                <div class="col-sm-4">
+                  <div class="card">
+                    <img
+                      class="card-img-top"
+                      id="thumbnail"
+                      src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/235/235._SX400_QL80_TTD_.jpg"
+                      alt="Card image cap"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <span th:text="${serie.SeriesName}"></span>
+                      </h5>
+                      <a class="btn btn-primary" th:href="@{/view_comic_series}"
+                        >View Comic Page</a
+                      >
+                      <a href="#" class="btn btn-primary">Subscribe</a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </tr>
+              </tr>
+            </div>
           </div>
 
           <!--
@@ -382,10 +394,9 @@
     ></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
     <script>
-      $(document).ready(function () {
-        document.getElementById("dummyUsernameForm").value=getUsername();
+      $(document).ready(function() {
+        document.getElementById("dummyUsernameForm").value = getUsername();
       });
-
     </script>
   </body>
 </html>

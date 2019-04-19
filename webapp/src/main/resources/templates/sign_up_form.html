@@ -23,9 +23,9 @@
     />
 
     <script
-            type="text/javascript"
-            src="../static/js/usersession.js"
-            th:src="@{/js/usersession.js}"
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
     ></script>
   </head>
 
@@ -126,10 +126,10 @@
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                      id="dummyUsernameForm"
-                      type="text"
-                      name="username"
-                      hidden
+                id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
               />
 
               <a
@@ -159,6 +159,7 @@
                 type="text"
                 id="username"
                 name="username"
+                required
                 class="form-control"
                 placeholder="Username"
                 aria-label="Username"
@@ -173,6 +174,7 @@
                 type="email"
                 id="email"
                 name="email"
+                required
                 class="form-control"
                 placeholder="Email"
                 aria-label="Email"
@@ -189,6 +191,7 @@
                 type="password"
                 id="password"
                 name="password"
+                required
                 class="form-control"
                 placeholder="Password"
                 aria-label="Password"
@@ -232,10 +235,9 @@
     ></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
     <script>
-      $(document).ready(function () {
-        document.getElementById("dummyUsernameForm").value=getUsername();
+      $(document).ready(function() {
+        document.getElementById("dummyUsernameForm").value = getUsername();
       });
-
     </script>
   </body>
 </html>

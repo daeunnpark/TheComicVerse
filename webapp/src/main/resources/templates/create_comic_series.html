@@ -122,10 +122,10 @@
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                      id="dummyUsernameForm"
-                      type="text"
-                      name="username"
-                      hidden
+                id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
               />
 
               <a
@@ -150,11 +150,6 @@
         </ul>
       </div>
     </nav>
-
-    <p id="temp1">before</p>
-    <script type="text/javascript">
-      document.getElementById("temp1").innerHTML = getUsername();
-    </script>
 
     <div class="card">
       <div class="card-header">Create a Comic Series</div>
@@ -359,10 +354,9 @@
       th:src="@{/js/loginModal.js}"
     ></script>
     <script>
-      $(document).ready(function () {
-        document.getElementById("dummyUsernameForm").value=getUsername();
+      $(document).ready(function() {
+        document.getElementById("dummyUsernameForm").value = getUsername();
       });
-
     </script>
   </body>
 </html>

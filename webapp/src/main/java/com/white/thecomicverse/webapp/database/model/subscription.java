@@ -21,7 +21,7 @@ public class subscription {
 
 
     public int getSubscriptionID() {
-        return subscriptionID;
+        return this.subscriptionID;
     }
 
     public void setSubscriptionID(int subscriptionID) {
@@ -29,15 +29,15 @@ public class subscription {
     }
 
     public int getSeriesID() {
-        return SeriesID;
+        return this.SeriesID;
     }
 
     public void setSeriesID(int seriesID) {
-        SeriesID = seriesID;
+        this.SeriesID = seriesID;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -45,7 +45,7 @@ public class subscription {
     }
 
     public String getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(String date) {

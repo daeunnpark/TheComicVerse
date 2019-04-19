@@ -39,6 +39,9 @@ public class SeriesController {
                 return mv2;
             }
         }
+        System.out.println("enteringing");
+        System.out.println(thumbnail.length());
+
         byte[] b = thumbnail.getBytes();
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
@@ -52,17 +55,17 @@ public class SeriesController {
         List<Series> seriesList = new ArrayList<Series>();
 
         for (Series s : seriesRepository.findAll()) {
-            if (s.getSeriesName().equals(seriesName)) {
-                if (s.getAuthor().equals(author)) {
-                    seriesList.add(s);
-                }
+            // if (s.getSeriesName().equals(seriesName)) {
+            if (s.getAuthor().equals(author)) {
+                seriesList.add(s);
             }
+            // }
 
         }
 
-        // ModelAndView mv = new ModelAndView("manage_my_series");
-        ModelAndView mv = new ModelAndView("manage_my_episodes");
-        mv.addObject("series", newSeries);
+        ModelAndView mv = new ModelAndView("manage_my_series");
+        // mv.addObject("series", newSeries);
+        mv.addObject("series", seriesList);
         return mv;
 
     }
@@ -145,11 +148,15 @@ public class SeriesController {
 
     }
 
+    // For Browse
     @RequestMapping(value = "/allSeries")
     public ModelAndView getAllSeries(HttpServletRequest req) {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
+            System.out.println("returning");
+
+            System.out.println(series.getThumbnail().toString());
             series.setImageData(series.getThumbnail().toString());
             s.add(series);
         }
@@ -165,7 +172,5 @@ public class SeriesController {
         // This returns a JSON or XML with the users
         return seriesRepository.findAll();
     }
-
-
 
 }

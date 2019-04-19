@@ -124,10 +124,10 @@
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                      id="dummyUsernameForm"
-                      type="text"
-                      name="username"
-                      hidden
+                id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
               />
 
               <a
@@ -236,6 +236,7 @@
                   <input
                     type="text"
                     name="username"
+                    required
                     class="form-control"
                     placeholder="Username"
                     aria-label="Username"
@@ -253,6 +254,7 @@
                     id="password"
                     type="password"
                     name="password"
+                    required
                     class="form-control"
                     placeholder="Password"
                     aria-label="Password"
@@ -465,10 +467,9 @@
     <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
     <script>
-      $(document).ready(function () {
-        document.getElementById("dummyUsernameForm").value=getUsername();
+      $(document).ready(function() {
+        document.getElementById("dummyUsernameForm").value = getUsername();
       });
-
     </script>
   </body>
 </html>
