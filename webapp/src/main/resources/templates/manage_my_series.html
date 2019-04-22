@@ -153,148 +153,30 @@
     <div class="card">
       <div class="card-header">Manage My Comic Series</div>
       <div class="card-body">
-        <!--
-        <div class="card">
-          <div class="card-header">My Best Series</div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3">
+        <div id="seriesTable">
+          <div th:if="${series} != null" class="row">
+            <div
+              th:each="serie : ${series}"
+              class="col-sm-4"
+              style="margin:10px 0px;"
+            >
+              <div class="card">
+                <!-- 
+                <img class="card-img-top" id="thumbnail" th:src="${serie.imageData}"
+                  alt="Card image cap" />
+                  -->
                 <img
+                  class="card-img-top"
+                  id="thumbnail"
                   src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
                   alt="Card image cap"
                 />
-              </div>
-              <div class="col-sm-9">
-                <label>Subscribers - 100</label>
-                <br />
-                <label>Likes - 456</label>
-                <br />
-                <label
-                  >Sample lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                  lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem
-                  ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum
-                  dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor
-                  sit amet lorem ipsum dolor sit amet</label
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
-        <div id="seriesTable" style="padding: 10px;">
-          <div class="row">
-            <div th:if="${series} != null">
-              <tr th:each="serie : ${series}">
-                <div class="col-sm-4">
-                  <div class="card">
-                    <img
-                      class="card-img-top"
-                      src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                      alt="Card image cap"
-                    />
-
-                    <div class="card-body">
-                      <div class="row">
-                        <div>
-                          <h5 class="card-title">
-                            <span th:text="${serie.SeriesName}"></span>
-                          </h5>
-                        </div>
-                        <div>
-                          <a href="#" class="btn btn-primary">Edit</a>
-                        </div>
-                        <div>
-                          <a href="#" class="btn btn-danger">Delete</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://i.pinimg.com/originals/02/e4/fe/02e4fe0fbcfdae910a7060ed4d504d68.png"
-                  alt="Card image cap"
-                />
                 <div class="card-body">
                   <div class="row">
                     <div>
-                      <h5 class="card-title">Garfield</h5>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/235/235._SX400_QL80_TTD_.jpg"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div>
-                      <h5 class="card-title">Batman</h5>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          -->
-              </tr>
-            </div>
-          </div>
-
-          <!--
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/1871/1871._SX400_QL80_TTD_.jpg"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div>
-                      <h5 class="card-title">Avengers</h5>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://images.booksense.com/images/544/425/9781481425544.jpg"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div>
-                      <h5 class="card-title">Snoopy</h5>
+                      <h5 class="card-title">
+                        <span th:text="${serie.SeriesName}"></span>
+                      </h5>
                     </div>
                     <div>
                       <a href="#" class="btn btn-primary">Edit</a>
@@ -307,7 +189,6 @@
               </div>
             </div>
           </div>
-          -->
         </div>
       </div>
     </div>
@@ -382,3 +263,126 @@
     </script>
   </body>
 </html>
+
+<!--
+            <div class="card">
+              <div class="card-header">My Best Series</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <img
+                      src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
+                      alt="Card image cap"
+                    />
+                  </div>
+                  <div class="col-sm-9">
+                    <label>Subscribers - 100</label>
+                    <br />
+                    <label>Likes - 456</label>
+                    <br />
+                    <label
+                      >Sample lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                      lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem
+                      ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum
+                      dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor
+                      sit amet lorem ipsum dolor sit amet</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="col-sm-4">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="https://i.pinimg.com/originals/02/e4/fe/02e4fe0fbcfdae910a7060ed4d504d68.png"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <div class="row">
+                    <div>
+                      <h5 class="card-title">Garfield</h5>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-primary">Edit</a>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/235/235._SX400_QL80_TTD_.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <div class="row">
+                    <div>
+                      <h5 class="card-title">Batman</h5>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-primary">Edit</a>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          -->
+
+<!--
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/1871/1871._SX400_QL80_TTD_.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <div class="row">
+                    <div>
+                      <h5 class="card-title">Avengers</h5>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-primary">Edit</a>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="https://images.booksense.com/images/544/425/9781481425544.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <div class="row">
+                    <div>
+                      <h5 class="card-title">Snoopy</h5>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-primary">Edit</a>
+                    </div>
+                    <div>
+                      <a href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          -->

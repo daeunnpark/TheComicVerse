@@ -155,7 +155,7 @@
       </div>
     </nav>
 
-    <div class="row" style="margin: 20px;">
+    <div class="row">
       <div class="col-sm-3">
         <div class="container">
           <h2>Browse</h2>
@@ -275,103 +275,36 @@
       </div>
       <div class="col-sm-9">
         <div>
-          <!--
-          <tr th:each="serie : ${series}">
-            <td th:text="${serie.SeriesName}"></td>
-            <td th:text="${serie.categories}"></td>
-            <td th:text="${serie.author}"></td>
-          </tr>
-          -->
-
-          <div class="row">
-            <div th:if="${series} != null">
-              <tr th:each="serie : ${series}">
-                <!--
-                <script th:inline="javascript">
-                  var url = [[${serie.imageData}]];
-                  console.log(url.length)
-                  readURL(url);
-                  //readURL("${serie.imageData}");
-                </script>
--->
-                <div class="col-sm-4">
-                  <div class="card">
-                    <img
-                      class="card-img-top"
-                      id="thumbnail"
-                      src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/235/235._SX400_QL80_TTD_.jpg"
-                      alt="Card image cap"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <span th:text="${serie.SeriesName}"></span>
-                      </h5>
-                      <a class="btn btn-primary" th:href="@{/view_comic_series}"
-                        >View Comic Page</a
-                      >
-                      <a href="#" class="btn btn-primary">Subscribe</a>
-                    </div>
-                  </div>
-                </div>
-              </tr>
-            </div>
-          </div>
-
-          <!--
-          <div class="row">
-            <div class="col-sm-4">
+          <div th:if="${series} != null" class="row">
+            <div
+              th:each="serie : ${series}"
+              class="col-sm-4"
+              style="margin:10px 0px;"
+            >
               <div class="card">
+                <!-- 
+                <img class="card-img-top" id="thumbnail" th:src="${serie.imageData}"
+                  alt="Card image cap" />
+                -->
                 <img
                   class="card-img-top"
-                  src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/235/235._SX400_QL80_TTD_.jpg"
+                  id="thumbnail"
+                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
                   alt="Card image cap"
                 />
                 <div class="card-body">
-                  <h5 class="card-title">Batman</h5>
+                  <h5 class="card-title">
+                    <span th:text="${serie.SeriesName}"></span>
+                  </h5>
                   <a class="btn btn-primary" th:href="@{/view_comic_series}"
                     >View Comic Page</a
                   >
-
-                  <a href="#" class="btn btn-primary">Subscribe</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/1871/1871._SX400_QL80_TTD_.jpg"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Batman</h5>
-                  <a class="btn btn-primary" th:href="@{/view_comic_series}"
-                    >View Comic Page</a
-                  >
-
-                  <a href="#" class="btn btn-primary">Subscribe</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://images.booksense.com/images/544/425/9781481425544.jpg"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Snoopy</h5>
-                  <a class="btn btn-primary" th:href="@{/view_comic_series}"
-                    >View Comic Page</a
-                  >
-
                   <a href="#" class="btn btn-primary">Subscribe</a>
                 </div>
               </div>
             </div>
           </div>
-        --></div>
+        </div>
       </div>
     </div>
 
@@ -400,3 +333,59 @@
     </script>
   </body>
 </html>
+
+<!--
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="card">
+                    <img
+                      class="card-img-top"
+                      src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/235/235._SX400_QL80_TTD_.jpg"
+                      alt="Card image cap"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Batman</h5>
+                      <a class="btn btn-primary" th:href="@{/view_comic_series}"
+                        >View Comic Page</a
+                      >
+    
+                      <a href="#" class="btn btn-primary">Subscribe</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <img
+                      class="card-img-top"
+                      src="https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/StoryArc/1871/1871._SX400_QL80_TTD_.jpg"
+                      alt="Card image cap"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Batman</h5>
+                      <a class="btn btn-primary" th:href="@{/view_comic_series}"
+                        >View Comic Page</a
+                      >
+    
+                      <a href="#" class="btn btn-primary">Subscribe</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <img
+                      class="card-img-top"
+                      src="https://images.booksense.com/images/544/425/9781481425544.jpg"
+                      alt="Card image cap"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">Snoopy</h5>
+                      <a class="btn btn-primary" th:href="@{/view_comic_series}"
+                        >View Comic Page</a
+                      >
+    
+                      <a href="#" class="btn btn-primary">Subscribe</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            -->
