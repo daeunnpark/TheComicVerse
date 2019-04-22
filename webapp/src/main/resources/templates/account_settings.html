@@ -196,14 +196,12 @@
                 aria-label="Password"
                 th:value="${login.password}"
                 aria-describedby="passwordAddon"
-                readonly
-                contenteditable="false"
               />
               <div class="input-group-append">
                 <button
                   class="btn btn-outline-secondary"
-                  type="button"
-                  onclick="savePass()"
+                  type="submit"
+                  th:href="@{/login/changePassword(username=${login.username})}"
                 >
                   Change Password
                 </button>

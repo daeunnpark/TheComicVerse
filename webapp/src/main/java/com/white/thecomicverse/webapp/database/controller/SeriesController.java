@@ -31,6 +31,7 @@ public class SeriesController {
         // @RequestParam means it is a parameter from the GET or POST request
 
         System.out.println(categories);
+        System.out.println(thumbnail);
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().equals(seriesName)) {
@@ -90,7 +91,7 @@ public class SeriesController {
         List<Series> s = new ArrayList<Series>();
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().toLowerCase().contains(seriesName.toLowerCase())) {
-                series.setImageData(series.getThumbnail().toString());
+                series.setImageData(new String(series.getThumbnail()));
                 s.add(series);
 
                 // System.out.println(seriesName);
