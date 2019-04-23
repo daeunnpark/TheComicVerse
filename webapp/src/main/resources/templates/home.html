@@ -154,56 +154,66 @@
     </nav>
 
     <!--Search Bar-->
-    <div class="input-group" style="margin: 20px auto;">
-      <div class="input-group-prepend">
-        <nav class="navbar navbar-light">
-          <a class="navbar-brand" style="color: orange">TheComicVerse</a>
-        </nav>
-        <button
-          class="btn btn-outline-secondary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          style="width:150px"
-        >
-          Search by
-        </button>
+    <div>
+      <div class="input-group" style="margin: 20px auto;">
+        <div class="input-group-prepend">
+          <nav class="navbar navbar-light">
+            <a class="navbar-brand" style="color: orange; margin-left: 150px;"
+              >TheComicVerse</a
+            >
+          </nav>
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="width:150px"
+          >
+            Search by
+          </button>
 
-        <div class="dropdown-menu">
-          <a class="dropdown-item" name="All" data-value="all" href="#">All</a>
-          <a class="dropdown-item" name="byTitle" data-value="title" href="#"
-            >Title</a
-          >
-          <a class="dropdown-item" name="byAuthor" data-value="author" href="#"
-            >Author</a
-          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" name="All" data-value="all" href="#"
+              >All</a
+            >
+            <a class="dropdown-item" name="byTitle" data-value="title" href="#"
+              >Title</a
+            >
+            <a
+              class="dropdown-item"
+              name="byAuthor"
+              data-value="author"
+              href="#"
+              >Author</a
+            >
+          </div>
         </div>
-      </div>
-      <form id="searchBy" th:action="@{series/search}" method="post">
-        <input
-          type="hidden"
-          name="searchOption"
-          id="searchOption"
-          style="height:0"
-        />
-        <input
-          type="search"
-          class="form-control"
-          placeholder="Search"
-          aria-label="Search"
-          name="keyword"
-          style="height:100%;"
-        />
-      </form>
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-success my-2 my-sm-0"
-          type="submit"
-          onclick="document.getElementById('searchBy').submit()"
-        >
-          Search
-        </button>
+        <form id="searchBy" th:action="@{series/search}" method="post">
+          <input
+            type="hidden"
+            name="searchOption"
+            id="searchOption"
+            style="height:0"
+          />
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search"
+            aria-label="Search"
+            name="keyword"
+            style="height:100%; width:500px;"
+          />
+        </form>
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-success"
+            type="submit"
+            onclick="document.getElementById('searchBy').submit()"
+          >
+            Search
+          </button>
+        </div>
       </div>
     </div>
 
