@@ -83,15 +83,17 @@
   });
 
   canvas.on("selection:created", function(e) {
-    if (e.target._objects) {
-      var etCount = e.target._objects.length;
-      for (var etindex = 0; etindex < etCount; etindex++) {
-        canvas.remove(e.target._objects[etindex]);
+    if(drawType == "remove") {
+      if (e.target._objects) {
+        var etCount = e.target._objects.length;
+        for (var etindex = 0; etindex < etCount; etindex++) {
+          canvas.remove(e.target._objects[etindex]);
+        }
+      } else {
+        canvas.remove(e.target);
       }
-    } else {
-      canvas.remove(e.target);
+      canvas.discardActiveObject();
     }
-    canvas.discardActiveObject();
   });
 
   function transformMouse(mouseX, mouseY) {
@@ -127,7 +129,12 @@
       }
       if (drawType == "pen") {
         canvas.isDrawingMode = true;
-      } else if (drawType == "remove") {
+      } else if(drawType == "select"){
+        canvas.selection = true;
+        canvas.skipTargetFind = false;
+        canvas.selectable = true;
+      }
+        else if (drawType == "remove") {
         canvas.selection = true;
         canvas.skipTargetFind = false;
         canvas.selectable = true;
