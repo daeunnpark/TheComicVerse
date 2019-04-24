@@ -16,7 +16,12 @@
   position: relative;
 }
 
+#undobtn:hover {
+  background: yellow;
+}
+
 .tools li:hover {
+  background: yellow;
   border: solid 2px gray;
 }
 

@@ -17,8 +17,8 @@
     selection: false
   });
 
-  canvas.on('object:added',function(){
-    if(!isRedoing){
+  canvas.on("object:added", function() {
+    if (!isRedoing) {
       h = [];
     }
     isRedoing = false;
@@ -26,15 +26,14 @@
 
   var isRedoing = false;
   var h = [];
-  function undo(){
-    if(canvas._objects.length>0){
+  function undo() {
+    if (canvas._objects.length > 0) {
       h.push(canvas._objects.pop());
       canvas.renderAll();
     }
   }
-  function redo(){
-
-    if(h.length>0){
+  function redo() {
+    if (h.length > 0) {
       isRedoing = true;
       canvas.add(h.pop());
     }
@@ -46,27 +45,38 @@
   canvas.freeDrawingBrush.color = color;
   canvas.freeDrawingBrush.width = drawWidth;
 
-  document.getElementById('colorpicker').addEventListener('change', function (e) {
-    console.log(e.target.value);
-    canvas.freeDrawingBrush.color = e.target.value;
-    color = e.target.value;
+  document
+    .getElementById("colorpicker")
+    .addEventListener("change", function(e) {
+      console.log(e.target.value);
+      canvas.freeDrawingBrush.color = e.target.value;
+      color = e.target.value;
+    });
+
+  document.getElementById("redo").addEventListener("click", function(ev) {
+    redo();
   });
-
-  document.getElementById('redo').addEventListener('click', function (ev) { redo() });
-  document.getElementById('undo').addEventListener('click', function (ev) { undo() })
-
+  document.getElementById("undo").addEventListener("click", function(ev) {
+    undo();
+  });
 
   canvas.on("mouse:down", function(options) {
     var xy = transformMouse(options.e.offsetX, options.e.offsetY);
     mouseFrom.x = xy.x;
     mouseFrom.y = xy.y;
     doDrawing = true;
+
+    //drawing();
   });
   canvas.on("mouse:up", function(options) {
     var xy = transformMouse(options.e.offsetX, options.e.offsetY);
     mouseTo.x = xy.x;
     mouseTo.y = xy.y;
-    // drawing();
+
+    if (drawType == "text") {
+      drawing();
+    }
+
     drawingObject = null;
     moveCount = 1;
     doDrawing = false;
@@ -83,7 +93,7 @@
   });
 
   canvas.on("selection:created", function(e) {
-    if(drawType == "remove") {
+    if (drawType == "remove") {
       if (e.target._objects) {
         var etCount = e.target._objects.length;
         for (var etindex = 0; etindex < etCount; etindex++) {
@@ -129,12 +139,11 @@
       }
       if (drawType == "pen") {
         canvas.isDrawingMode = true;
-      } else if(drawType == "select"){
+      } else if (drawType == "select") {
         canvas.selection = true;
         canvas.skipTargetFind = false;
         canvas.selectable = true;
-      }
-        else if (drawType == "remove") {
+      } else if (drawType == "remove") {
         canvas.selection = true;
         canvas.skipTargetFind = false;
         canvas.selectable = true;
@@ -287,15 +296,16 @@
       case "isosceles":
         break;
       case "text":
-        textbox = new fabric.Textbox("", {
-          left: mouseFrom.x - 60,
-          top: mouseFrom.y - 20,
-          width: 150,
-          fontSize: 18,
-          borderColor: "#2c2c2c",
+        textbox = new fabric.IText("", {
+          left: mouseTo.x,
+          top: mouseTo.y,
+          width: 200,
+          fontSize: 200,
           fill: color,
-          hasControls: false
+          strokeWidth: 5,
+          stroke: color
         });
+
         canvas.add(textbox);
         textbox.enterEditing();
         textbox.hiddenTextarea.focus();
@@ -339,5 +349,4 @@
   function getCanvasObjectIndex() {
     return canvasObjectIndex++;
   }
-
 })();
