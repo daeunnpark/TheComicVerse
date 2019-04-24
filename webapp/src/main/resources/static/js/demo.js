@@ -49,6 +49,7 @@
   document.getElementById('colorpicker').addEventListener('change', function (e) {
     console.log(e.target.value);
     canvas.freeDrawingBrush.color = e.target.value;
+    color = e.target.value;
   });
 
   document.getElementById('redo').addEventListener('click', function (ev) { redo() });
