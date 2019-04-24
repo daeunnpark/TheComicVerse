@@ -217,7 +217,7 @@
               >
                 <div style="width:50px;float:left;">
                   <ul id="toolsul" class="tools">
-                    <li id="toolsPencil" data-type="pen" class="active">
+                    <li id="toolsSelect" data-type="select" class="active">
                       <i class="fas fa-mouse-pointer"></i>
                       <!--<i class="icon-tools icon-pen-select" data-default="icon-tools icon-pen-black"></i>-->
                     </li>
@@ -275,7 +275,7 @@
                         data-default="icon-tools icon-rightangle-black"
                       ></i>
                     </li>
-                    <li class="hide" ata-type="equilateral">
+                    <li class="hide" data-type="equilateral">
                       <i
                         class="icon-tools icon-equilateral-black"
                         data-default="icon-tools icon-equilateral-black"
@@ -316,14 +316,15 @@
                       -->
                     </li>
                     <li data-type="palette">
-                      <i class="fas fa-palette"></i>
+                      <input type="color" id="colorpicker" value="#E34F51">
+
                       <!--
                       <i
                         class="icon-tools icon-color-black"
                         data-default="icon-tools icon-color-black"
                       ></i>-->
                     </li>
-                    <li data-type="palette">
+                    <li data-type="undo">
                       <i class="fas fa-undo"></i>
                       <!--
                                           <i
@@ -331,7 +332,7 @@
                                             data-default="icon-tools icon-color-black"
                                           ></i>-->
                     </li>
-                    <li data-type="palette">
+                    <li data-type="redo">
                       <i class="fas fa-redo"></i>
                       <!--
                                           <i

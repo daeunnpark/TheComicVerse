@@ -23,6 +23,11 @@
   canvas.freeDrawingBrush.color = color;
   canvas.freeDrawingBrush.width = drawWidth;
 
+  document.getElementById('colorpicker').addEventListener('change', function (e) {
+    console.log(e.target.value);
+    canvas.freeDrawingBrush.color = e.target.value;
+  });
+
   canvas.on("mouse:down", function(options) {
     var xy = transformMouse(options.e.offsetX, options.e.offsetY);
     mouseFrom.x = xy.x;
