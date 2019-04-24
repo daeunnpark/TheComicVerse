@@ -17,6 +17,29 @@
     selection: false
   });
 
+  canvas.on('object:added',function(){
+    if(!isRedoing){
+      h = [];
+    }
+    isRedoing = false;
+  });
+
+  var isRedoing = false;
+  var h = [];
+  function undo(){
+    if(canvas._objects.length>0){
+      h.push(canvas._objects.pop());
+      canvas.renderAll();
+    }
+  }
+  function redo(){
+
+    if(h.length>0){
+      isRedoing = true;
+      canvas.add(h.pop());
+    }
+  }
+
   window.canvas = canvas;
   window.zoom = window.zoom ? window.zoom : 1;
 
@@ -27,6 +50,10 @@
     console.log(e.target.value);
     canvas.freeDrawingBrush.color = e.target.value;
   });
+
+  document.getElementById('redo').addEventListener('click', function (ev) { redo() });
+  document.getElementById('undo').addEventListener('click', function (ev) { undo() })
+
 
   canvas.on("mouse:down", function(options) {
     var xy = transformMouse(options.e.offsetX, options.e.offsetY);
@@ -304,4 +331,5 @@
   function getCanvasObjectIndex() {
     return canvasObjectIndex++;
   }
+
 })();
