@@ -17,11 +17,12 @@
 }
 
 .tools li:hover {
-  background: #f2f1f2;
+  border: solid 2px gray;
 }
 
 .tools li.active {
-  background: #e34f51;
+  background: yellow;
+  border: solid 2px gray;
 }
 
 .hide {
