@@ -15,8 +15,3 @@ function updateLoginUI() {
     $("#loggedInSection").show();
   }
 }
-
-$("#signoutBtn").click(function() {
-  window.sessionStorage.removeItem("username");
-  updateLoginUI();
-});
