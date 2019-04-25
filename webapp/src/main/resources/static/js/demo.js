@@ -60,15 +60,40 @@
     undo();
   });
 
+
+  canvas.on('mouse:wheel', function(opt) {
+    var delta = opt.e.deltaY;
+    var zoom = canvas.getZoom();
+    zoom = zoom + delta/200;
+    if (zoom > 20) zoom = 20;
+    if (zoom < 0.01) zoom = 0.01;
+    canvas.setZoom(zoom);
+    opt.e.preventDefault();
+    opt.e.stopPropagation();
+  });
+
   canvas.on("mouse:down", function(options) {
-    var xy = transformMouse(options.e.offsetX, options.e.offsetY);
-    mouseFrom.x = xy.x;
-    mouseFrom.y = xy.y;
-    doDrawing = true;
+    var evt = options.e;
+
+    if (evt.altKey === true) {
+      this.isDragging = true;
+      this.isDrawingMode = false;
+      this.selection = false;
+      this.lastPosX = evt.clientX;
+      this.lastPosY = evt.clientY;
+    }
+    else{
+      var xy = transformMouse(options.e.offsetX, options.e.offsetY);
+      mouseFrom.x = xy.x;
+      mouseFrom.y = xy.y;
+      doDrawing = true;
+    }
+
 
     //drawing();
   });
   canvas.on("mouse:up", function(options) {
+    this.isDragging = false;
     var xy = transformMouse(options.e.offsetX, options.e.offsetY);
     mouseTo.x = xy.x;
     mouseTo.y = xy.y;
@@ -82,14 +107,24 @@
     doDrawing = false;
   });
   canvas.on("mouse:move", function(options) {
-    if (moveCount % 2 && !doDrawing) {
-      return;
+    if (this.isDragging) {
+      var e = options.e;
+      this.viewportTransform[4] += e.clientX - this.lastPosX;
+      this.viewportTransform[5] += e.clientY - this.lastPosY;
+      this.requestRenderAll();
+      this.lastPosX = e.clientX;
+      this.lastPosY = e.clientY;
     }
-    moveCount++;
-    var xy = transformMouse(options.e.offsetX, options.e.offsetY);
-    mouseTo.x = xy.x;
-    mouseTo.y = xy.y;
-    drawing();
+    else {
+      if (moveCount % 2 && !doDrawing) {
+        return;
+      }
+      moveCount++;
+      var xy = transformMouse(options.e.offsetX, options.e.offsetY);
+      mouseTo.x = xy.x;
+      mouseTo.y = xy.y;
+      drawing();
+    }
   });
 
   canvas.on("selection:created", function(e) {
