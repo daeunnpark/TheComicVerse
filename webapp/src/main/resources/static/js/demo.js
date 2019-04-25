@@ -26,6 +26,30 @@
 
   var isRedoing = false;
   var h = [];
+
+  function upload() {
+    var fileInput = document.getElementById("imageFile");
+    var fileType = fileInput.files[0].type;
+    var url = URL.createObjectURL(fileInput.files[0]);
+
+    if (fileType === 'image/png') { //check if png
+      fabric.Image.fromURL(url, function(img) {
+        img.set({
+          scaleY: .25,
+          scaleX: .25
+        });
+        canvas.add(img);
+      });
+    } else if (fileType === 'image/svg+xml') { //check if svg
+      fabric.loadSVGFromURL(url, function(objects, options) {
+        var svg = fabric.util.groupSVGElements(objects, options);
+        svg.scaleToWidth(180);
+        svg.scaleToHeight(180);
+        canvas.add(svg);
+      });
+    }
+  }
+
   function undo() {
     if (canvas._objects.length > 0) {
       h.push(canvas._objects.pop());
@@ -53,12 +77,20 @@
       color = e.target.value;
     });
 
-  document.getElementById("redo").addEventListener("click", function(ev) {
-    redo();
+  $(document).ready(function () {
+    document.getElementById("redo").addEventListener("click", function(ev) {
+      redo();
+    });
+    document.getElementById("undo").addEventListener("click", function(ev) {
+      undo();
+    });
+
+    $("#imageFile").change(function () {
+      upload();
+    });
   });
-  document.getElementById("undo").addEventListener("click", function(ev) {
-    undo();
-  });
+
+
 
   canvas.on("mouse:wheel", function(opt) {
     var delta = opt.e.deltaY;
@@ -340,27 +372,6 @@
         canvas.add(textbox);
         textbox.enterEditing();
         textbox.hiddenTextarea.focus();
-        break;
-      case "image":
-        /* Example code: https://jsfiddle.net/natchiketa/xHYjz/ */
-        var imgURL = "http://i.imgur.com/8rmMZI3.jpg";
-
-        var canvas = new fabric.Canvas("canvas");
-
-        var pugImg = new Image();
-        pugImg.onload = function(img) {
-          canvasObject = new fabric.Image(pugImg, {
-            angle: 45,
-            width: 500,
-            height: 500,
-            left: 50,
-            top: 70,
-            scaleX: 0.25,
-            scaleY: 0.25
-          });
-          //canvas.add(pug);
-        };
-        pugImg.src = imgURL;
         break;
       case "remove":
         break;

@@ -33,6 +33,7 @@
       src="../static/js/paper-full.min.js"
     ></script>
 
+
     <link
       href="https://fonts.googleapis.com/css?family=Ek+Mukta:400,300,200,500,600,700,800"
       rel="stylesheet"
@@ -299,7 +300,9 @@
                       <!--<i class="icon-tools icon-text-black" data-default="icon-tools icon-text-black"></i>-->
                     </li>
                     <li data-type="image">
-                      <i class="far fa-image"></i>
+                      <input type="file" id="imageFile" accept="image/*" style="display:none;" onclick="value=null"/>
+                      <input class="btn btn-light" type="button" value="Image" onclick="document.getElementById('imageFile').click();" />
+
                       <!--<i
                                             class="icon-tools icon-text-black"
                                             data-default="icon-tools icon-text-black"
