@@ -15,7 +15,8 @@
     isDrawingMode: true,
     skipTargetFind: true,
     selectable: false,
-    selection: false
+    selection: false,
+    preserveObjectStacking: true
   });
 
   canvas.on("object:added", function() {
@@ -66,6 +67,23 @@
     }
   }
 
+  function sendFront(){
+    canvas.bringToFront(canvas.getActiveObject());
+  }
+
+  function sendForward(){
+    canvas.bringForward(canvas.getActiveObject());
+  }
+
+  function sendBackward(){
+    canvas.sendBackwards(canvas.getActiveObject())
+  }
+
+  function sendBack(){
+    canvas.sendToBack(canvas.getActiveObject())
+  }
+
+
   window.canvas = canvas;
   window.zoom = window.zoom ? window.zoom : 1;
 
@@ -83,6 +101,23 @@
     $("#imageFile").change(function() {
       upload();
     });
+
+    $("#sendBackButton").click(function() {
+      sendBack()
+    });
+
+    $("#sendBackwardButton").click(function() {
+      sendBackward();
+    });
+
+    $("#sendForwardButton").click(function() {
+      sendForward();
+    });
+
+    $("#sendFrontButton").click(function() {
+      sendFront();
+    });
+
   });
 
   function onObjectSelected(e) {
