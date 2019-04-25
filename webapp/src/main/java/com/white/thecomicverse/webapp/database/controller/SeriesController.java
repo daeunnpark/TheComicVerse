@@ -1,7 +1,9 @@
 package com.white.thecomicverse.webapp.database.controller;
 
+import com.white.thecomicverse.webapp.database.model.Episode;
 import com.white.thecomicverse.webapp.database.model.Login;
 import com.white.thecomicverse.webapp.database.model.Series;
+import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 public class SeriesController {
     @Autowired
     private SeriesRepository seriesRepository;
+
+    @Autowired
+    private EpisodeRepository episodeRepository;
 
     @RequestMapping(value = "/createSeries") // Map ONLY GET Requests
     public ModelAndView createSeries(HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName,
@@ -172,6 +177,28 @@ public class SeriesController {
     public @ResponseBody Iterable<Series> getAllSeries() {
         // This returns a JSON or XML with the users
         return seriesRepository.findAll();
+    }
+
+    @GetMapping(path="/view_series")
+    public @ResponseBody ModelAndView viewSeries(HttpServletRequest req, @RequestParam(value = "seriesID") String seriesID){
+
+        ModelAndView mv = new ModelAndView("view_comic_series");
+        List<Episode> episodeList = new ArrayList<>();
+
+        for (Series series : seriesRepository.findAll()) {
+            if(series.getSeriesID() == Integer.parseInt(seriesID)){
+                mv.addObject("series",series);
+            }
+        }
+
+        for(Episode episode : episodeRepository.findAll()){
+            if(episode.getSeriesID()== Integer.parseInt(seriesID)){
+                episodeList.add(episode);
+            }
+        }
+        mv.addObject("episodes", episodeList);
+
+        return mv;
     }
 
 }

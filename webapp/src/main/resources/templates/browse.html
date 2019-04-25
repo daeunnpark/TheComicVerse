@@ -296,9 +296,16 @@
                   <h5 class="card-title">
                     <span th:text="${serie.SeriesName}"></span>
                   </h5>
-                  <a class="btn btn-primary" th:href="@{/view_comic_series}"
-                    >View Comic Page</a
-                  >
+                  <form id="submitViewSeries" action="/series/view_series" method="GET">
+                    <input
+                          id="seriesID"
+                          type="text"
+                          name="seriesID"
+                          th:value="${serie.SeriesID}"
+                          hidden
+                    />
+                    <a class="btn btn-primary" onclick="document.getElementById('submitViewSeries').submit()">View Comic Page</a>
+                  </form>
                   <a href="#" class="btn btn-primary">Subscribe</a>
                 </div>
               </div>

@@ -93,7 +93,13 @@
                 >
               </form>
               <div class="dropdown-divider"></div>
-              <form id="submitUpload" action="/upload_episode" method="GET">
+              <form id="submitUpload" th:action="@{episodes/upload_episode}" method="GET">
+                <input
+                        id="dummyUsernameForm2"
+                        type="text"
+                        name="username"
+                        hidden
+                />
                 <a
                   class="dropdown-item"
                   href="#"

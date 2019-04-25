@@ -154,7 +154,7 @@
     </nav>
 
     <div class="card">
-      <div class="card-header">Sample Comic Series Title</div>
+      <div class="card-header" th:text="${series.SeriesName}"></div>
       <div class="card-body">
         <div class="card">
           <div class="card-header">Information</div>
@@ -169,11 +169,11 @@
                 />
               </div>
               <div class="col-sm-9">
-                <label>Category - Sample Category</label>
+                <label th:value="${series.categories}">Category - Sample Category</label>
                 <br />
-                <label>Author - Sample Author</label>
+                <label th:value="${series.author}">Author - Sample Author</label>
                 <br />
-                <label
+                <label th:value="${series.categories}"
                   >Summary - Sample summary lorem ipsum dolor sit amet lorem
                   ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum
                   dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor
@@ -185,8 +185,11 @@
           </div>
         </div>
         <div id="episodeTable" style="margin:10px;">
-          <div class="row">
-            <div class="col-sm-4">
+          <div th:if="${episodes} != null" class="row">
+            <div
+                    th:each="episode : ${episodes}"
+                    class="col-sm-4"
+                    style="margin:10px 0px;">
               <div class="card">
                 <img
                   class="card-img-top"
@@ -196,7 +199,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-8">
-                      <h5 class="card-title">Episode 1</h5>
+                      <h5 class="card-title" th:text="${episode.EpisodeName}"></h5>
                     </div>
                     <div class="col-sm-4">
                       <a

@@ -3,11 +3,14 @@ package com.white.thecomicverse.webapp.database.controller;
 
 import com.white.thecomicverse.webapp.database.model.EpisodeImage;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeImageRepository;
+import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.white.thecomicverse.webapp.database.model.Episode;
+import com.white.thecomicverse.webapp.database.model.Series;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,8 +30,24 @@ public class EpisodeController {
     private EpisodeRepository EpiRepository;
 
     @Autowired
-    EpisodeImageRepository episodeImageRepository;
+    private EpisodeImageRepository episodeImageRepository;
 
+    @Autowired
+    private SeriesRepository seriesRepository;
+
+    @RequestMapping(value = "/upload_episode")
+    public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username){
+        ModelAndView mv = new ModelAndView("upload_episode");
+        List<Series> seriesList = new ArrayList<>();
+        for(Series series : seriesRepository.findAll()) {
+            if(series.getAuthor().equals(username)){
+                seriesList.add(series);
+            }
+        }
+        mv.addObject("series", seriesList);
+        return mv;
+
+    }
     @RequestMapping(value = "/addEpisode") // Map ONLY GET Requests
     public String addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
