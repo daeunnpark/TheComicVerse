@@ -34,8 +34,8 @@
     var fileType = fileInput.files[0].type;
     var url = URL.createObjectURL(fileInput.files[0]);
 
-    if (fileType === "image/png") {
-      //check if png
+    if (fileType === "image/png" || fileType === "image/jpeg" || fileType === "image/gif") {
+      //check if png or jpg
       fabric.Image.fromURL(url, function(img) {
         img.set({
           scaleY: 0.25,
