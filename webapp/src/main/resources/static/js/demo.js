@@ -60,11 +60,10 @@
     undo();
   });
 
-
-  canvas.on('mouse:wheel', function(opt) {
+  canvas.on("mouse:wheel", function(opt) {
     var delta = opt.e.deltaY;
     var zoom = canvas.getZoom();
-    zoom = zoom + delta/200;
+    zoom = zoom + delta / 200;
     if (zoom > 20) zoom = 20;
     if (zoom < 0.01) zoom = 0.01;
     canvas.setZoom(zoom);
@@ -81,14 +80,12 @@
       this.selection = false;
       this.lastPosX = evt.clientX;
       this.lastPosY = evt.clientY;
-    }
-    else{
+    } else {
       var xy = transformMouse(options.e.offsetX, options.e.offsetY);
       mouseFrom.x = xy.x;
       mouseFrom.y = xy.y;
       doDrawing = true;
     }
-
 
     //drawing();
   });
@@ -114,8 +111,7 @@
       this.requestRenderAll();
       this.lastPosX = e.clientX;
       this.lastPosY = e.clientY;
-    }
-    else {
+    } else {
       if (moveCount % 2 && !doDrawing) {
         return;
       }
@@ -344,6 +340,27 @@
         canvas.add(textbox);
         textbox.enterEditing();
         textbox.hiddenTextarea.focus();
+        break;
+      case "image":
+        /* Example code: https://jsfiddle.net/natchiketa/xHYjz/ */
+        var imgURL = "http://i.imgur.com/8rmMZI3.jpg";
+
+        var canvas = new fabric.Canvas("canvas");
+
+        var pugImg = new Image();
+        pugImg.onload = function(img) {
+          canvasObject = new fabric.Image(pugImg, {
+            angle: 45,
+            width: 500,
+            height: 500,
+            left: 50,
+            top: 70,
+            scaleX: 0.25,
+            scaleY: 0.25
+          });
+          //canvas.add(pug);
+        };
+        pugImg.src = imgURL;
         break;
       case "remove":
         break;
