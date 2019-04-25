@@ -310,40 +310,41 @@
               style="margin:10px 0px;"
             >
               <div class="card">
-                <!-- 
+
                 <img class="card-img-top" id="thumbnail" th:src="${serie.imageData}"
                   alt="Card image cap" />
-                -->
-                <img
-                  class="card-img-top"
-                  id="thumbnail"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <span th:text="${serie.SeriesName}"></span>
-                  </h5>
-                  <form id="submitViewSeries" action="/series/view_series" method="GET">
-                    <input
-                          id="seriesID"
-                          type="text"
-                          name="seriesID"
-                          th:value="${serie.SeriesID}"
-                          hidden
-                    />
-                    <a class="btn btn-primary" onclick="document.getElementById('submitViewSeries').submit()">View Comic Page</a>
-                  </form>
-                  <a href="#" class="btn btn-primary">Subscribe</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Optional JavaScript -->
+                  <!--  <img
+                     class="card-img-top"
+                     id="thumbnail"
+                     src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
+                     alt="Card image cap"
+                   />
+                   -->
+                   <div class="card-body">
+                     <h5 class="card-title">
+                       <span th:text="${serie.SeriesName}"></span>
+                     </h5>
+                     <form id="submitViewSeries" action="/series/view_series" method="GET">
+                       <input
+                             id="seriesID"
+                             type="text"
+                             name="seriesID"
+                             th:value="${serie.SeriesID}"
+                             hidden
+                       />
+                       <a class="btn btn-primary" onclick="document.getElementById('submitViewSeries').submit()">View Comic Page</a>
+                     </form>
+                     <a href="#" class="btn btn-primary">Subscribe</a>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
