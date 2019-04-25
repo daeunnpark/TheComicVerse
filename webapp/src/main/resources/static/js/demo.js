@@ -67,22 +67,21 @@
     }
   }
 
-  function sendFront(){
+  function sendFront() {
     canvas.bringToFront(canvas.getActiveObject());
   }
 
-  function sendForward(){
+  function sendForward() {
     canvas.bringForward(canvas.getActiveObject());
   }
 
-  function sendBackward(){
-    canvas.sendBackwards(canvas.getActiveObject())
+  function sendBackward() {
+    canvas.sendBackwards(canvas.getActiveObject());
   }
 
-  function sendBack(){
-    canvas.sendToBack(canvas.getActiveObject())
+  function sendBack() {
+    canvas.sendToBack(canvas.getActiveObject());
   }
-
 
   window.canvas = canvas;
   window.zoom = window.zoom ? window.zoom : 1;
@@ -103,7 +102,7 @@
     });
 
     $("#sendBackButton").click(function() {
-      sendBack()
+      sendBack();
     });
 
     $("#sendBackwardButton").click(function() {
@@ -117,13 +116,15 @@
     $("#sendFrontButton").click(function() {
       sendFront();
     });
-
   });
 
   function onObjectSelected(e) {
-    color = e.target.get("stroke");
-    palette.value = color;
-    selectedObject = e.target;
+    console.log(e.target.get("type"));
+    if (!e.target.get("type").includes("image")) {
+      color = e.target.get("stroke");
+      palette.value = color;
+      selectedObject = e.target;
+    }
   }
   function onObjectCleared(e) {
     selectedObject = null;
