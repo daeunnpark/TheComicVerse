@@ -7,14 +7,16 @@
   var drawWidth = 10;
   var color = "#E34F51";
   var drawingObject = null;
+  var selectedObject = null;
   var moveCount = 1;
   var doDrawing = false;
-
+  var palette = document.getElementById("colorpicker");
   var canvas = new fabric.Canvas("c", {
     isDrawingMode: true,
     skipTargetFind: true,
     selectable: false,
-    selection: false
+    selection: false,
+    preserveObjectStacking: true
   });
 
   canvas.on("object:added", function() {
@@ -32,15 +34,17 @@
     var fileType = fileInput.files[0].type;
     var url = URL.createObjectURL(fileInput.files[0]);
 
-    if (fileType === 'image/png') { //check if png
+    if (fileType === "image/png" || fileType === "image/jpeg" || fileType === "image/gif") {
+      //check if png or jpg
       fabric.Image.fromURL(url, function(img) {
         img.set({
-          scaleY: .25,
-          scaleX: .25
+          scaleY: 0.25,
+          scaleX: 0.25
         });
         canvas.add(img);
       });
-    } else if (fileType === 'image/svg+xml') { //check if svg
+    } else if (fileType === "image/svg+xml") {
+      //check if svg
       fabric.loadSVGFromURL(url, function(objects, options) {
         var svg = fabric.util.groupSVGElements(objects, options);
         svg.scaleToWidth(180);
@@ -63,21 +67,29 @@
     }
   }
 
+  function sendFront() {
+    canvas.bringToFront(canvas.getActiveObject());
+  }
+
+  function sendForward() {
+    canvas.bringForward(canvas.getActiveObject());
+  }
+
+  function sendBackward() {
+    canvas.sendBackwards(canvas.getActiveObject());
+  }
+
+  function sendBack() {
+    canvas.sendToBack(canvas.getActiveObject());
+  }
+
   window.canvas = canvas;
   window.zoom = window.zoom ? window.zoom : 1;
 
   canvas.freeDrawingBrush.color = color;
   canvas.freeDrawingBrush.width = drawWidth;
 
-  document
-    .getElementById("colorpicker")
-    .addEventListener("change", function(e) {
-      console.log(e.target.value);
-      canvas.freeDrawingBrush.color = e.target.value;
-      color = e.target.value;
-    });
-
-  $(document).ready(function () {
+  $(document).ready(function() {
     document.getElementById("redo").addEventListener("click", function(ev) {
       redo();
     });
@@ -85,12 +97,58 @@
       undo();
     });
 
-    $("#imageFile").change(function () {
+    $("#imageFile").change(function() {
       upload();
+    });
+
+    $("#sendBackButton").click(function() {
+      sendBack();
+    });
+
+    $("#sendBackwardButton").click(function() {
+      sendBackward();
+    });
+
+    $("#sendForwardButton").click(function() {
+      sendForward();
+    });
+
+    $("#sendFrontButton").click(function() {
+      sendFront();
     });
   });
 
+  function onObjectSelected(e) {
+    console.log(e.target.get("type"));
+    if (!e.target.get("type").includes("image")) {
+      color = e.target.get("stroke");
+      palette.value = color;
+      selectedObject = e.target;
+    }
+  }
+  function onObjectCleared(e) {
+    selectedObject = null;
+  }
 
+  canvas.on("object:selected", onObjectSelected);
+  canvas.on("selection:updated", onObjectSelected);
+
+  canvas.on("selection:cleared", onObjectCleared);
+
+  palette.addEventListener("change", function(e) {
+    color = e.target.value;
+    canvas.freeDrawingBrush.color = color;
+
+    if (selectedObject != null) {
+      selectedObject.set({ stroke: color });
+
+      if (selectedObject.get("type").includes("text")) {
+        selectedObject.set({ fill: color });
+      }
+
+      canvas.renderAll();
+    }
+  });
 
   canvas.on("mouse:wheel", function(opt) {
     var delta = opt.e.deltaY;
@@ -192,7 +250,7 @@
           jQuery(this)
             .find("i")
             .attr("class")
-            .replace("black", "select")
+          //.replace("black", "select")
         );
       drawType = jQuery(this).attr("data-type");
       canvas.isDrawingMode = false;

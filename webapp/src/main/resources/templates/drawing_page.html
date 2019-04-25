@@ -33,7 +33,6 @@
       src="../static/js/paper-full.min.js"
     ></script>
 
-
     <link
       href="https://fonts.googleapis.com/css?family=Ek+Mukta:400,300,200,500,600,700,800"
       rel="stylesheet"
@@ -300,8 +299,23 @@
                       <!--<i class="icon-tools icon-text-black" data-default="icon-tools icon-text-black"></i>-->
                     </li>
                     <li data-type="image">
-                      <input type="file" id="imageFile" accept="image/*" style="display:none;" onclick="value=null"/>
-                      <input class="btn btn-light" type="button" value="Image" onclick="document.getElementById('imageFile').click();" />
+                      <input
+                        type="file"
+                        id="imageFile"
+                        accept="image/*"
+                        style="display:none;"
+                        onclick="value=null"
+                      />
+                      <i
+                        class="far fa-image"
+                        onclick="document.getElementById('imageFile').click();"
+                      ></i>
+                      <!--
+                      <input
+                        class="far fa-comment-alt"
+                        type="button"
+                        onclick="document.getElementById('imageFile').click();"
+                      />-->
 
                       <!--<i
                                             class="icon-tools icon-text-black"
@@ -344,6 +358,12 @@
                                           ></i>-->
                     </li>
                   </ul>
+                </div>
+                <div>
+                  <button id="sendFrontButton">Send To Front</button>
+                  <button id="sendForwardButton">Send Forward</button>
+                  <button id="sendBackwardButton">Send Backward</button>
+                  <button id="sendBackButton">Send to Back</button>
                 </div>
               </div>
               <div

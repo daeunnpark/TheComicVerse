@@ -160,11 +160,11 @@
     </nav>
 
     <!--Search Bar-->
-    <div>
-      <div class="input-group" style="margin: 20px auto;">
+    <div style="width:100%;">
+      <div class="input-group" style="margin: 20px auto;width:100%;">
         <div class="input-group-prepend">
           <nav class="navbar navbar-light">
-            <a class="navbar-brand" style="color: orange; margin-left: 150px;"
+            <a class="navbar-brand" style="color: orange;"
               >TheComicVerse</a
             >
           </nav>
@@ -195,7 +195,7 @@
             >
           </div>
         </div>
-        <form id="searchBy" th:action="@{series/search}" method="post">
+        <form id="searchBy" th:action="@{series/search}" method="post" style="width:65%;">
           <input
             type="hidden"
             name="searchOption"
@@ -208,7 +208,7 @@
             placeholder="Search"
             aria-label="Search"
             name="keyword"
-            style="height:100%; width:500px;"
+            style="height:100%; width:100%;"
           />
         </form>
         <div class="input-group-append">
