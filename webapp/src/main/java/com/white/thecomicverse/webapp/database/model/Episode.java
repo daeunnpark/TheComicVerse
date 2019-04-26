@@ -19,7 +19,7 @@ public class Episode {
 
     private String DateCreated;
 
-    private int index;
+    private int indices;
 
     private int numView;
 
@@ -85,9 +85,9 @@ public class Episode {
         this.numDislikes = numDislikes;
     }
 
-    public void setIndex(int index) {this.index = index;}
+    public void setIndices(int indices) {this.indices = indices;}
 
-    public int getIndex(){return this.index;}
+    public int getIndices(){return this.indices;}
 
     public byte[] getThumbnail(){
 

@@ -95,7 +95,7 @@ public class EpisodeController {
             return null;
         }
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID && episode.getIndex() == (Integer.parseInt(episodeIndex)-1) ) {
+            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex)-1) ) {
                 prevEpID = Integer.toString(episode.getEpisodeID());
             }
         }
@@ -116,15 +116,15 @@ public class EpisodeController {
         ModelAndView mv = new ModelAndView("read_episode");
 
         for (Episode episode : EpiRepository.findAll()) {
-            if(episode.getSeriesID() == seriesID && episode.getIndex() > max){
-                max = episode.getIndex();
+            if(episode.getSeriesID() == seriesID && episode.getIndices() > max){
+                max = episode.getIndices();
             }
         }
         if (epiIndex >= max) {
             return null;
         }
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID && episode.getIndex() == (Integer.parseInt(episodeIndex)+1) ) {
+            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex)+1) ) {
                 nextEpID = Integer.toString(episode.getEpisodeID());
             }
         }
@@ -154,7 +154,7 @@ public class EpisodeController {
                 mv.addObject("episode",episode);
                 for(EpisodeImage episodeImage: episodeImageRepository.findAll()){
                     if(episodeImage.getEpisodeID() == episodeID) {
-                        ImageList.add(episodeImage.getIndex(),episodeImage);
+                        ImageList.add(episodeImage.getIndices(),episodeImage);
                     }
                 }
                 mv.addObject("ImageList",ImageList);
@@ -167,15 +167,15 @@ public class EpisodeController {
 
         int max = 0;
         for (EpisodeImage episodeImage : episodeImageRepository.findAll()){
-            if (episodeImage.getEpisodeID()==episodeID && episodeImage.getIndex()>max){
-                max = episodeImage.getIndex();
+            if (episodeImage.getEpisodeID()==episodeID && episodeImage.getIndices()>max){
+                max = episodeImage.getIndices();
             }
         }
         byte[] imageDataBytes = imageData.getBytes();
 
         EpisodeImage newEpisodeImage = new EpisodeImage();
         newEpisodeImage.setEpisodeID(episodeID);
-        newEpisodeImage.setIndex(max);
+        newEpisodeImage.setIndices(max);
         newEpisodeImage.setImageData(imageDataBytes);
         this.episodeImageRepository.save(newEpisodeImage);
     }

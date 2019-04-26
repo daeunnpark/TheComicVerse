@@ -15,7 +15,7 @@ public class EpisodeImage {
 
     private int EpisodeID;
 
-    private int index;
+    private int indices;
 
     private Blob imageData;
 
@@ -35,12 +35,10 @@ public class EpisodeImage {
         this.EpisodeID = episodeID;
     }
 
-    public int getIndex() {
-        return this.index;
-    }
+    public int getIndices() {return this.indices;}
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setIndices(int indices) {
+        this.indices = indices;
     }
 
     public byte[] getimageData(){
