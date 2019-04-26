@@ -59,6 +59,13 @@ public class SeriesController {
         newSeries.setImageData(null);
         this.seriesRepository.save(newSeries);
 
+        return getMySeries(req, author);
+    }
+
+    @RequestMapping(value = "/mySeries") // Map ONLY GET Requests
+    public ModelAndView getMySeries(HttpServletRequest req, @RequestParam(value = "username") String author) {
+
+        System.out.println("username is " + author);
         List<Series> seriesList = new ArrayList<Series>();
 
         for (Series s : seriesRepository.findAll()) {
@@ -70,10 +77,9 @@ public class SeriesController {
 
         }
 
-        ModelAndView mv = new ModelAndView("redirect:/manage_my_series");
-        // mv.addObject("series", newSeries);
-        // mv.addObject("series", seriesList);
-        redir.addFlashAttribute("series", seriesList);
+        ModelAndView mv = new ModelAndView("manage_my_series");
+        mv.addObject("series", seriesList);
+        // redir.addFlashAttribute("series", seriesList);
         return mv;
 
     }

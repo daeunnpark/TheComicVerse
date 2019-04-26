@@ -19,9 +19,9 @@
     />
 
     <script
-            type="text/javascript"
-            src="../static/js/usersession.js"
-            th:src="@{/js/usersession.js}"
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
     ></script>
   </head>
 
@@ -30,13 +30,13 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!--<a class="navbar-brand" href="#">ComicVerse</a>-->
       <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNavDropdown"
-              aria-controls="navbarNavDropdown"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -45,111 +45,121 @@
           <li class="nav-item active">
             <form id="submitHome" action="/home" method="GET">
               <a
-                      class="nav-link"
-                      href="#"
-                      onclick="document.getElementById('submitHome').submit()"
-              >Home <span class="sr-only">(current)</span></a
+                class="nav-link"
+                href="#"
+                onclick="document.getElementById('submitHome').submit()"
+                >Home <span class="sr-only">(current)</span></a
               >
             </form>
           </li>
           <li class="nav-item">
             <form
-                    id="submitBrowse"
-                    th:action="@{series/allSeries}"
-                    method="POST"
+              id="submitBrowse"
+              th:action="@{series/allSeries}"
+              method="POST"
             >
               <a
-                      class="nav-link"
-                      href="#"
-                      onclick="document.getElementById('submitBrowse').submit()"
-              >Browse</a
+                class="nav-link"
+                href="#"
+                onclick="document.getElementById('submitBrowse').submit()"
+                >Browse</a
               >
             </form>
           </li>
           <li class="nav-item dropdown">
             <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
             >
               Create
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <form
-                      id="submitCreate"
-                      action="/create_comic_series"
-                      method="GET"
+                id="submitCreate"
+                action="/create_comic_series"
+                method="GET"
               >
                 <a
-                        class="dropdown-item"
-                        href="#"
-                        onclick="document.getElementById('submitCreate').submit()"
-                >Create a Serie</a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="document.getElementById('submitCreate').submit()"
+                  >Create a Serie</a
                 >
               </form>
               <div class="dropdown-divider"></div>
-              <form id="submitUpload" th:action="@{episodes/upload_episode}" method="GET">
+              <form
+                id="submitUpload"
+                th:action="@{episodes/upload_episode}"
+                method="GET"
+              >
                 <input
-                        id="dummyUsernameForm2"
-                        type="text"
-                        name="username"
-                        hidden
+                  id="dummyUsernameForm2"
+                  type="text"
+                  name="username"
+                  hidden
                 />
                 <a
-                        class="dropdown-item"
-                        href="#"
-                        onclick="document.getElementById('submitUpload').submit()"
-                >Upload an Episode</a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="document.getElementById('submitUpload').submit()"
+                  >Upload an Episode</a
                 >
               </form>
               <form id="submitDraw" action="/drawing_page" method="GET">
                 <a
-                        class="dropdown-item"
-                        href="#"
-                        onclick="document.getElementById('submitDraw').submit()"
-                >Draw an Episode</a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="document.getElementById('submitDraw').submit()"
+                  >Draw an Episode</a
                 >
               </form>
             </div>
           </li>
           <li class="nav-item">
-            <form id="submitManage" action="/manage_my_series" method="GET">
+            <form id="submitManage" th:action="@{series/mySeries}" method="GET">
+              <input
+                id="dummyUsernameForm3"
+                type="text"
+                name="username"
+                hidden
+              />
               <a
-                      class="nav-link"
-                      href="#"
-                      onclick="document.getElementById('submitManage').submit()"
-              >Manage</a
+                class="nav-link"
+                href="#"
+                onclick="document.getElementById('submitManage').submit()"
+                >Manage</a
               >
             </form>
           </li>
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                      id="dummyUsernameForm"
-                      type="text"
-                      name="username"
-                      hidden
+                id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
               />
 
               <a
-                      class="nav-link"
-                      href="#"
-                      onclick="document.getElementById('submitSetting').submit()"
-              >Account Settings</a
+                class="nav-link"
+                href="#"
+                onclick="document.getElementById('submitSetting').submit()"
+                >Account Settings</a
               >
             </form>
           </li>
           <li class="nav-item pull-right">
             <form id="submitSignout" action="/signout" method="GET">
               <a
-                      class="nav-link pull-right"
-                      id="signoutBtn"
-                      href="#"
-                      onclick="document.getElementById('submitSignout').submit()"
-              >Sign Out</a
+                class="nav-link pull-right"
+                id="signoutBtn"
+                href="#"
+                onclick="document.getElementById('submitSignout').submit()"
+                >Sign Out</a
               >
             </form>
           </li>
@@ -162,9 +172,9 @@
       <div class="card-body">
         <div style="width:40vw; margin: auto;">
           <form
-                  id="uploadEpisode"
-                  th:action="@{episodes/addEpisode}"
-                  method="POST"
+            id="uploadEpisode"
+            th:action="@{episodes/addEpisode}"
+            method="POST"
           >
             <div class="dropdown">
               <button
@@ -180,47 +190,53 @@
               </button>
 
               <div
-                      class="dropdown-menu"
-                      aria-labelledby="seriesdropdownMenuButton"
-                      th:if="${series} != null"
-
+                class="dropdown-menu"
+                aria-labelledby="seriesdropdownMenuButton"
+                th:if="${series} != null"
               >
-                  <div th:each="serie : ${series}">
-                  <a id="series1" class="dropdown-item" href="#" th:text="${serie.SeriesName}" th:data-value="${serie.SeriesID}">before</a>
+                <div th:each="serie : ${series}">
+                  <a
+                    id="series1"
+                    class="dropdown-item"
+                    href="#"
+                    th:text="${serie.SeriesName}"
+                    th:data-value="${serie.SeriesID}"
+                    >before</a
+                  >
                 </div>
               </div>
             </div>
             <div class="dropdown">
               <button
-                      class="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      value="default"
-                      name="dropdown-categories"
-                      id="categorydropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                      style="display: block; margin: 0 auto;"
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                value="default"
+                name="dropdown-categories"
+                id="categorydropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="display: block; margin: 0 auto;"
               >
                 Category
               </button>
               <div
-                      class="dropdown-menu"
-                      aria-labelledby="categorydropdownMenuButton"
+                class="dropdown-menu"
+                aria-labelledby="categorydropdownMenuButton"
               >
                 <a
-                        id="category1"
-                        class="dropdown-item"
-                        href="#"
-                        data-value="Category A"
+                  id="category1"
+                  class="dropdown-item"
+                  href="#"
+                  data-value="Category A"
                 >
                   Category A</a
                 >
                 <a
-                        id="category2"
-                        class="dropdown-item"
-                        href="#"
-                        data-value="Category B"
+                  id="category2"
+                  class="dropdown-item"
+                  href="#"
+                  data-value="Category B"
                 >
                   Category B</a
                 >
@@ -250,18 +266,18 @@
               type="text"
             />
             <input
-                    type="file"
-                    id="fileEpisodeImageInput"
-                    onchange="encodeImageFileAsURL(fileEpisodeImageInput,fileEpisodeImageByteData)"
-                    style="display: block; margin: 0 auto;border:1px solid grey;"
-                    accept="image/*"
+              type="file"
+              id="fileEpisodeImageInput"
+              onchange="encodeImageFileAsURL(fileEpisodeImageInput,fileEpisodeImageByteData)"
+              style="display: block; margin: 0 auto;border:1px solid grey;"
+              accept="image/*"
             />
             <br />
             <input
-                    id="fileEpisodeImageByteData"
-                    name="episodeImage"
-                    hidden
-                    type="text"
+              id="fileEpisodeImageByteData"
+              name="episodeImage"
+              hidden
+              type="text"
             />
             <br />
             <button
@@ -343,10 +359,10 @@
       th:src="@{/js/upload_episode.js}"
     ></script>
     <script>
-      $(document).ready(function () {
-        document.getElementById("dummyUsernameForm").value=getUsername();
+      $(document).ready(function() {
+        document.getElementById("dummyUsernameForm").value = getUsername();
+        document.getElementById("dummyUsernameForm3").value = getUsername();
       });
-
     </script>
   </body>
 </html>

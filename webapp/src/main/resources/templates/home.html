@@ -93,12 +93,16 @@
                 >
               </form>
               <div class="dropdown-divider"></div>
-              <form id="submitUpload" th:action="@{episodes/upload_episode}" method="GET">
+              <form
+                id="submitUpload"
+                th:action="@{episodes/upload_episode}"
+                method="GET"
+              >
                 <input
-                        id="dummyUsernameForm2"
-                        type="text"
-                        name="username"
-                        hidden
+                  id="dummyUsernameForm2"
+                  type="text"
+                  name="username"
+                  hidden
                 />
                 <a
                   class="dropdown-item"
@@ -118,7 +122,13 @@
             </div>
           </li>
           <li class="nav-item">
-            <form id="submitManage" action="/manage_my_series" method="GET">
+            <form id="submitManage" th:action="@{series/mySeries}" method="GET">
+              <input
+                id="dummyUsernameForm3"
+                type="text"
+                name="username"
+                hidden
+              />
               <a
                 class="nav-link"
                 href="#"
@@ -164,9 +174,7 @@
       <div class="input-group" style="margin: 20px auto;width:100%;">
         <div class="input-group-prepend">
           <nav class="navbar navbar-light">
-            <a class="navbar-brand" style="color: orange;"
-              >TheComicVerse</a
-            >
+            <a class="navbar-brand" style="color: orange;">TheComicVerse</a>
           </nav>
           <button
             class="btn btn-outline-secondary dropdown-toggle"
@@ -195,7 +203,12 @@
             >
           </div>
         </div>
-        <form id="searchBy" th:action="@{series/search}" method="post" style="width:65%;">
+        <form
+          id="searchBy"
+          th:action="@{series/search}"
+          method="post"
+          style="width:65%;"
+        >
           <input
             type="hidden"
             name="searchOption"
@@ -485,6 +498,7 @@
     <script>
       $(document).ready(function() {
         document.getElementById("dummyUsernameForm").value = getUsername();
+        document.getElementById("dummyUsernameForm3").value = getUsername();
       });
     </script>
   </body>

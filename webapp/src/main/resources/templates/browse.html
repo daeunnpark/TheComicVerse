@@ -1,3 +1,5 @@
+browse.html
+
 <!DOCTYPE html>
 <html
   xmlns="http://www.w3.org/1999/xhtml"
@@ -124,7 +126,13 @@
             </div>
           </li>
           <li class="nav-item">
-            <form id="submitManage" action="/manage_my_series" method="GET">
+            <form id="submitManage" th:action="@{mySeries}" method="GET">
+              <input
+                id="dummyUsernameForm3"
+                type="text"
+                name="username"
+                hidden
+              />
               <a
                 class="nav-link"
                 href="#"
@@ -380,6 +388,7 @@
     <script>
       $(document).ready(function() {
         document.getElementById("dummyUsernameForm").value = getUsername();
+        document.getElementById("dummyUsernameForm3").value = getUsername();
       });
     </script>
   </body>

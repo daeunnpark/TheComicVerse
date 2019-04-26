@@ -148,7 +148,13 @@
             </div>
           </li>
           <li class="nav-item">
-            <form id="submitManage" action="/manage_my_series" method="GET">
+            <form id="submitManage" th:action="@{series/mySeries}" method="GET">
+              <input
+                id="dummyUsernameForm3"
+                type="text"
+                name="username"
+                hidden
+              />
               <a
                 class="nav-link"
                 href="#"
@@ -377,41 +383,43 @@
                 </div>
               </div>
               <div>
-              <div
-                id="panelTable"
-                style="float:right;overflow-y: scroll;overflow-x: hidden; height:600px; width: 80vw;float:right; padding: 20px; border:1px solid grey;"
-              >
-                <div class="row" id="panel">
-                  <div class="col-md-6" style="margin:0 auto;">
-                    <div class="card">
-                      <div class="card-header" style="display: inline-block;">
-                        <div style="float:left;">
-                          Panel 1
+                <div
+                  id="panelTable"
+                  style="float:right;overflow-y: scroll;overflow-x: hidden; height:600px; width: 80vw;float:right; padding: 20px; border:1px solid grey;"
+                >
+                  <div class="row" id="panel">
+                    <div class="col-md-6" style="margin:0 auto;">
+                      <div class="card">
+                        <div class="card-header" style="display: inline-block;">
+                          <div style="float:left;">
+                            Panel 1
+                          </div>
+                          <div style="float:right;">
+                            <i class="far fa-copy" style="margin:5px;"></i>
+                            <i class="fa fa-paste" style="margin:5px;"></i>
+                            <i class="far fa-trash-alt" style="margin:5px;"></i>
+                            <i
+                              class="fas fa-mouse-pointer"
+                              style="margin:5px;"
+                            ></i>
+                          </div>
                         </div>
-                        <div style="float:right;">
-                          <i class="far fa-copy" style="margin:5px;"></i>
-                          <i class="fa fa-paste" style="margin:5px;"></i>
-                          <i class="far fa-trash-alt" style="margin:5px;"></i>
-                          <i
-                            class="fas fa-mouse-pointer"
-                            style="margin:5px;"
-                          ></i>
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <div id="canvasDiv" class="canvasDiv">
-                          <canvas id="c" width="500" height="700">HTML5</canvas>
-                        </div>
-                        <!--
+                        <div class="card-body">
+                          <div id="canvasDiv" class="canvasDiv">
+                            <canvas id="c" width="500" height="700"
+                              >HTML5</canvas
+                            >
+                          </div>
+                          <!--
                                             <img class="card-img-top"
                                                 src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
                                                 alt="Card image cap" />
                                         -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <!--
+                  <!--
                 <div class="row">
                   <div class="col-md-6" style="margin:0 auto;">
                     <div class="card">
@@ -467,15 +475,16 @@
                     </div>
                   </div>
                 </div>
-              --></div>
-              <button
-                type="button"
-                class="btn btn-primary"
-                id="addNewPage"
-                style="display: block; margin: 50px auto;"
-              >
-                + Add a New Panel
-              </button>
+              -->
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="addNewPage"
+                  style="display: block; margin: 50px auto;"
+                >
+                  + Add a New Panel
+                </button>
               </div>
             </div>
           </div>
@@ -483,11 +492,26 @@
       </div>
       <div class="row">
         <div style="margin:0px auto 20px auto;">
-          <a id="save" download="save.json" type="button" class="btn btn-outline-success">
+          <a
+            id="save"
+            download="save.json"
+            type="button"
+            class="btn btn-outline-success"
+          >
             Save
           </a>
-          <input id="load" style="display:none;" type="file" class="btn btn-outline-success" onclick="value=null"/>
-          <button type="button" class="btn btn-outline-success" onclick="document.getElementById('load').click()">
+          <input
+            id="load"
+            style="display:none;"
+            type="file"
+            class="btn btn-outline-success"
+            onclick="value=null"
+          />
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            onclick="document.getElementById('load').click()"
+          >
             Load JSON
           </button>
           <button type="button" class="btn btn-outline-primary">
@@ -563,6 +587,7 @@
     <script>
       $(document).ready(function() {
         document.getElementById("dummyUsernameForm").value = getUsername();
+        document.getElementById("dummyUsernameForm3").value = getUsername();
       });
     </script>
     <!--<script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>-->
