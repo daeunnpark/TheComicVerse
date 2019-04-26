@@ -13,6 +13,7 @@ import com.white.thecomicverse.webapp.database.model.Episode;
 import com.white.thecomicverse.webapp.database.model.Series;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class EpisodeController {
     private SeriesRepository seriesRepository;
 
     @RequestMapping(value = "/upload_episode")
-    public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username){
+    public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username, RedirectAttributes ra){
         ModelAndView mv = new ModelAndView("redirect:/upload_episode");
         List<Series> seriesList = new ArrayList<>();
         for(Series series : seriesRepository.findAll()) {
@@ -44,12 +45,12 @@ public class EpisodeController {
                 seriesList.add(series);
             }
         }
-        mv.addObject("series", seriesList);
+        ra.addFlashAttribute("series", seriesList);
         return mv;
 
     }
     @RequestMapping(value = "/addEpisode") // Map ONLY GET Requests
-    public String addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID,
+    public String addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") String SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
             @RequestParam(value = "thumbnail") String thumbnail,
             @RequestParam(value = "episodeImage") String image) {
@@ -66,7 +67,7 @@ public class EpisodeController {
         byte[] thumbnailByteArr = thumbnail.getBytes();
         Date d = new Date();
         Episode epi = new Episode();
-        epi.setSeriesID(SeriesID);
+        epi.setSeriesID(Integer.parseInt(SeriesID));
         epi.setEpisodeName(episodeName);
         epi.setNumDislikes(0);
         epi.setNumLikes(0);
