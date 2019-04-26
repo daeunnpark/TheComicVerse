@@ -1,21 +1,13 @@
-/*function login(username){
-    window.localStorage.setItem("username",username);
+var currentUsername = null;
+function loginSuccessful(newUsername) {
+  currentUsername = newUsername;
+  login(currentUsername);
 }
 
-function hideLogin(){
-    $("#loginBody").hide();
+function login(currentUsername) {
+  window.sessionStorage.setItem("username", currentUsername);
 }
-$("#submitLogin").submit(function(e) {
-    login($("#username").value);
-    hideLogin();
-*/
-    /*
-    var value = document.getElementById("secret_word").value;
-    if (is_valid(value)) {
-        computerWord = value;
-        set_secret_word_UI(value);
-        $("#secretWordModal").modal("hide");
-    }
-    return false;
-    */
-});
+
+function getUsername() {
+  return window.sessionStorage.getItem("username");
+}

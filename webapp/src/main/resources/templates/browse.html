@@ -61,7 +61,7 @@
           <li class="nav-item">
             <form
               id="submitBrowse"
-              th:action="@{series/allSeries}"
+              th:action="@{/series/allSeries}"
               method="POST"
             >
               <a
@@ -99,7 +99,7 @@
               <div class="dropdown-divider"></div>
               <form
                 id="submitUpload"
-                th:action="@{episodes/upload_episode}"
+                th:action="@{/episodes/upload_episode}"
                 method="GET"
               >
                 <input
@@ -126,7 +126,11 @@
             </div>
           </li>
           <li class="nav-item">
-            <form id="submitManage" th:action="@{mySeries}" method="GET">
+            <form
+              id="submitManage"
+              th:action="@{/series/mySeries}"
+              method="GET"
+            >
               <input
                 id="dummyUsernameForm3"
                 type="text"
@@ -180,58 +184,58 @@
             <a class="navbar-brand" style="color: orange;">TheComicVerse</a>
           </nav>
           <button
-                  class="btn btn-outline-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  style="width:150px"
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="width:150px"
           >
             Search by
           </button>
 
           <div class="dropdown-menu">
             <a class="dropdown-item" name="All" data-value="all" href="#"
-            >All</a
+              >All</a
             >
             <a class="dropdown-item" name="byTitle" data-value="title" href="#"
-            >Title</a
+              >Title</a
             >
             <a
-                    class="dropdown-item"
-                    name="byAuthor"
-                    data-value="author"
-                    href="#"
-            >Author</a
+              class="dropdown-item"
+              name="byAuthor"
+              data-value="author"
+              href="#"
+              >Author</a
             >
           </div>
         </div>
         <form
-                id="searchBy"
-                th:action="@{/series/search}"
-                method="post"
-                style="width:65%;"
+          id="searchBy"
+          th:action="@{/series/search}"
+          method="post"
+          style="width:65%;"
         >
           <input
-                  type="hidden"
-                  name="searchOption"
-                  id="searchOption"
-                  style="height:0"
+            type="hidden"
+            name="searchOption"
+            id="searchOption"
+            style="height:0"
           />
           <input
-                  type="search"
-                  class="form-control"
-                  placeholder="Search"
-                  aria-label="Search"
-                  name="keyword"
-                  style="height:100%; width:100%;"
+            type="search"
+            class="form-control"
+            placeholder="Search"
+            aria-label="Search"
+            name="keyword"
+            style="height:100%; width:100%;"
           />
         </form>
         <div class="input-group-append">
           <button
-                  class="btn btn-outline-success"
-                  type="submit"
-                  onclick="document.getElementById('searchBy').submit()"
+            class="btn btn-outline-success"
+            type="submit"
+            onclick="document.getElementById('searchBy').submit()"
           >
             Search
           </button>
@@ -424,12 +428,28 @@
                       >View Comic Page</a
                     >
                   </form>
-                  <form id="submitSubscription" th:action="@{/subs/checkSubscription}"  method="POST">
-                    <input type="hidden" name="username" id="dummyUsernameForm4" />
-                    <input type="hidden" name="SeriesID" th:value="${serie.SeriesID}" />
-                    <button type="button" class="btn btn-primary"
-                            onclick="document.getElementById('submitSubscription').submit()"
-                    >Subscribe</button>
+                  <form
+                    id="submitSubscription"
+                    th:action="@{/subs/checkSubscription}"
+                    method="POST"
+                  >
+                    <input
+                      type="hidden"
+                      name="username"
+                      id="dummyUsernameForm4"
+                    />
+                    <input
+                      type="hidden"
+                      name="SeriesID"
+                      th:value="${serie.SeriesID}"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="document.getElementById('submitSubscription').submit()"
+                    >
+                      Subscribe
+                    </button>
                   </form>
                 </div>
               </div>
