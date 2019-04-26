@@ -37,7 +37,7 @@ public class EpisodeController {
 
     @RequestMapping(value = "/upload_episode")
     public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username){
-        ModelAndView mv = new ModelAndView("upload_episode");
+        ModelAndView mv = new ModelAndView("redirect:/upload_episode");
         List<Series> seriesList = new ArrayList<>();
         for(Series series : seriesRepository.findAll()) {
             if(series.getAuthor().equals(username)){
@@ -52,7 +52,7 @@ public class EpisodeController {
     public String addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
             @RequestParam(value = "thumbnail") String thumbnail,
-            @RequestParam(value = "imageList") List<String> imageList) {
+            @RequestParam(value = "episodeImage") String image) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -74,10 +74,8 @@ public class EpisodeController {
         epi.setThumbnail(thumbnailByteArr);
         epi.setDateCreated(d.toGMTString());
         this.EpiRepository.save(epi);
-        for(int i=0; i<imageList.size();i++){
-            addImage(epi.getEpisodeID(), imageList.get(i));
-        }
-        return "redirect:/upload_episode";
+        addImage(epi.getEpisodeID(), image);
+        return "redirect:/read_episode";
 
     }
 

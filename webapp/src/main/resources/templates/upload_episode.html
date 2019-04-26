@@ -238,7 +238,7 @@
             <input
               type="file"
               id="fileEpisodeThumbnailInput"
-              onchange="encodeImageFileAsURL()"
+              onchange="encodeImageFileAsURL(fileEpisodeThumbnailInput,fileEpisodeByteData)"
               style="display: block; margin: 0 auto;border:1px solid grey;"
               accept="image/*"
             />
@@ -248,6 +248,20 @@
               name="thumbnail"
               hidden
               type="text"
+            />
+            <input
+                    type="file"
+                    id="fileEpisodeImageInput"
+                    onchange="encodeImageFileAsURL(fileEpisodeImageInput,fileEpisodeImageByteData)"
+                    style="display: block; margin: 0 auto;border:1px solid grey;"
+                    accept="image/*"
+            />
+            <br />
+            <input
+                    id="fileEpisodeImageByteData"
+                    name="episodeImage"
+                    hidden
+                    type="text"
             />
             <br />
             <button

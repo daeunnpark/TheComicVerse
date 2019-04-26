@@ -143,7 +143,8 @@ public class LoginController {
 
     @PostMapping(path="/deleteAccount")
     public String deleteAccount(HttpServletRequest req, @RequestParam(value = "username") String username){
-        return "";
+
+        return "redirect:/home";
     }
 
 }

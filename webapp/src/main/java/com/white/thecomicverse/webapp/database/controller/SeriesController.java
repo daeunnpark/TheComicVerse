@@ -69,7 +69,7 @@ public class SeriesController {
 
         }
 
-        ModelAndView mv = new ModelAndView("manage_my_series");
+        ModelAndView mv = new ModelAndView("redirect:/manage_my_series");
         // mv.addObject("series", newSeries);
         mv.addObject("series", seriesList);
         return mv;
