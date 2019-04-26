@@ -116,6 +116,20 @@
     $("#sendFrontButton").click(function() {
       sendFront();
     });
+
+    $( "#save" ).click(function( event ) {
+      this.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvas));
+    });
+
+    $( "#load" ).change(function( event ) {
+      var fr = new FileReader();
+      fr.onload = function(){
+        canvas.loadFromJSON(this.result, canvas.renderAll.bind(canvas));
+      };
+      fr.readAsText(this.files[0]);
+    });
+
+
   });
 
   function onObjectSelected(e) {

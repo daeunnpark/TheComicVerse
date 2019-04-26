@@ -483,11 +483,15 @@
       </div>
       <div class="row">
         <div style="margin:0px auto 20px auto;">
-          <button type="button" class="btn btn-outline-success">
+          <a id="save" download="save.json" type="button" class="btn btn-outline-success">
             Save
+          </a>
+          <input id="load" style="display:none;" type="file" class="btn btn-outline-success" onclick="value=null"/>
+          <button type="button" class="btn btn-outline-success" onclick="document.getElementById('load').click()">
+            Load JSON
           </button>
           <button type="button" class="btn btn-outline-primary">
-            Upload
+            Upload Comic
           </button>
         </div>
       </div>
