@@ -15,12 +15,3 @@ function updateLoginUI() {
     $("#loggedInSection").show();
   }
 }
-
-$("#signoutBtn").click(function() {
-  window.sessionStorage.removeItem("username");
-  updateLoginUI();
-});
-
-$(document).ready(function() {
-  document.getElementById("globalUsername").value=window.sessionStorage.getItem("username");
-});

@@ -119,7 +119,7 @@ public class SeriesController {
         for (Series series : seriesRepository.findAll()) {
             if (series.getAuthor().toLowerCase().contains(seriesAuthor.toLowerCase())) {
                 // System.out.println(seriesAuthor);
-                series.setImageData(series.getThumbnail().toString());
+                series.setImageData(new String(series.getThumbnail()));
                 s.add(series);
             }
         }
@@ -138,11 +138,11 @@ public class SeriesController {
         for (Series series : seriesRepository.findAll()) {
             if (series.getAuthor().toLowerCase().contains(seriesInfo.toLowerCase())) {
                 // System.out.println(seriesInfo);
-                series.setImageData(series.getThumbnail().toString());
+                series.setImageData(new String(series.getThumbnail()));
                 s.add(series);
             }
             if (series.getSeriesName().toLowerCase().contains(seriesInfo.toLowerCase())) {
-                series.setImageData(series.getThumbnail().toString());
+                series.setImageData(new String(series.getThumbnail()));
                 s.add(series);
             }
         }
@@ -162,8 +162,8 @@ public class SeriesController {
         for (Series series : seriesRepository.findAll()) {
             System.out.println("returning");
 
-            System.out.println(series.getThumbnail().toString());
-            series.setImageData(series.getThumbnail().toString());
+            System.out.println(new String(series.getThumbnail()));
+            series.setImageData(new String(series.getThumbnail()));
             s.add(series);
         }
 

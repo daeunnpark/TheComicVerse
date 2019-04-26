@@ -160,7 +160,7 @@
       <div class="card-header">Account Information</div>
       <div class="card-body">
         <div style="width:40vw; margin: auto;">
-          <form>
+          <form id = "accountForm">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="usernameAddon"
@@ -201,17 +201,19 @@
                 type="password"
                 class="form-control"
                 aria-label="Password"
-                th:value="${login.password}"
+                placeholder="Enter a new password"
                 aria-describedby="passwordAddon"
+                id="password" name="password"
               />
               <div class="input-group-append">
-                <button
+                <a
                   class="btn btn-outline-secondary"
                   type="submit"
                   th:href="@{/login/changePassword(username=${login.username})}"
+                  onclick="document.getElementById('accountForm').submit()"
                 >
                   Change Password
-                </button>
+                </a>
               </div>
             </div>
             <div class="input-group mb-3">
