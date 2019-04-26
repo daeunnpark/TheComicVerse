@@ -7,7 +7,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
     <title>TheComicVerse</title>
 
     <!-- Bootstrap CSS -->
@@ -17,10 +16,18 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+
+    <!-- js file -->
+    <script
+      type="text/javascript"
+      src="../static/js/usersession.js"
+      th:src="@{/js/usersession.js}"
+    ></script>
+
+    <title>TheComicVerse</title>
   </head>
 
   <body>
-    <title>TheComicVerse</title>
     <!--Menu Bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!--<a class="navbar-brand" href="#">ComicVerse</a>-->
@@ -48,7 +55,11 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitBrowse" action="/browse" method="GET">
+            <form
+              id="submitBrowse"
+              th:action="@{/series/allSeries}"
+              method="POST"
+            >
               <a
                 class="nav-link"
                 href="#"
@@ -82,7 +93,17 @@
                 >
               </form>
               <div class="dropdown-divider"></div>
-              <form id="submitUpload" action="/upload_episode" method="GET">
+              <form
+                id="submitUpload"
+                th:action="@{/episodes/upload_episode}"
+                method="GET"
+              >
+                <input
+                  id="dummyUsernameForm2"
+                  type="text"
+                  name="username"
+                  hidden
+                />
                 <a
                   class="dropdown-item"
                   href="#"
@@ -101,7 +122,17 @@
             </div>
           </li>
           <li class="nav-item">
-            <form id="submitManage" action="/manage_my_series" method="GET">
+            <form
+              id="submitManage"
+              th:action="@{/series/mySeries}"
+              method="GET"
+            >
+              <input
+                id="dummyUsernameForm3"
+                type="text"
+                name="username"
+                hidden
+              />
               <a
                 class="nav-link"
                 href="#"
@@ -111,7 +142,14 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitSetting" action="/account_settings" method="GET">
+            <form id="submitSetting" action="/login/getUser" method="GET">
+              <input
+                id="dummyUsernameForm"
+                type="text"
+                name="username"
+                hidden
+              />
+
               <a
                 class="nav-link"
                 href="#"
@@ -124,6 +162,7 @@
             <form id="submitSignout" action="/signout" method="GET">
               <a
                 class="nav-link pull-right"
+                id="signoutBtn"
                 href="#"
                 onclick="document.getElementById('submitSignout').submit()"
                 >Sign Out</a
@@ -135,61 +174,87 @@
     </nav>
 
     <!--Search Bar-->
-    <div class="input-group" style="margin: 20px auto;">
-      <div class="input-group-prepend">
-        <nav class="navbar navbar-light">
-          <a class="navbar-brand" style="color: orange">TheComicVerse</a>
-        </nav>
-        <button
-          class="btn btn-outline-secondary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          style="width:150px"
-        >
-          Search by
-        </button>
+    <div style="width:100%;">
+      <div class="input-group" style="margin: 20px auto;width:100%;">
+        <div class="input-group-prepend">
+          <nav class="navbar navbar-light">
+            <a class="navbar-brand" style="color: orange;">TheComicVerse</a>
+          </nav>
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="width:150px"
+          >
+            Search by
+          </button>
 
-        <div class="dropdown-menu">
-          <a class="dropdown-item" name="All" data-value="all" href="#">All</a>
-          <a class="dropdown-item" name="byTitle" data-value="title" href="#"
-            >Title</a
-          >
-          <a class="dropdown-item" name="byAuthor" data-value="author" href="#"
-            >Author</a
-          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" name="All" data-value="all" href="#"
+              >All</a
+            >
+            <a class="dropdown-item" name="byTitle" data-value="title" href="#"
+              >Title</a
+            >
+            <a
+              class="dropdown-item"
+              name="byAuthor"
+              data-value="author"
+              href="#"
+              >Author</a
+            >
+          </div>
         </div>
-
-        <form id="searchBy" th:action="@{series/search}" method="post">
-          <input type="hidden" name="searchOption" id="searchOption" />
+        <form
+          id="searchBy"
+          th:action="@{/series/search}"
+          method="post"
+          style="width:65%;"
+        >
+          <input
+            type="hidden"
+            name="searchOption"
+            id="searchOption"
+            style="height:0"
+          />
           <input
             type="search"
-            class="form-control mr-sm-2"
+            class="form-control"
             placeholder="Search"
             aria-label="Search"
             name="keyword"
+            style="height:100%; width:100%;"
           />
         </form>
-        <button
-          class="btn btn-outline-success my-2 my-sm-0"
-          type="submit"
-          onclick="document.getElementById('searchBy').submit()"
-        >
-          Search
-        </button>
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-success"
+            type="submit"
+            onclick="document.getElementById('searchBy').submit()"
+          >
+            Search
+          </button>
+        </div>
       </div>
     </div>
 
-    <!--Log in-->
+    <!-- Left Pane -->
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4">
-          <div class="card">
-            <div class="card-header" style="background-color: bisque;">
+          <!-- Log in Panel -->
+          <div class="card" id="loginSection">
+            <div
+              id="loginid"
+              class="card-header"
+              style="background-color: bisque;"
+            >
               Login
             </div>
-            <div class="card-body" id="loginBody">
+            <p id="hel0"></p>
+            <div class="card-body">
               <form
                 id="submitLogin"
                 th:action="@{login/checkLogin}"
@@ -203,8 +268,8 @@
                   </div>
                   <input
                     type="text"
-                    id="username"
                     name="username"
+                    required
                     class="form-control"
                     placeholder="Username"
                     aria-label="Username"
@@ -219,9 +284,10 @@
                     >
                   </div>
                   <input
-                    sid="password"
-                    type="text"
+                    id="password"
+                    type="password"
                     name="password"
+                    required
                     class="form-control"
                     placeholder="Password"
                     aria-label="Password"
@@ -230,35 +296,61 @@
                 </div>
               </form>
 
-              <div class="row">
-                <div style="margin:0 auto;">
-                  <form
-                    id="submitSignUp"
-                    action="/sign_up_form"
-                    method="GET"
-                  ></form>
-                  <button
-                    type="submit"
-                    onclick="document.getElementById('submitSignUp').submit()"
-                    class="btn btn-outline-primary"
-                  >
-                    Sign Up
-                  </button>
+              <div style="margin:0 auto;">
+                <form
+                  id="submitSignUp"
+                  action="/sign_up_form"
+                  method="GET"
+                ></form>
 
-                  <button
-                    type="button"
-                    onclick="document.getElementById('submitLogin').submit()"
-                    class="btn btn-outline-success"
-                  >
-                    Sign In
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onclick="document.getElementById('submitLogin').submit()"
+                  class="btn btn-outline-success"
+                >
+                  Sign In
+                </button>
+                <br />
+                <label for="signUpButton">Don't have an account?</label>
+                <button
+                  id="signUpButton"
+                  type="submit"
+                  onclick="document.getElementById('submitSignUp').submit()"
+                  class="btn btn-outline-primary"
+                >
+                  Sign Up
+                </button>
               </div>
               <div class="error_msg" th:if="${param.error}">
                 <p>Invalid username and/or password.</p>
               </div>
+            </div>
+          </div>
+
+          <!-- Logged in Panel, hidden by default -->
+          <div class="card" id="loggedInSection">
+            <div class="card-header" style="background-color: bisque;">
+              Welcome to TheComicVerse!
+            </div>
+            <div class="card-body " id="loggedInBody">
               <div class="error_msg" th:if="${param.username}">
                 <p th:text="'Welcome '+${param.username}"></p>
+                <script th:inline="javascript">
+                  var message = [[${ param.username }]];
+                  loginSuccessful(message);
+                </script>
+              </div>
+              <div class="row">
+                <div style="margin:0 auto;">
+                  <button
+                    type="button"
+                    id="signoutBtn_loggedin"
+                    onclick="document.getElementById('submitSignout').submit()"
+                    class="btn btn-outline-success"
+                  >
+                    Sign Out
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -318,7 +410,14 @@
               />
               <div class="card-body">
                 <h5 class="card-title">Tom and Jerry</h5>
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
+
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
             <div class="card">
@@ -329,7 +428,14 @@
               />
               <div class="card-body">
                 <h5 class="card-title">Batman</h5>
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
+
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
           </div>
@@ -342,7 +448,14 @@
               />
               <div class="card-body">
                 <h5 class="card-title">Snoopy</h5>
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
+
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
             <div class="card">
@@ -353,7 +466,13 @@
               />
               <div class="card-body">
                 <h5 class="card-title">SpongeBob</h5>
-                <a href="#" class="btn btn-primary">Subscribe</a>
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  th:href="@{/view_comic_series}"
+                  >View Comic Page</a
+                >
+                <a class="btn btn-primary" href="#">Subscribe</a>
               </div>
             </div>
           </div>
@@ -368,6 +487,18 @@
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
       crossorigin="anonymous"
     ></script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+
+      var flag = [[${signout}]]; //Your Thymleaf variable
+      window.onload = function() {
+        if(!flag)
+          return; // Exit/Return if the variable is false
+        signout1(); // Call your favourite method if the variable is true
+      };
+
+      /*]]>*/
+    </script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -378,11 +509,13 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script
-      type="text/javascript"
-      src="../static/js/usersession.js"
-      th:src="@{/js/usersession.js}"
-    ></script>
     <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
+    <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script>
+      $(document).ready(function() {
+        document.getElementById("dummyUsernameForm").value = getUsername();
+        document.getElementById("dummyUsernameForm3").value = getUsername();
+      });
+    </script>
   </body>
 </html>

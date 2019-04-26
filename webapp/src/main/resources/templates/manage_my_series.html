@@ -52,7 +52,11 @@
             </form>
           </li>
           <li class="nav-item">
-            <form id="submitBrowse" th:action="@{allSeries}" method="POST">
+            <form
+              id="submitBrowse"
+              th:action="@{/series/allSeries}"
+              method="POST"
+            >
               <a
                 class="nav-link"
                 href="#"
@@ -88,7 +92,7 @@
               <div class="dropdown-divider"></div>
               <form
                 id="submitUpload"
-                th:action="@{episodes/upload_episode}"
+                th:action="@{/episodes/upload_episode}"
                 method="GET"
               >
                 <input
@@ -172,10 +176,10 @@
                   alt="Card image cap" />
                   -->
                 <img
-                        class="card-img-top"
-                        id="thumbnail"
-                        th:src="${serie.imageData}"
-                        alt="Card image cap"
+                  class="card-img-top"
+                  id="thumbnail"
+                  th:src="${serie.imageData}"
+                  alt="Card image cap"
                 />
                 <div class="card-body">
                   <div class="row">
