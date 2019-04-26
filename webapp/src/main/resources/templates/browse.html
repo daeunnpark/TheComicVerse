@@ -171,6 +171,72 @@
       </div>
     </nav>
 
+    <div style="width:100%;">
+      <div class="input-group" style="margin: 20px auto;width:100%;">
+        <div class="input-group-prepend">
+          <nav class="navbar navbar-light">
+            <a class="navbar-brand" style="color: orange;">TheComicVerse</a>
+          </nav>
+          <button
+                  class="btn btn-outline-secondary dropdown-toggle"
+                  type="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style="width:150px"
+          >
+            Search by
+          </button>
+
+          <div class="dropdown-menu">
+            <a class="dropdown-item" name="All" data-value="all" href="#"
+            >All</a
+            >
+            <a class="dropdown-item" name="byTitle" data-value="title" href="#"
+            >Title</a
+            >
+            <a
+                    class="dropdown-item"
+                    name="byAuthor"
+                    data-value="author"
+                    href="#"
+            >Author</a
+            >
+          </div>
+        </div>
+        <form
+                id="searchBy"
+                th:action="@{/series/search}"
+                method="post"
+                style="width:65%;"
+        >
+          <input
+                  type="hidden"
+                  name="searchOption"
+                  id="searchOption"
+                  style="height:0"
+          />
+          <input
+                  type="search"
+                  class="form-control"
+                  placeholder="Search"
+                  aria-label="Search"
+                  name="keyword"
+                  style="height:100%; width:100%;"
+          />
+        </form>
+        <div class="input-group-append">
+          <button
+                  class="btn btn-outline-success"
+                  type="submit"
+                  onclick="document.getElementById('searchBy').submit()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-sm-3">
         <div class="container">
@@ -356,7 +422,13 @@
                       >View Comic Page</a
                     >
                   </form>
-                  <a href="#" class="btn btn-primary">Subscribe</a>
+                  <form id="submitSubscription" th:action="@{/subs/checkSubscription}"  method="POST">
+                    <input type="hidden" name="username" id="dummyUsernameForm4" />
+                    <input type="hidden" name="SeriesID" th:value="${serie.SeriesID}" />
+                    <button type="button" class="btn btn-primary"
+                            onclick="document.getElementById('submitSubscription').submit()"
+                    >Subscribe</button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -382,6 +454,8 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
+    <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
     <script>
       $(document).ready(function() {

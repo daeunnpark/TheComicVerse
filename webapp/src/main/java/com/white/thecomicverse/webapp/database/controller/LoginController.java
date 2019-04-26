@@ -135,9 +135,25 @@ public class LoginController {
         return null;
     }
 
-    @PostMapping(path = "/deleteAccount")
-    public String deleteAccount(HttpServletRequest req, @RequestParam(value = "username") String username) {
-        return "";
+    @RequestMapping(value = "/deleteAccount")
+    public ModelAndView deleteAccount(HttpServletRequest req, @RequestParam(value = "username") String username) {
+
+
+        Login l = new Login();
+
+        for (Login login : loginRepository.findAll()) {
+            if (login.getUsername().equals(username)) {
+                l = login;
+            }
+        }
+        this.loginRepository.delete(l);
+
+        ModelAndView mv = new ModelAndView("home");
+
+        mv.addObject("signout", l);
+        return mv;
+
+
     }
 
 }

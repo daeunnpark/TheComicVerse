@@ -3,6 +3,7 @@
 package com.white.thecomicverse.webapp.database.controller;
 
 
+import com.white.thecomicverse.webapp.database.model.Login;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import com.white.thecomicverse.webapp.database.model.subscription;
 import com.white.thecomicverse.webapp.database.model.Series;
 
 import com.white.thecomicverse.webapp.database.repositories.SubscriptionRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Date;
@@ -28,6 +31,7 @@ public class SubscriptionController {
 
     @Autowired
     private SubscriptionRepository subscriptionRepository;
+    @Autowired
     private SeriesRepository seriesRepository;
 
     @RequestMapping(value="/addSubscription")
@@ -40,16 +44,22 @@ public class SubscriptionController {
         sub.setSeriesID(seriesID);
         sub.setUsername(username);
         this.subscriptionRepository.save(sub);
-        Series s = new Series();
+
+        List<Series> se = new ArrayList<Series>();
+
         for (Series series : seriesRepository.findAll()) {
-            if (series.getSeriesID() == seriesID) {
-                s = series;
-            }
+            System.out.println("returning");
+
+            System.out.println(new String(series.getThumbnail()));
+            series.setImageData(new String(series.getThumbnail()));
+            se.add(series);
         }
 
-        ModelAndView mv = new ModelAndView("view_comic_series");
-        mv.addObject(s);
+        ModelAndView mv = new ModelAndView("browse");
+        // mv.addObject(s);
+        mv.addObject("series", se);
         return mv;
+
 
 
     }
@@ -69,16 +79,29 @@ public class SubscriptionController {
 
 
         this.subscriptionRepository.delete(sub);
-
+/*
 
         Series s = new Series();
         for (Series series : seriesRepository.findAll()) {
             s= series;
         }
+*/
+        List<Series> se = new ArrayList<Series>();
 
-        ModelAndView mv = new ModelAndView("view_comic_series");
-        mv.addObject(s);
+        for (Series series : seriesRepository.findAll()) {
+            System.out.println("returning");
+
+            System.out.println(new String(series.getThumbnail()));
+            series.setImageData(new String(series.getThumbnail()));
+            se.add(series);
+        }
+
+        ModelAndView mv = new ModelAndView("browse");
+        // mv.addObject(s);
+        mv.addObject("series", se);
         return mv;
+
+
 
 
     }
@@ -87,7 +110,7 @@ public class SubscriptionController {
     public ModelAndView checkSub(HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-
+        System.out.println("EFEFFEFEF");
         subscription sub = new subscription();
         for (subscription s : subscriptionRepository.findAll()){
             if (s.getSeriesID() == seriesID){
@@ -101,6 +124,12 @@ public class SubscriptionController {
         return subscribe(req, username, seriesID);
 
 
+    }
+
+    @GetMapping(path = "/allSub")
+    public @ResponseBody Iterable<subscription> getAllSub() {
+        // This returns a JSON or XML with the users
+        return this.subscriptionRepository.findAll();
     }
 
 

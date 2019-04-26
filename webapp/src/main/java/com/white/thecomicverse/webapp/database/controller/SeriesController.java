@@ -73,6 +73,13 @@ public class SeriesController {
         System.out.println("username is " + author);
         List<Series> seriesList = new ArrayList<Series>();
 
+        for (Series series : seriesRepository.findAll()) {
+
+            System.out.println(new String(series.getThumbnail()));
+            series.setImageData(new String(series.getThumbnail()));
+
+        }
+
         for (Series s : seriesRepository.findAll()) {
             // if (s.getSeriesName().equals(seriesName)) {
             if (s.getAuthor().equals(author)) {
