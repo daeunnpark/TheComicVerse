@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class SeriesController {
     public ModelAndView createSeries(HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "categories") String categories, @RequestParam(value = "author") String author,
-            @RequestParam(value = "thumbnail") String thumbnail) {
+            @RequestParam(value = "thumbnail") String thumbnail, RedirectAttributes redir) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -71,7 +72,8 @@ public class SeriesController {
 
         ModelAndView mv = new ModelAndView("redirect:/manage_my_series");
         // mv.addObject("series", newSeries);
-        mv.addObject("series", seriesList);
+        // mv.addObject("series", seriesList);
+        redir.addFlashAttribute("series", seriesList);
         return mv;
 
     }
@@ -179,20 +181,21 @@ public class SeriesController {
         return seriesRepository.findAll();
     }
 
-    @GetMapping(path="/view_series")
-    public @ResponseBody ModelAndView viewSeries(HttpServletRequest req, @RequestParam(value = "seriesID") String seriesID){
+    @GetMapping(path = "/view_series")
+    public @ResponseBody ModelAndView viewSeries(HttpServletRequest req,
+            @RequestParam(value = "seriesID") String seriesID) {
 
         ModelAndView mv = new ModelAndView("view_comic_series");
         List<Episode> episodeList = new ArrayList<>();
 
         for (Series series : seriesRepository.findAll()) {
-            if(series.getSeriesID() == Integer.parseInt(seriesID)){
-                mv.addObject("series",series);
+            if (series.getSeriesID() == Integer.parseInt(seriesID)) {
+                mv.addObject("series", series);
             }
         }
 
-        for(Episode episode : episodeRepository.findAll()){
-            if(episode.getSeriesID()== Integer.parseInt(seriesID)){
+        for (Episode episode : episodeRepository.findAll()) {
+            if (episode.getSeriesID() == Integer.parseInt(seriesID)) {
                 episodeList.add(episode);
             }
         }

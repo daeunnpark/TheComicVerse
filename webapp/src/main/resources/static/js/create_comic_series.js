@@ -21,6 +21,7 @@ function encodeImageFileAsURL() {
   reader.onloadend = function() {
     console.log("RESULT", reader.result);
     document.getElementById("fileByteData").value = reader.result;
+    $("#preview").attr("src", reader.result);
   };
   reader.readAsDataURL(file);
   console.log(reader.result);
