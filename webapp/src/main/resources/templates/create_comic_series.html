@@ -55,7 +55,7 @@
           <li class="nav-item">
             <form
               id="submitBrowse"
-              th:action="@{series/allSeries}"
+              th:action="@{/series/allSeries}"
               method="POST"
             >
               <a
@@ -93,7 +93,7 @@
               <div class="dropdown-divider"></div>
               <form
                 id="submitUpload"
-                th:action="@{episodes/upload_episode}"
+                th:action="@{/episodes/upload_episode}"
                 method="GET"
               >
                 <input
@@ -120,7 +120,11 @@
             </div>
           </li>
           <li class="nav-item">
-            <form id="submitManage" th:action="@{series/mySeries}" method="GET">
+            <form
+              id="submitManage"
+              th:action="@{/series/mySeries}"
+              method="GET"
+            >
               <input
                 id="dummyUsernameForm3"
                 type="text"
@@ -173,7 +177,7 @@
         <div style="width:40vw; margin: auto;">
           <form
             id="submitCreateSeries"
-            th:action="@{series/createSeries}"
+            th:action="@{/series/createSeries}"
             method="POST"
           >
             <input type="hidden" name="categories" id="categories" />
