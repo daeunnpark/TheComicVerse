@@ -28,7 +28,7 @@
     <link
       rel="stylesheet"
       href="../static/css/manage_my_series.css"
-      th:href="../static/css/manage_my_series.css"
+      th:href="@{/css/manage_my_series.css}"
     />
 
     <script
@@ -91,18 +91,7 @@
               Create
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <form
-                      id="submitCreate"
-                      action="/create_comic_series"
-                      method="GET"
-              >
-                <a
-                        class="dropdown-item"
-                        href="#"
-                        onclick="document.getElementById('submitCreate').submit()"
-                >Create a Serie</a
-                >
-              </form>
+              
               <div class="dropdown-divider"></div>
               <form
                       id="submitUpload"
@@ -327,10 +316,12 @@
             </div>
           </div>
         </div>
-        <span class="fa-stack" style="vertical-align: top; float:right;">
+        <form id="submitDraw" action="/drawing_page" method="GET"></form>
+        <span class="fa-stack" style="vertical-align: top; float:right;" onclick="document.getElementById('submitDraw').click();">
           <i class="fas fa-circle fa-stack-2x"></i>
           <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
         </span>
+        </form> 
       </div>
     </div>
 

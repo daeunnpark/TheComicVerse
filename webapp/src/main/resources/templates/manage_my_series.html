@@ -27,7 +27,7 @@
     <link
       rel="stylesheet"
       href="../static/css/manage_my_series.css"
-      th:href="../static/css/manage_my_series.css"
+      th:href="@{/css/manage_my_series.css}"
     />
 
     <script
@@ -223,10 +223,17 @@
             </div>
           </div>
         </div>
-        <span class="fa-stack" style="vertical-align: top; float:right;">
-          <i class="fas fa-circle fa-stack-2x"></i>
-          <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
-        </span>
+
+
+
+
+        <form id="submitCreate" action="/create_comic_series" method="GET">
+          <span class="fa-stack" style="vertical-align: top; float:right;" onclick="document.getElementById('submitCreate').submit()">
+            <i class="fas fa-circle fa-stack-2x" ></i>
+            <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+          </span>
+        </form>        
+       
       </div>
     </div>
 
