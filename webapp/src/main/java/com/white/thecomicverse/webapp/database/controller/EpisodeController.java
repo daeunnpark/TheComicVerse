@@ -63,7 +63,10 @@ public class EpisodeController {
             }
 
         }
-
+        System.out.println(SeriesID);
+        System.out.println(episodeName);
+        System.out.println(thumbnail);
+        System.out.println(image);
         byte[] thumbnailByteArr = thumbnail.getBytes();
         Date d = new Date();
         Episode epi = new Episode();
@@ -74,6 +77,14 @@ public class EpisodeController {
         epi.setNumView(0);
         epi.setThumbnail(thumbnailByteArr);
         epi.setDateCreated(d.toGMTString());
+
+        int max=-1;
+        for (Episode episode : EpiRepository.findAll()){
+            if (episode.getSeriesID()== Integer.parseInt(SeriesID) && episode.getIndices()>max){
+                max = episode.getIndices();
+            }
+        }
+        epi.setIndices(max+1);
         this.EpiRepository.save(epi);
         addImage(epi.getEpisodeID(), image);
         return "redirect:/read_episode";
@@ -165,7 +176,7 @@ public class EpisodeController {
 
     public void addImage(int episodeID, String imageData){
 
-        int max = 0;
+        int max = -1;
         for (EpisodeImage episodeImage : episodeImageRepository.findAll()){
             if (episodeImage.getEpisodeID()==episodeID && episodeImage.getIndices()>max){
                 max = episodeImage.getIndices();
@@ -175,7 +186,7 @@ public class EpisodeController {
 
         EpisodeImage newEpisodeImage = new EpisodeImage();
         newEpisodeImage.setEpisodeID(episodeID);
-        newEpisodeImage.setIndices(max);
+        newEpisodeImage.setIndices(max+1);
         newEpisodeImage.setImageData(imageDataBytes);
         this.episodeImageRepository.save(newEpisodeImage);
     }

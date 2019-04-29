@@ -11,7 +11,7 @@ $(".dropdown-menu a").click(function() {
         .find(".btn")
         .val($(this).data("value"));
 
-    $("#categories").val($(this).data("value"));
+    $("#seriesID").val($(this).data("value"));
 });
 
 function encodeImageFileAsURL(inputID,outputID) {
