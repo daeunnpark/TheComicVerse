@@ -80,8 +80,7 @@ public class Series {
         try {
 
             int length = (int) this.thumbnail.length();
-            System.out.println("getThunbmail");
-            System.out.println("length is" + length);
+
             return this.thumbnail.getBytes(1, length);
             
         } catch (SQLException e) {

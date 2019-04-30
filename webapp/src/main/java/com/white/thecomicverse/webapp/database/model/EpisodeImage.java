@@ -44,7 +44,6 @@ public class EpisodeImage {
     public byte[] getImageData(){
 
         try {
-
             int length = (int) this.imageData.length();
             return this.imageData.getBytes(1, length);
         } catch (SQLException e) {

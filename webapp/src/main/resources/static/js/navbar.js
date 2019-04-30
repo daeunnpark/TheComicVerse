@@ -22,5 +22,7 @@ function signout1(){
 }
 
 $(document).ready(function() {
+  document.getElementById("dummyUsernameForm1").value=window.sessionStorage.getItem("username");
   document.getElementById("dummyUsernameForm2").value=window.sessionStorage.getItem("username");
+  document.getElementById("dummyUsernameForm3").value=window.sessionStorage.getItem("username");
 });

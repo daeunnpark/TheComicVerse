@@ -91,7 +91,18 @@
               Create
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              
+              <form
+                      id="submitCreate"
+                      action="/create_comic_series"
+                      method="GET"
+              >
+                <a
+                        class="dropdown-item"
+                        href="#"
+                        onclick="document.getElementById('submitCreate').submit()"
+                >Create a Serie</a
+                >
+              </form>
               <div class="dropdown-divider"></div>
               <form
                       id="submitUpload"
@@ -144,7 +155,7 @@
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                      id="dummyUsernameForm"
+                      id="dummyUsernameForm1"
                       type="text"
                       name="username"
                       hidden
@@ -387,11 +398,5 @@
       src="../static/js/loginModal.js"
       th:src="@{/js/loginModal.js}"
     ></script>
-    <script>
-      $(document).ready(function() {
-        document.getElementById("dummyUsernameForm").value = getUsername();
-        document.getElementById("dummyUsernameForm3").value = getUsername();
-      });
-    </script>
   </body>
 </html>

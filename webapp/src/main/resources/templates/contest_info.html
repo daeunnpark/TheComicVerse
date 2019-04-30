@@ -161,7 +161,7 @@
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                      id="dummyUsernameForm"
+                      id="dummyUsernameForm1"
                       type="text"
                       name="username"
                       hidden
@@ -380,11 +380,6 @@
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
-    <script>
-      $(document).ready(function () {
-        document.getElementById("dummyUsernameForm").value=getUsername();
-      });
 
-    </script>
   </body>
 </html>
