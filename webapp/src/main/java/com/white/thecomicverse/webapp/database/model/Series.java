@@ -78,9 +78,7 @@ public class Series {
     public byte[] getThumbnail(){
 
         try {
-
             int length = (int) this.thumbnail.length();
-
             return this.thumbnail.getBytes(1, length);
             
         } catch (SQLException e) {
@@ -94,8 +92,7 @@ public class Series {
 
         try {
             this.thumbnail = new SerialBlob(byteArray);
-            System.out.println("setThumnail working");
-            System.out.println();
+            //System.out.println("setThumnail working");
         }catch (SQLException e) {
             e.printStackTrace();
         }

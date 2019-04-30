@@ -195,7 +195,7 @@
                   <div class="card">
                     <img
                       class="card-img-top"
-                      th:src="${image.imageData}"
+                      th:src="${image.imageString}"
                       alt="Card image cap"
                     />
                   </div>
@@ -229,12 +229,16 @@
       </div>
       <div class="row">
         <div style="margin:0 auto;">
-          <button type="button" th:action="@{/episodes/prevEp}" class="btn btn-outline-success">
-            Previous
-          </button>
-          <button type="button" th:action="@{/episodes/nextEp}" class="btn btn-outline-primary">
-            Next
-          </button>
+          <form id="submitPrev" th:action="@{/episodes/prevEp}">
+            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+            <input name="episodeIndex" th:value="${episode.indices}" hidden/>
+          </form>
+          <button type="button" onclick="document.getElementById('submitPrev').submit()" class="btn btn-outline-success">Previous</button>
+          <form id="submitNext" th:action="@{/episodes/nextEp}">
+            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+            <input name="episodeIndex" th:value="${episode.indices}" hidden/>
+          </form>
+          <button type="button" onclick="document.getElementById('submitNext').submit()" class="btn btn-outline-primary">Next</button>
         </div>
       </div>
       <div class="row">

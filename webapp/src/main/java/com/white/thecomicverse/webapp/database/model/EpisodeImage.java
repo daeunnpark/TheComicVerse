@@ -19,6 +19,16 @@ public class EpisodeImage {
 
     private Blob imageData;
 
+    private String imageString;
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+    }
+
     public int getEpisodeImageID() {
         return this.EpisodeImageID;
     }
@@ -42,7 +52,6 @@ public class EpisodeImage {
     }
 
     public byte[] getImageData(){
-
         try {
             int length = (int) this.imageData.length();
             return this.imageData.getBytes(1, length);
@@ -50,11 +59,9 @@ public class EpisodeImage {
             e.printStackTrace();
             return null;
         }
-
     }
 
     public void setImageData(byte[] byteArray){
-
         try {
             this.imageData = new SerialBlob(byteArray);
         }catch (SQLException e) {

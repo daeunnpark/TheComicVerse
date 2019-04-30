@@ -231,108 +231,18 @@
                       ></h5>
                     </div>
                     <div class="col-sm-4">
+                      <form id="submitReadEpisode"
+                      th:action="@{/episodes/readEpisode}">
+                        <input
+                        name="episodeID"
+                        th:value="${episode.EpisodeID}"
+                        hidden
+                        />
+                      </form>
                       <a
                         href="#"
                         class="btn btn-primary"
-                        th:href="@{/read_episode}"
-                        >View</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h5 class="card-title">Episode 2</h5>
-                    </div>
-                    <div class="col-sm-4">
-                      <a
-                        href="#"
-                        class="btn btn-primary"
-                        th:href="@{/read_episode}"
-                        >View</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h5 class="card-title">Episode 3</h5>
-                    </div>
-                    <div class="col-sm-4">
-                      <a
-                        href="#"
-                        class="btn btn-primary"
-                        th:href="@{/read_episode}"
-                        >View</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h5 class="card-title">Episode 4</h5>
-                    </div>
-                    <div class="col-sm-4">
-                      <a
-                        href="#"
-                        class="btn btn-primary"
-                        th:href="@{/read_episode}"
-                        >View</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h5 class="card-title">Episode 5</h5>
-                    </div>
-                    <div class="col-sm-4">
-                      <a
-                        href="#"
-                        class="btn btn-primary"
-                        th:href="@{/read_episode}"
+                        onclick="document.getElementById('submitReadEpisode').submit()"
                         >View</a
                       >
                     </div>
@@ -342,6 +252,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
 

@@ -73,7 +73,6 @@ public class SeriesController {
 
         for (Series series : seriesRepository.findAll()) {
             series.setImageData(new String(series.getThumbnail()));
-
         }
 
         for (Series s : seriesRepository.findAll()) {
@@ -82,7 +81,6 @@ public class SeriesController {
                 seriesList.add(s);
             }
             // }
-
         }
 
         ModelAndView mv = new ModelAndView("manage_my_series");

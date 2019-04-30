@@ -221,33 +221,34 @@
             />
             <br />
             <input
+                    id="fileEpisodeByteData"
+                    name="thumbnail"
+                    hidden
+                    type="text"
+            />
+            <input
+                    id="fileEpisodeImageByteData"
+                    name="episodeImage"
+                    hidden
+                    type="text"
+            />
+            <input
               type="file"
               id="fileEpisodeThumbnailInput"
-              onchange="encodeImageFileAsURL(fileEpisodeThumbnailInput,fileEpisodeByteData)"
+              onchange="encodeImageFileAsURL('fileEpisodeThumbnailInput','fileEpisodeByteData')"
               style="display: block; margin: 0 auto;border:1px solid grey;"
               accept="image/*"
             />
             <br />
-            <input
-              id="fileEpisodeByteData"
-              name="thumbnail"
-              hidden
-              type="text"
-            />
+
             <input
               type="file"
               id="fileEpisodeImageInput"
-              onchange="encodeImageFileAsURL(fileEpisodeImageInput,fileEpisodeImageByteData)"
+              onchange="encodeImageFileAsURL('fileEpisodeImageInput','fileEpisodeImageByteData')"
               style="display: block; margin: 0 auto;border:1px solid grey;"
               accept="image/*"
             />
             <br />
-            <input
-              id="fileEpisodeImageByteData"
-              name="episodeImage"
-              hidden
-              type="text"
-            />
             <br />
             <button
               type="submit"
