@@ -182,54 +182,27 @@
       <div class="card-header">Read Episode</div>
       <div class="card-body">
         <div class="card">
-          <div class="card-header">Episode 1</div>
-          <div class="card-body">
-            <div id="panelTable">
+          <div class="card-header"
+          th:text="${episode.EpisodeName}"></div>
+
+          <!-- Episode images -->
+          <div class="card-body" th:if="${imageList} != null">
+            <div id="panelTable" th:each="image : ${imageList}">
+
+              <!-- Episode Image -->
               <div class="row">
                 <div class="col-md-6" style="margin:0 auto;">
                   <div class="card">
                     <img
                       class="card-img-top"
-                      src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                      alt="Card image cap"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6" style="margin:0 auto;">
-                  <div class="card">
-                    <img
-                      class="card-img-top"
-                      src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                      alt="Card image cap"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6" style="margin:0 auto;">
-                  <div class="card">
-                    <img
-                      class="card-img-top"
-                      src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                      alt="Card image cap"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6" style="margin:0 auto;">
-                  <div class="card">
-                    <img
-                      class="card-img-top"
-                      src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
+                      th:src="${image.imageData}"
                       alt="Card image cap"
                     />
                   </div>
                 </div>
               </div>
 
+              <!-- Custom Ending Image-->
               <div class="row">
                 <div class="col-md-6" style="margin:0 auto;">
                   <div class="card">
@@ -249,6 +222,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

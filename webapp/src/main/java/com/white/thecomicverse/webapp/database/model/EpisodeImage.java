@@ -41,7 +41,7 @@ public class EpisodeImage {
         this.indices = indices;
     }
 
-    public byte[] getimageData(){
+    public byte[] getImageData(){
 
         try {
 

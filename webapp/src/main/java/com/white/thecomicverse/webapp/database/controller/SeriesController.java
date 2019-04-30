@@ -41,8 +41,7 @@ public class SeriesController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
-        System.out.println(categories);
-        System.out.println(thumbnail);
+        System.out.println("Category: " + categories);
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().equals(seriesName)) {
@@ -51,8 +50,7 @@ public class SeriesController {
                 return mv2;
             }
         }
-        System.out.println("enteringing");
-        System.out.println(thumbnail.length());
+        System.out.println("enteringing: "+ thumbnail.length());
 
         byte[] b = thumbnail.getBytes();
         Series newSeries = new Series();
@@ -74,8 +72,6 @@ public class SeriesController {
         List<Series> seriesList = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-
-            System.out.println(new String(series.getThumbnail()));
             series.setImageData(new String(series.getThumbnail()));
 
         }
@@ -180,9 +176,6 @@ public class SeriesController {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-            System.out.println("returning");
-
-            System.out.println(new String(series.getThumbnail()));
             series.setImageData(new String(series.getThumbnail()));
             s.add(series);
         }
