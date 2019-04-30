@@ -20,3 +20,7 @@ function signout1(){
   window.sessionStorage.removeItem("username");
   updateLoginUI();
 }
+
+$(document).ready(function() {
+  document.getElementById("dummyUsernameForm2").value=window.sessionStorage.getItem("username");
+});
