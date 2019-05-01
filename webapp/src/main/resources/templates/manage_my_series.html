@@ -191,7 +191,7 @@
             <div
               th:each="serie : ${series}"
               class="col-sm-4"
-              style="margin:10px 0px;"
+              style="margin:10px 0px; "
             >
               <div class="card">
                 <!--
@@ -215,7 +215,31 @@
                       <a href="#" class="btn btn-primary">Edit</a>
                     </div>
                     <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
+                      <form
+                        id="deleteSeries"
+                        th:action="@{/series/deleteSeries}"
+                        method="GET"
+                      >
+                        <input
+                          id="dummyUsernameForm4"
+                          type="text"
+                          name="username"
+                          hidden
+                        />
+                        <input
+                          id="seriesID"
+                          type="text"
+                          name="seriesID"
+                          hidden
+                          th:value="${serie.SeriesID}"
+                        />
+                        <a
+                          class="btn btn-danger"
+                          href="#"
+                          onclick="document.getElementById('deleteSeries').submit()"
+                          >Delete</a
+                        >
+                      </form>
                     </div>
                   </div>
                 </div>

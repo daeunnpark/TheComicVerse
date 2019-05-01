@@ -1,4 +1,5 @@
 package com.white.thecomicverse.webapp.database.model;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,7 @@ import javax.sql.rowset.serial.SerialBlob;
 @Entity // This tells Hibernate to make a table out of this class
 public class Series {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int SeriesID;
 
     private String SeriesName;
@@ -33,15 +34,13 @@ public class Series {
         this.imageData = imageData;
     }
 
-
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
-
 
     public int getSeriesID() {
         return this.SeriesID;
@@ -75,12 +74,12 @@ public class Series {
         this.categories = categories;
     }
 
-    public byte[] getThumbnail(){
+    public byte[] getThumbnail() {
 
         try {
             int length = (int) this.thumbnail.length();
             return this.thumbnail.getBytes(1, length);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -88,15 +87,14 @@ public class Series {
 
     }
 
-    public void setThumbnail(byte[] byteArray){
+    public void setThumbnail(byte[] byteArray) {
 
         try {
             this.thumbnail = new SerialBlob(byteArray);
-            //System.out.println("setThumnail working");
-        }catch (SQLException e) {
+            // System.out.println("setThumnail working");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
 }

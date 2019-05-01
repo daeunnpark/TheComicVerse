@@ -37,11 +37,12 @@ public class EpisodeController {
     private SeriesRepository seriesRepository;
 
     @RequestMapping(value = "/upload_episode")
-    public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username, RedirectAttributes ra){
+    public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username,
+            RedirectAttributes ra) {
         ModelAndView mv = new ModelAndView("redirect:/upload_episode");
         List<Series> seriesList = new ArrayList<>();
-        for(Series series : seriesRepository.findAll()) {
-            if(series.getAuthor().equals(username)){
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getAuthor().equals(username)) {
                 seriesList.add(series);
             }
         }
@@ -49,11 +50,11 @@ public class EpisodeController {
         return mv;
 
     }
+
     @RequestMapping(value = "/addEpisode") // Map ONLY GET Requests
     public ModelAndView addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") String SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
-            @RequestParam(value = "thumbnail") String thumbnail,
-            @RequestParam(value = "episodeImage") String image) {
+            @RequestParam(value = "thumbnail") String thumbnail, @RequestParam(value = "episodeImage") String image) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -63,8 +64,7 @@ public class EpisodeController {
             }
 
         }
-        System.out.println("thumbnail param:" + thumbnail);
-        System.out.println("image param:" + image);
+        System.out.println("seriesID is" + SeriesID);
         ModelAndView mv = new ModelAndView("home");
 
         byte[] thumbnailByteArr = thumbnail.getBytes();
@@ -78,13 +78,13 @@ public class EpisodeController {
         epi.setThumbnail(thumbnailByteArr);
         epi.setDateCreated(d.toGMTString());
 
-        int max=-1;
-        for (Episode episode : EpiRepository.findAll()){
-            if (episode.getSeriesID()== Integer.parseInt(SeriesID) && episode.getIndices()>max){
+        int max = -1;
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getSeriesID() == Integer.parseInt(SeriesID) && episode.getIndices() > max) {
                 max = episode.getIndices();
             }
         }
-        epi.setIndices(max+1);
+        epi.setIndices(max + 1);
         this.EpiRepository.save(epi);
         addImage(epi.getEpisodeID(), image);
 
@@ -100,7 +100,7 @@ public class EpisodeController {
             @RequestParam(value = "episodeIndex") String episodeIndex) {
         int seriesID = -1;
         for (Episode episode : EpiRepository.findAll()) {
-            if(Integer.parseInt(episodeID) == episode.getEpisodeID()){
+            if (Integer.parseInt(episodeID) == episode.getEpisodeID()) {
                 seriesID = episode.getSeriesID();
             }
         }
@@ -109,26 +109,26 @@ public class EpisodeController {
         int epiIndex = Integer.parseInt(episodeIndex);
         ModelAndView mv = new ModelAndView("read_episode");
 
-        if (epiIndex == 0){
+        if (epiIndex == 0) {
             return null;
         }
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex)-1) ) {
+            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex) - 1)) {
                 prevEpID = episode.getEpisodeID();
             }
         }
 
         List<EpisodeImage> imageList = new ArrayList<>();
         for (Episode episode : EpiRepository.findAll()) {
-            if(episode.getEpisodeID() == prevEpID){
-                mv.addObject("episode",episode);
-                for(EpisodeImage episodeImage: episodeImageRepository.findAll()){
-                    if(episodeImage.getEpisodeID() == prevEpID) {
+            if (episode.getEpisodeID() == prevEpID) {
+                mv.addObject("episode", episode);
+                for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+                    if (episodeImage.getEpisodeID() == prevEpID) {
                         episodeImage.setImageString(new String(episodeImage.getImageData()));
-                        imageList.add(episodeImage.getIndices(),episodeImage);
+                        imageList.add(episodeImage.getIndices(), episodeImage);
                     }
                 }
-                mv.addObject("imageList",imageList);
+                mv.addObject("imageList", imageList);
             }
         }
 
@@ -140,7 +140,7 @@ public class EpisodeController {
      **/
     @RequestMapping(value = "/nextEp") // Map ONLY GET Requests
     public ModelAndView nextEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") String episodeID,
-                                    @RequestParam(value = "episodeIndex") String episodeIndex) {
+            @RequestParam(value = "episodeIndex") String episodeIndex) {
         int nextEpID = -1;
         int max = -1;
         int epiIndex = Integer.parseInt(episodeIndex);
@@ -148,13 +148,13 @@ public class EpisodeController {
 
         int seriesID = -1;
         for (Episode episode : EpiRepository.findAll()) {
-            if(Integer.parseInt(episodeID) == episode.getEpisodeID()){
+            if (Integer.parseInt(episodeID) == episode.getEpisodeID()) {
                 seriesID = episode.getSeriesID();
             }
         }
 
         for (Episode episode : EpiRepository.findAll()) {
-            if(episode.getSeriesID() == seriesID && episode.getIndices() > max){
+            if (episode.getSeriesID() == seriesID && episode.getIndices() > max) {
                 max = episode.getIndices();
             }
         }
@@ -162,22 +162,22 @@ public class EpisodeController {
             return null;
         }
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex)+1) ) {
+            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex) + 1)) {
                 nextEpID = episode.getEpisodeID();
             }
         }
 
         List<EpisodeImage> imageList = new ArrayList<>();
         for (Episode episode : EpiRepository.findAll()) {
-            if(episode.getEpisodeID() == nextEpID){
-                mv.addObject("episode",episode);
-                for(EpisodeImage episodeImage: episodeImageRepository.findAll()){
-                    if(episodeImage.getEpisodeID() == nextEpID) {
+            if (episode.getEpisodeID() == nextEpID) {
+                mv.addObject("episode", episode);
+                for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+                    if (episodeImage.getEpisodeID() == nextEpID) {
                         episodeImage.setImageString(new String(episodeImage.getImageData()));
-                        imageList.add(episodeImage.getIndices(),episodeImage);
+                        imageList.add(episodeImage.getIndices(), episodeImage);
                     }
                 }
-                mv.addObject("imageList",imageList);
+                mv.addObject("imageList", imageList);
             }
         }
 
@@ -197,42 +197,42 @@ public class EpisodeController {
      */
     @RequestMapping(value = "/readEpisode") // Map ONLY GET Requests
     public ModelAndView readEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID) {
-        System.out.println("received episode ID: "+episodeID);
-        ModelAndView mv = new ModelAndView("read_episode");  //("redirect:/read_episode");
+        System.out.println("received episode ID: " + episodeID);
+        ModelAndView mv = new ModelAndView("read_episode"); // ("redirect:/read_episode");
         List<EpisodeImage> imageList = new ArrayList<>();
         for (Episode episode : EpiRepository.findAll()) {
-            if(episode.getEpisodeID() == episodeID){
-                mv.addObject("episode",episode);
-                for(EpisodeImage episodeImage: episodeImageRepository.findAll()){
-                    if(episodeImage.getEpisodeID() == episodeID) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+                    if (episodeImage.getEpisodeID() == episodeID) {
                         episodeImage.setImageString(new String(episodeImage.getImageData()));
                         System.out.println("epiString length = " + episodeImage.getImageString().length());
                         System.out.println("epiImageData length = " + episodeImage.getImageString().length());
-                        imageList.add(episodeImage.getIndices(),episodeImage);
+                        imageList.add(episodeImage.getIndices(), episodeImage);
                     }
                 }
-                //System.out.println("ImageList: "+ imageList);
-                mv.addObject("imageList",imageList);
-                //ra.addFlashAttribute("imageList",imageList);
+                // System.out.println("ImageList: "+ imageList);
+                mv.addObject("imageList", imageList);
+                // ra.addFlashAttribute("imageList",imageList);
             }
         }
         return mv;
     }
 
-    public void addImage(int episodeID, String imageData){
-        System.out.println("imageData passed: "+ imageData);
-        System.out.println("episodeID passed: "+ episodeID);
+    public void addImage(int episodeID, String imageData) {
+        System.out.println("imageData passed: " + imageData);
+        System.out.println("episodeID passed: " + episodeID);
         int max = -1;
-        for (EpisodeImage episodeImage : episodeImageRepository.findAll()){
-            if (episodeImage.getEpisodeID()==episodeID && episodeImage.getIndices()>max){
+        for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+            if (episodeImage.getEpisodeID() == episodeID && episodeImage.getIndices() > max) {
                 max = episodeImage.getIndices();
             }
         }
         byte[] imageDataBytes = imageData.getBytes();
-        System.out.println("imageDataBytes: "+ imageDataBytes);
+        System.out.println("imageDataBytes: " + imageDataBytes);
         EpisodeImage newEpisodeImage = new EpisodeImage();
         newEpisodeImage.setEpisodeID(episodeID);
-        newEpisodeImage.setIndices(max+1);
+        newEpisodeImage.setIndices(max + 1);
         newEpisodeImage.setImageData(imageDataBytes);
 
         this.episodeImageRepository.save(newEpisodeImage);
@@ -240,13 +240,13 @@ public class EpisodeController {
 
     @RequestMapping(value = "/deleteEpisode") // Map ONLY GET Requests
     public String deleteEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID) {
-        for (EpisodeImage episodeImage : episodeImageRepository.findAll()){
-            if (episodeImage.getEpisodeID()==episodeID){
+        for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+            if (episodeImage.getEpisodeID() == episodeID) {
                 episodeImageRepository.delete(episodeImage);
             }
         }
-        for (Episode epi : EpiRepository.findAll()){
-            if (epi.getEpisodeID()==episodeID){
+        for (Episode epi : EpiRepository.findAll()) {
+            if (epi.getEpisodeID() == episodeID) {
                 EpiRepository.delete(epi);
             }
         }

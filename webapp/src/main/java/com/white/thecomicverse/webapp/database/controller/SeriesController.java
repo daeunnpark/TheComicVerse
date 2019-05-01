@@ -50,7 +50,7 @@ public class SeriesController {
                 return mv2;
             }
         }
-        System.out.println("enteringing: "+ thumbnail.length());
+        System.out.println("enteringing: " + thumbnail.length());
 
         byte[] b = thumbnail.getBytes();
         Series newSeries = new Series();
@@ -68,7 +68,7 @@ public class SeriesController {
     @RequestMapping(value = "/mySeries") // Map ONLY GET Requests
     public ModelAndView getMySeries(HttpServletRequest req, @RequestParam(value = "username") String author) {
 
-        System.out.println("username is " + author);
+        System.out.println(author + "in My Series");
         List<Series> seriesList = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
@@ -85,7 +85,6 @@ public class SeriesController {
 
         ModelAndView mv = new ModelAndView("manage_my_series");
         mv.addObject("series", seriesList);
-        // redir.addFlashAttribute("series", seriesList);
         return mv;
 
     }
@@ -214,23 +213,39 @@ public class SeriesController {
     }
 
     @RequestMapping(value = "/deleteSeries") // Map ONLY GET Requests
-    public String deleteEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") String seriesID) {
+    public ModelAndView deleteEpisode(HttpServletRequest req, @RequestParam(value = "username") String username,
+            @RequestParam(value = "seriesID") String seriesID) {
+        /*
+         * List<String> episodeIDList = new ArrayList<>(); for (Episode epi :
+         * episodeRepository.findAll()) { if (epi.getSeriesID() ==
+         * (Integer.parseInt(seriesID))) {
+         * episodeIDList.add(Integer.toString(epi.getEpisodeID()));
+         * episodeRepository.delete(epi); } } for (EpisodeImage episodeImage :
+         * episodeImageRepository.findAll()) { for (String epiID : episodeIDList) { if
+         * (episodeImage.getEpisodeID() == Integer.parseInt(epiID)) {
+         * episodeImageRepository.delete(episodeImage); } } }
+         * 
+         * return "redirect:/manage_my_episodes";
+         */
+
         List<String> episodeIDList = new ArrayList<>();
-        for (Episode epi : episodeRepository.findAll()){
-            if (epi.getSeriesID() == (Integer.parseInt(seriesID))){
+
+        for (Episode epi : episodeRepository.findAll()) {
+            if (epi.getSeriesID() == (Integer.parseInt(seriesID))) {
                 episodeIDList.add(Integer.toString(epi.getEpisodeID()));
                 episodeRepository.delete(epi);
             }
         }
-        for (EpisodeImage episodeImage : episodeImageRepository.findAll()){
-            for(String epiID: episodeIDList){
+
+        for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+            for (String epiID : episodeIDList) {
                 if (episodeImage.getEpisodeID() == Integer.parseInt(epiID)) {
                     episodeImageRepository.delete(episodeImage);
                 }
             }
         }
 
-        return "redirect:/manage_my_episodes";
+        return getMySeries(req, username);
 
     }
 
