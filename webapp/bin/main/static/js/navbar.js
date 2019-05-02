@@ -16,7 +16,22 @@ function updateLoginUI() {
   }
 }
 
-function signout1(){
+function signout1() {
   window.sessionStorage.removeItem("username");
   updateLoginUI();
 }
+
+$(document).ready(function() {
+  document.getElementById(
+    "dummyUsernameForm1"
+  ).value = window.sessionStorage.getItem("username");
+  document.getElementById(
+    "dummyUsernameForm2"
+  ).value = window.sessionStorage.getItem("username");
+  document.getElementById(
+    "dummyUsernameForm3"
+  ).value = window.sessionStorage.getItem("username");
+  document.getElementById(
+    "dummyUsernameForm4"
+  ).value = window.sessionStorage.getItem("username");
+});

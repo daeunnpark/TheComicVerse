@@ -211,6 +211,26 @@
                         <span th:text="${serie.SeriesName}"></span>
                       </h5>
                     </div>
+                    <form
+                      id="manageEpisodes"
+                      th:action="@{/episodes/allEpisodes}"
+                      method="GET"
+                    >
+                      <input
+                        id="seriesID"
+                        type="text"
+                        name="seriesID"
+                        hidden
+                        th:value="${serie.SeriesID}"
+                      />
+
+                      <a
+                        class="btn btn-primary"
+                        href="#"
+                        onclick="document.getElementById('manageEpisodes').submit()"
+                        >Manage</a
+                      >
+                    </form>
                     <div>
                       <a href="#" class="btn btn-primary">Edit</a>
                     </div>

@@ -37,16 +37,18 @@ public class EpisodeController {
     private SeriesRepository seriesRepository;
 
     @RequestMapping(value = "/upload_episode")
-    public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username,
-            RedirectAttributes ra) {
-        ModelAndView mv = new ModelAndView("redirect:/upload_episode");
+    public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username) {
+        ModelAndView mv = new ModelAndView("upload_episode");
+
         List<Series> seriesList = new ArrayList<>();
         for (Series series : seriesRepository.findAll()) {
             if (series.getAuthor().equals(username)) {
+                // System.out.println(series.getSeriesID());
                 seriesList.add(series);
             }
         }
-        ra.addFlashAttribute("series", seriesList);
+        // ra.addFlashAttribute("series", seriesList);
+        mv.addObject("series", seriesList);
         return mv;
 
     }
@@ -55,8 +57,8 @@ public class EpisodeController {
     public ModelAndView addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") String SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
             @RequestParam(value = "thumbnail") String thumbnail, @RequestParam(value = "episodeImage") String image) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
+
+        // System.out.println("add Epi:series ID = " + SeriesID);
 
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeName().equals(episodeName)) {
@@ -64,7 +66,7 @@ public class EpisodeController {
             }
 
         }
-        System.out.println("seriesID is" + SeriesID);
+
         ModelAndView mv = new ModelAndView("home");
 
         byte[] thumbnailByteArr = thumbnail.getBytes();
@@ -187,9 +189,30 @@ public class EpisodeController {
     /**
      * retrieve episodes of a specific series
      */
-    @RequestMapping(value = "/allEp") // Map ONLY GET Requests
-    public String allEpisodes(HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID) {
-        return "";
+    @RequestMapping(value = "/allEpisodes") // Map ONLY GET Requests
+    public ModelAndView allEpisodes(HttpServletRequest req, @RequestParam(value = "seriesID") String seriesID) {
+
+        // System.out.println("ALL EPISODES of series ID = " + seriesID + " in int " +
+        // Integer.parseInt(seriesID));
+
+        ModelAndView mv = new ModelAndView("manage_my_episodes");
+        List<Episode> episodeList = new ArrayList<>();
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == Integer.parseInt(seriesID)) {
+                mv.addObject("series", series); // single serie
+                break;
+            }
+        }
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getSeriesID() == Integer.parseInt(seriesID)) {
+                episodeList.add(episode);
+            }
+        }
+        mv.addObject("episodes", episodeList);
+
+        return mv;
     }
 
     /**
@@ -229,7 +252,7 @@ public class EpisodeController {
             }
         }
         byte[] imageDataBytes = imageData.getBytes();
-        System.out.println("imageDataBytes: " + imageDataBytes);
+        // System.out.println("imageDataBytes: " + imageDataBytes);
         EpisodeImage newEpisodeImage = new EpisodeImage();
         newEpisodeImage.setEpisodeID(episodeID);
         newEpisodeImage.setIndices(max + 1);
@@ -239,7 +262,11 @@ public class EpisodeController {
     }
 
     @RequestMapping(value = "/deleteEpisode") // Map ONLY GET Requests
-    public String deleteEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID) {
+    public ModelAndView deleteEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+            @RequestParam(value = "seriesID") String seriesID) {
+
+        System.out.println("deleting EPISODE of series ID = " + Integer.parseInt(seriesID));
+
         for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
             if (episodeImage.getEpisodeID() == episodeID) {
                 episodeImageRepository.delete(episodeImage);
@@ -250,7 +277,8 @@ public class EpisodeController {
                 EpiRepository.delete(epi);
             }
         }
-        return "redirect:/manage_my_episodes";
+
+        return allEpisodes(req, seriesID);
 
     }
 }

@@ -180,11 +180,13 @@
             th:action="@{/episodes/addEpisode}"
             method="POST"
           >
+            <input type="hidden" name="seriesID" id="seriesID" />
             <div class="dropdown">
               <button
                 class="btn btn-secondary dropdown-toggle"
                 type="button"
                 id="seriesdropdownMenuButton"
+                name="dropdown-seriesID"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
@@ -205,45 +207,8 @@
                     href="#"
                     th:text="${serie.SeriesName}"
                     th:data-value="${serie.SeriesID}"
-                    >before</a
-                  >
+                  ></a>
                 </div>
-              </div>
-            </div>
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                value="default"
-                name="dropdown-categories"
-                id="categorydropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                style="display: block; margin: 0 auto;"
-              >
-                Category
-              </button>
-              <div
-                class="dropdown-menu"
-                aria-labelledby="categorydropdownMenuButton"
-              >
-                <a
-                  id="category1"
-                  class="dropdown-item"
-                  href="#"
-                  data-value="Category A"
-                >
-                  Category A</a
-                >
-                <a
-                  id="category2"
-                  class="dropdown-item"
-                  href="#"
-                  data-value="Category B"
-                >
-                  Category B</a
-                >
               </div>
             </div>
             <br />
@@ -256,33 +221,34 @@
             />
             <br />
             <input
-              type="file"
-              id="fileEpisodeThumbnailInput"
-              onchange="encodeImageFileAsURL(fileEpisodeThumbnailInput,fileEpisodeByteData)"
-              style="display: block; margin: 0 auto;border:1px solid grey;"
-              accept="image/*"
-            />
-            <br />
-            <input
               id="fileEpisodeByteData"
               name="thumbnail"
               hidden
               type="text"
             />
             <input
-              type="file"
-              id="fileEpisodeImageInput"
-              onchange="encodeImageFileAsURL(fileEpisodeImageInput,fileEpisodeImageByteData)"
-              style="display: block; margin: 0 auto;border:1px solid grey;"
-              accept="image/*"
-            />
-            <br />
-            <input
               id="fileEpisodeImageByteData"
               name="episodeImage"
               hidden
               type="text"
             />
+            <input
+              type="file"
+              id="fileEpisodeThumbnailInput"
+              onchange="encodeImageFileAsURL('fileEpisodeThumbnailInput','fileEpisodeByteData')"
+              style="display: block; margin: 0 auto;border:1px solid grey;"
+              accept="image/*"
+            />
+            <br />
+
+            <input
+              type="file"
+              id="fileEpisodeImageInput"
+              onchange="encodeImageFileAsURL('fileEpisodeImageInput','fileEpisodeImageByteData')"
+              style="display: block; margin: 0 auto;border:1px solid grey;"
+              accept="image/*"
+            />
+            <br />
             <br />
             <button
               type="submit"
@@ -362,11 +328,5 @@
       src="../static/js/upload_episode.js"
       th:src="@{/js/upload_episode.js}"
     ></script>
-    <script>
-      $(document).ready(function() {
-        document.getElementById("dummyUsernameForm").value = getUsername();
-        document.getElementById("dummyUsernameForm3").value = getUsername();
-      });
-    </script>
   </body>
 </html>

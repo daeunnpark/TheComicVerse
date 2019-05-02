@@ -17,6 +17,20 @@
       crossorigin="anonymous"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+
+    <!-- To be updated -->
+    <link
+      rel="stylesheet"
+      href="../static/css/manage_my_series.css"
+      th:href="@{/css/manage_my_series.css}"
+    />
+
     <script
       type="text/javascript"
       src="../static/js/usersession.js"
@@ -29,13 +43,13 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!--<a class="navbar-brand" href="#">ComicVerse</a>-->
       <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -44,125 +58,125 @@
           <li class="nav-item active">
             <form id="submitHome" action="/home" method="GET">
               <a
-                class="nav-link"
-                href="#"
-                onclick="document.getElementById('submitHome').submit()"
-                >Home <span class="sr-only">(current)</span></a
+                      class="nav-link"
+                      href="#"
+                      onclick="document.getElementById('submitHome').submit()"
+              >Home <span class="sr-only">(current)</span></a
               >
             </form>
           </li>
           <li class="nav-item">
             <form
-              id="submitBrowse"
-              th:action="@{/series/allSeries}"
-              method="POST"
+                    id="submitBrowse"
+                    th:action="@{/series/allSeries}"
+                    method="POST"
             >
               <a
-                class="nav-link"
-                href="#"
-                onclick="document.getElementById('submitBrowse').submit()"
-                >Browse</a
+                      class="nav-link"
+                      href="#"
+                      onclick="document.getElementById('submitBrowse').submit()"
+              >Browse</a
               >
             </form>
           </li>
           <li class="nav-item dropdown">
             <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
             >
               Create
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <form
-                id="submitCreate"
-                action="/create_comic_series"
-                method="GET"
+                      id="submitCreate"
+                      action="/create_comic_series"
+                      method="GET"
               >
                 <a
-                  class="dropdown-item"
-                  href="#"
-                  onclick="document.getElementById('submitCreate').submit()"
-                  >Create a Serie</a
+                        class="dropdown-item"
+                        href="#"
+                        onclick="document.getElementById('submitCreate').submit()"
+                >Create a Serie</a
                 >
               </form>
               <div class="dropdown-divider"></div>
               <form
-                id="submitUpload"
-                th:action="@{/episodes/upload_episode}"
-                method="GET"
+                      id="submitUpload"
+                      th:action="@{/episodes/upload_episode}"
+                      method="GET"
               >
                 <input
-                  id="dummyUsernameForm2"
-                  type="text"
-                  name="username"
-                  hidden
+                        id="dummyUsernameForm2"
+                        type="text"
+                        name="username"
+                        hidden
                 />
                 <a
-                  class="dropdown-item"
-                  href="#"
-                  onclick="document.getElementById('submitUpload').submit()"
-                  >Upload an Episode</a
+                        class="dropdown-item"
+                        href="#"
+                        onclick="document.getElementById('submitUpload').submit()"
+                >Upload an Episode</a
                 >
               </form>
               <form id="submitDraw" action="/drawing_page" method="GET">
                 <a
-                  class="dropdown-item"
-                  href="#"
-                  onclick="document.getElementById('submitDraw').submit()"
-                  >Draw an Episode</a
+                        class="dropdown-item"
+                        href="#"
+                        onclick="document.getElementById('submitDraw').submit()"
+                >Draw an Episode</a
                 >
               </form>
             </div>
           </li>
           <li class="nav-item">
             <form
-              id="submitManage"
-              th:action="@{/series/mySeries}"
-              method="GET"
+                    id="submitManage"
+                    th:action="@{/series/mySeries}"
+                    method="GET"
             >
               <input
-                id="dummyUsernameForm3"
-                type="text"
-                name="username"
-                hidden
+                      id="dummyUsernameForm3"
+                      type="text"
+                      name="username"
+                      hidden
               />
               <a
-                class="nav-link"
-                href="#"
-                onclick="document.getElementById('submitManage').submit()"
-                >Manage</a
+                      class="nav-link"
+                      href="#"
+                      onclick="document.getElementById('submitManage').submit()"
+              >Manage</a
               >
             </form>
           </li>
           <li class="nav-item">
             <form id="submitSetting" action="/login/getUser" method="GET">
               <input
-                id="dummyUsernameForm"
-                type="text"
-                name="username"
-                hidden
+                      id="dummyUsernameForm1"
+                      type="text"
+                      name="username"
+                      hidden
               />
 
               <a
-                class="nav-link"
-                href="#"
-                onclick="document.getElementById('submitSetting').submit()"
-                >Account Settings</a
+                      class="nav-link"
+                      href="#"
+                      onclick="document.getElementById('submitSetting').submit()"
+              >Account Settings</a
               >
             </form>
           </li>
           <li class="nav-item pull-right">
             <form id="submitSignout" action="/signout" method="GET">
               <a
-                class="nav-link pull-right"
-                id="signoutBtn"
-                href="#"
-                onclick="document.getElementById('submitSignout').submit()"
-                >Sign Out</a
+                      class="nav-link pull-right"
+                      id="signoutBtn"
+                      href="#"
+                      onclick="document.getElementById('submitSignout').submit()"
+              >Sign Out</a
               >
             </form>
           </li>
@@ -174,12 +188,20 @@
       <div class="card-header">Manage My Episodes</div>
       <div class="card-body">
         <div class="card">
-          <div class="card-header">Best Episode</div>
+          <div class="card-header"  th:text="${series.SeriesName}"></div>
+          <div>
+            <form id="deleteSeries" th:action="@{/series/deleteSeries}" method="GET">
+              <input id="dummyUsernameForm4" type="text" name="username" hidden />
+              <input id="seriesID" type="text" name="seriesID" hidden th:value="${series.SeriesID}" />
+              <a class="btn btn-danger" href="#" onclick="document.getElementById('deleteSeries').submit()">Delete</a>
+            </form>
+          </div>
+
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <img
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
+                  th:src="${series.imageData}"
                   alt="Card image cap"
                 />
               </div>
@@ -197,115 +219,41 @@
             </div>
           </div>
         </div>
-        <div id="episodeTable">
-          <div class="row">
-            <div class="col-sm-4">
+
+        
+        <div id="episodeTable" style="margin:10px;">
+          <div th:if="${episodes} != null" class="row">
+            <div th:each="episode : ${episodes}" class="col-sm-4" style="margin:10px 0px;">
               <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body" style="display: inline-block;">
-                  <div class="row">
-                    <div>
-                      <h5 class="card-title">Episode 1</h5>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
+                <img class="card-img-top" src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png" alt="Card image cap" />
+                  <!--Replace by th:src="${series.imageData} -->
                 <div class="card-body">
                   <div class="row">
+                    <div class="col-sm-8">
+                      <h5 class="card-title" th:text="${episode.EpisodeName}"></h5>
+                    </div>
                     <div>
-                      <h5 class="card-title">Episode 2</h5>
+                      <form id="submitReadEpisode" th:action="@{/episodes/readEpisode}">
+                        <input name="episodeID" th:value="${episode.EpisodeID}" hidden />
+                      </form>
+        
+                      <form id="submitViewSeries" th:action="@{/series/view_episodes}" method="GET">
+                        <input id="seriesID" type="text" name="seriesID" th:value="${episode.SeriesID}" hidden />
+                        <a class="btn btn-primary" onclick="document.getElementById('submitViewSeries').submit()">View Comic
+                          Page</a>
+                      </form>
                     </div>
                     <div>
                       <a href="#" class="btn btn-primary">Edit</a>
                     </div>
                     <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div>
-                      <h5 class="card-title">Episode 3</h5>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div>
-                      <h5 class="card-title">Episode 4</h5>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <div class="row">
-                    <div>
-                      <h5 class="card-title">Episode 5</h5>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <a href="#" class="btn btn-danger">Delete</a>
+        
+                      <form id="deleteEpisode" th:action="@{/episodes/deleteEpisode}" method="GET">
+                        <input id="seriesID" type="text" name="seriesID" hidden th:value="${episode.SeriesID}" />
+                        <input name="episodeID" th:value="${episode.EpisodeID}" hidden />
+                        <a class="btn btn-danger" href="#"
+                          onclick="document.getElementById('deleteEpisode').submit()">Delete</a>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -313,6 +261,17 @@
             </div>
           </div>
         </div>
+
+
+
+
+
+        <form id="submitDraw" action="/drawing_page" method="GET"></form>
+        <span class="fa-stack" style="vertical-align: top; float:right;" onclick="document.getElementById('submitDraw').click();">
+          <i class="fas fa-circle fa-stack-2x"></i>
+          <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+        </span>
+        </form> 
       </div>
     </div>
 
@@ -378,11 +337,5 @@
       src="../static/js/loginModal.js"
       th:src="@{/js/loginModal.js}"
     ></script>
-    <script>
-      $(document).ready(function() {
-        document.getElementById("dummyUsernameForm").value = getUsername();
-        document.getElementById("dummyUsernameForm3").value = getUsername();
-      });
-    </script>
   </body>
 </html>

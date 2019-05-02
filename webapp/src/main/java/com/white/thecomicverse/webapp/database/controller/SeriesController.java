@@ -48,7 +48,7 @@ public class SeriesController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
-        System.out.println("Category: " + categories);
+        // System.out.println("Category: " + categories);
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().equals(seriesName)) {
@@ -57,7 +57,7 @@ public class SeriesController {
                 return mv2;
             }
         }
-        System.out.println("enteringing: " + thumbnail.length());
+        // System.out.println("enteringing: " + thumbnail.length());
 
         byte[] b = thumbnail.getBytes();
         Series newSeries = new Series();
@@ -75,7 +75,7 @@ public class SeriesController {
     @RequestMapping(value = "/mySeries") // Map ONLY GET Requests
     public ModelAndView getMySeries(HttpServletRequest req, @RequestParam(value = "username") String author) {
 
-        System.out.println(author + "in My Series");
+        // System.out.println(author + "in My Series");
         List<Series> seriesList = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
@@ -97,14 +97,14 @@ public class SeriesController {
 
     @RequestMapping(value = "/categoryBrowse")
     public ModelAndView getSeriesByCategories(HttpServletRequest req,
-                                        @RequestParam(value = "searchOption") List<String> categoryList) {
+            @RequestParam(value = "searchOption") List<String> categoryList) {
 
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-           if (categoryList.contains(series.getCategories())){
-               s.add(series);
-           }
+            if (categoryList.contains(series.getCategories())) {
+                s.add(series);
+            }
         }
 
         ModelAndView mv = new ModelAndView("browse");
@@ -114,15 +114,16 @@ public class SeriesController {
     }
 
     @RequestMapping(value = "subscriptedSeries")
-    public ModelAndView getSeriesBySubscription(HttpServletRequest req, @RequestParam(value = "username") String username) {
+    public ModelAndView getSeriesBySubscription(HttpServletRequest req,
+            @RequestParam(value = "username") String username) {
 
         List<Series> s = new ArrayList<Series>();
         List<Integer> seriesIDs = new ArrayList<Integer>();
 
-        for (subscription sub: subscriptionRepository.findAll()) {
+        for (subscription sub : subscriptionRepository.findAll()) {
             if (sub.getUsername().equalsIgnoreCase(username)) {
-                for (Series series : seriesRepository.findAll()){
-                    if (series.getSeriesID() == sub.getSeriesID()){
+                for (Series series : seriesRepository.findAll()) {
+                    if (series.getSeriesID() == sub.getSeriesID()) {
                         s.add(series);
                         break;
                     }
@@ -130,13 +131,11 @@ public class SeriesController {
             }
         }
 
-
         ModelAndView mv = new ModelAndView("home");
         mv.addObject("series", s);
         return mv;
 
     }
-
 
     @RequestMapping(value = "/search") // Map ONLY GET Requests
     public ModelAndView getSearchOption(HttpServletRequest req,
@@ -210,7 +209,6 @@ public class SeriesController {
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        // mv.addObject(s);
         mv.addObject("series", s);
         return mv;
 
@@ -227,7 +225,6 @@ public class SeriesController {
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        // mv.addObject(s);
         mv.addObject("series", s);
         return mv;
     }
@@ -241,6 +238,7 @@ public class SeriesController {
     @GetMapping(path = "/view_series")
     public @ResponseBody ModelAndView viewSeries(HttpServletRequest req,
             @RequestParam(value = "seriesID") String seriesID) {
+        // System.out.println("view_Epi :series ID = " + seriesID);
 
         ModelAndView mv = new ModelAndView("view_comic_series");
         List<Episode> episodeList = new ArrayList<>();
@@ -264,18 +262,6 @@ public class SeriesController {
     @RequestMapping(value = "/deleteSeries") // Map ONLY GET Requests
     public ModelAndView deleteEpisode(HttpServletRequest req, @RequestParam(value = "username") String username,
             @RequestParam(value = "seriesID") int seriesID) {
-        /*
-         * List<String> episodeIDList = new ArrayList<>(); for (Episode epi :
-         * episodeRepository.findAll()) { if (epi.getSeriesID() ==
-         * (Integer.parseInt(seriesID))) {
-         * episodeIDList.add(Integer.toString(epi.getEpisodeID()));
-         * episodeRepository.delete(epi); } } for (EpisodeImage episodeImage :
-         * episodeImageRepository.findAll()) { for (String epiID : episodeIDList) { if
-         * (episodeImage.getEpisodeID() == Integer.parseInt(epiID)) {
-         * episodeImageRepository.delete(episodeImage); } } }
-         * 
-         * return "redirect:/manage_my_episodes";
-         */
 
         List<Integer> episodeIDList = new ArrayList<Integer>();
 
@@ -294,9 +280,8 @@ public class SeriesController {
             }
         }
 
-
-        for (Series s : seriesRepository.findAll()){
-            if (seriesID == s.getSeriesID()){
+        for (Series s : seriesRepository.findAll()) {
+            if (seriesID == s.getSeriesID()) {
                 seriesRepository.delete(s);
             }
         }

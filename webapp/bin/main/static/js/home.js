@@ -39,7 +39,3 @@ $(".dropdown-menu a").click(function() {
   // Update searchOption
   $("#searchOption").val($(this).data("value"));
 });
-
-$(document).ready(function() {
-  document.getElementById("dummyUsernameForm2").value=window.sessionStorage.getItem("username");
-});
