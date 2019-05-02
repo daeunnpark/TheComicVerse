@@ -86,6 +86,23 @@ public class SeriesController {
         ModelAndView mv = new ModelAndView("manage_my_series");
         mv.addObject("series", seriesList);
         return mv;
+    }
+
+    @RequestMapping(value = "/categoryBrowse")
+    public ModelAndView getSeriesByCategories(HttpServletRequest req,
+                                        @RequestParam(value = "searchOption") List<String> categoryList) {
+
+        List<Series> s = new ArrayList<Series>();
+
+        for (Series series : seriesRepository.findAll()) {
+           if (categoryList.contains(series.getCategories())){
+               s.add(series);
+           }
+        }
+
+        ModelAndView mv = new ModelAndView("browse");
+        mv.addObject("series", s);
+        return mv;
 
     }
 
