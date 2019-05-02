@@ -54,7 +54,7 @@ public class EpisodeController {
     }
 
     @RequestMapping(value = "/addEpisode") // Map ONLY GET Requests
-    public ModelAndView addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") String SeriesID,
+    public ModelAndView addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
             @RequestParam(value = "thumbnail") String thumbnail, @RequestParam(value = "episodeImage") String image) {
 
@@ -72,7 +72,7 @@ public class EpisodeController {
         byte[] thumbnailByteArr = thumbnail.getBytes();
         Date d = new Date();
         Episode epi = new Episode();
-        epi.setSeriesID(Integer.parseInt(SeriesID));
+        epi.setSeriesID(SeriesID);
         epi.setEpisodeName(episodeName);
         epi.setNumDislikes(0);
         epi.setNumLikes(0);
@@ -82,7 +82,7 @@ public class EpisodeController {
 
         int max = -1;
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == Integer.parseInt(SeriesID) && episode.getIndices() > max) {
+            if (episode.getSeriesID() == SeriesID && episode.getIndices() > max) {
                 max = episode.getIndices();
             }
         }
@@ -98,24 +98,24 @@ public class EpisodeController {
      * redirect to previous episode
      **/
     @RequestMapping(value = "/prevEp")
-    public ModelAndView prevEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") String episodeID,
-            @RequestParam(value = "episodeIndex") String episodeIndex) {
+    public ModelAndView prevEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+            @RequestParam(value = "episodeIndex") int episodeIndex) {
         int seriesID = -1;
         for (Episode episode : EpiRepository.findAll()) {
-            if (Integer.parseInt(episodeID) == episode.getEpisodeID()) {
+            if (episodeID == episode.getEpisodeID()) {
                 seriesID = episode.getSeriesID();
             }
         }
 
         int prevEpID = -1;
-        int epiIndex = Integer.parseInt(episodeIndex);
+        int epiIndex = episodeIndex;
         ModelAndView mv = new ModelAndView("read_episode");
 
         if (epiIndex == 0) {
             return null;
         }
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex) - 1)) {
+            if (episode.getSeriesID() == seriesID && episode.getIndices() == (episodeIndex - 1)) {
                 prevEpID = episode.getEpisodeID();
             }
         }
@@ -141,16 +141,16 @@ public class EpisodeController {
      * redirect to next episode
      **/
     @RequestMapping(value = "/nextEp") // Map ONLY GET Requests
-    public ModelAndView nextEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") String episodeID,
-            @RequestParam(value = "episodeIndex") String episodeIndex) {
+    public ModelAndView nextEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+            @RequestParam(value = "episodeIndex") int episodeIndex) {
         int nextEpID = -1;
         int max = -1;
-        int epiIndex = Integer.parseInt(episodeIndex);
+        int epiIndex = episodeIndex;
         ModelAndView mv = new ModelAndView("read_episode");
 
         int seriesID = -1;
         for (Episode episode : EpiRepository.findAll()) {
-            if (Integer.parseInt(episodeID) == episode.getEpisodeID()) {
+            if (episodeID == episode.getEpisodeID()) {
                 seriesID = episode.getSeriesID();
             }
         }
@@ -164,7 +164,7 @@ public class EpisodeController {
             return null;
         }
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID && episode.getIndices() == (Integer.parseInt(episodeIndex) + 1)) {
+            if (episode.getSeriesID() == seriesID && episode.getIndices() == (episodeIndex + 1)) {
                 nextEpID = episode.getEpisodeID();
             }
         }
@@ -190,7 +190,7 @@ public class EpisodeController {
      * retrieve episodes of a specific series
      */
     @RequestMapping(value = "/allEpisodes") // Map ONLY GET Requests
-    public ModelAndView allEpisodes(HttpServletRequest req, @RequestParam(value = "seriesID") String seriesID) {
+    public ModelAndView allEpisodes(HttpServletRequest req, @RequestParam(value = "seriesID") int seriesID) {
 
         // System.out.println("ALL EPISODES of series ID = " + seriesID + " in int " +
         // Integer.parseInt(seriesID));
@@ -199,14 +199,14 @@ public class EpisodeController {
         List<Episode> episodeList = new ArrayList<>();
 
         for (Series series : seriesRepository.findAll()) {
-            if (series.getSeriesID() == Integer.parseInt(seriesID)) {
+            if (series.getSeriesID() == seriesID) {
                 mv.addObject("series", series); // single serie
                 break;
             }
         }
 
         for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == Integer.parseInt(seriesID)) {
+            if (episode.getSeriesID() == seriesID) {
                 episodeList.add(episode);
             }
         }
@@ -263,9 +263,9 @@ public class EpisodeController {
 
     @RequestMapping(value = "/deleteEpisode") // Map ONLY GET Requests
     public ModelAndView deleteEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-            @RequestParam(value = "seriesID") String seriesID) {
+            @RequestParam(value = "seriesID") int seriesID) {
 
-        System.out.println("deleting EPISODE of series ID = " + Integer.parseInt(seriesID));
+        System.out.println("deleting EPISODE of series ID = " + seriesID);
 
         for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
             if (episodeImage.getEpisodeID() == episodeID) {
