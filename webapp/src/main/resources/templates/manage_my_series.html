@@ -218,49 +218,17 @@
                     >
                       <input
                         id="seriesID"
-                        type="text"
+                        type="number"
                         name="seriesID"
                         hidden
                         th:value="${serie.SeriesID}"
                       />
-
-                      <a
-                        class="btn btn-primary"
-                        href="#"
-                        onclick="document.getElementById('manageEpisodes').submit()"
-                        >Manage</a
-                      >
+                      <input
+                        type="button"
+                        onclick="this.form.submit();"
+                        value="Manage"
+                      />
                     </form>
-                    <div>
-                      <a href="#" class="btn btn-primary">Edit</a>
-                    </div>
-                    <div>
-                      <form
-                        id="deleteSeries"
-                        th:action="@{/series/deleteSeries}"
-                        method="GET"
-                      >
-                        <input
-                          id="dummyUsernameForm4"
-                          type="text"
-                          name="username"
-                          hidden
-                        />
-                        <input
-                          id="seriesID"
-                          type="text"
-                          name="seriesID"
-                          hidden
-                          th:value="${serie.SeriesID}"
-                        />
-                        <a
-                          class="btn btn-danger"
-                          href="#"
-                          onclick="document.getElementById('deleteSeries').submit()"
-                          >Delete</a
-                        >
-                      </form>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -468,4 +436,8 @@
               </div>
             </div>
           </div>
+
+
+
+          <a class="btn btn-primary" href="#" onclick="document.getElementById('manageEpisodes').submit()">Manage</a>
           -->
