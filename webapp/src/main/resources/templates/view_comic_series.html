@@ -205,6 +205,30 @@
                   sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
                   lorem ipsum dolor sit amet lorem ipsum dolor sit amet</label
                 >
+                <form
+                        id="submitSubscription"
+                        th:action="@{/subs/checkSubscription}"
+                        method="POST"
+                >
+                  <input
+                          type="hidden"
+                          name="username"
+                          id="dummyUsernameForm4"
+                  />
+                  <input
+                          type="hidden"
+                          name="SeriesID"
+                          th:value="${serie.SeriesID}"
+                  />
+                  <button
+                          id="subscribeButton"
+                          type="button"
+                          class="btn btn-primary"
+                          onclick=submitSubscribe();
+                  >
+                    Subscribe
+                  </button>
+                </form>
               </div>
             </div>
           </div>
