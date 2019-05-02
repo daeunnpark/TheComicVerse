@@ -36,8 +36,6 @@ public class SubscriptionController {
 
     @RequestMapping(value="/addSubscription")
     public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
         Date d = new Date();
         Subscription sub = new Subscription();
         sub.setDate(d.toGMTString());
@@ -53,12 +51,8 @@ public class SubscriptionController {
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        // mv.addObject(s);
         mv.addObject("series", se);
         return mv;
-
-
-
     }
 
     @RequestMapping(value="/deleteSubscription")
@@ -74,27 +68,16 @@ public class SubscriptionController {
             }
         }
 
-
         this.subscriptionRepository.delete(sub);
-/*
 
-        Series s = new Series();
-        for (Series series : seriesRepository.findAll()) {
-            s= series;
-        }
-*/
         List<Series> se = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-            System.out.println("returning");
-
-            System.out.println(new String(series.getThumbnail()));
             series.setImageData(new String(series.getThumbnail()));
             se.add(series);
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        // mv.addObject(s);
         mv.addObject("series", se);
         return mv;
 
@@ -107,7 +90,6 @@ public class SubscriptionController {
     public ModelAndView checkSub(HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        System.out.println("EFEFFEFEF");
         Subscription sub = new Subscription();
         for (Subscription s : subscriptionRepository.findAll()){
             if (s.getSeriesID() == seriesID){
