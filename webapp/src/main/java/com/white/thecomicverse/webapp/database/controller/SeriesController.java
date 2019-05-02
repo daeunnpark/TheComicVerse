@@ -3,10 +3,14 @@ package com.white.thecomicverse.webapp.database.controller;
 import com.white.thecomicverse.webapp.database.model.Episode;
 import com.white.thecomicverse.webapp.database.model.EpisodeImage;
 import com.white.thecomicverse.webapp.database.model.Login;
+import com.white.thecomicverse.webapp.database.model.subscription;
+
 import com.white.thecomicverse.webapp.database.model.Series;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeImageRepository;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
+import com.white.thecomicverse.webapp.database.repositories.SubscriptionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +36,9 @@ public class SeriesController {
 
     @Autowired
     private EpisodeImageRepository episodeImageRepository;
+
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
     @RequestMapping(value = "/createSeries") // Map ONLY GET Requests
     public ModelAndView createSeries(HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName,
@@ -105,6 +112,31 @@ public class SeriesController {
         return mv;
 
     }
+
+    @RequestMapping(value = "subscriptedSeries")
+    public ModelAndView getSeriesBySubscription(HttpServletRequest req, @RequestParam(value = "username") String username) {
+
+        List<Series> s = new ArrayList<Series>();
+        List<Integer> seriesIDs = new ArrayList<Integer>();
+
+        for (subscription sub: subscriptionRepository.findAll()) {
+            if (sub.getUsername().equalsIgnoreCase(username)) {
+                for (Series series : seriesRepository.findAll()){
+                    if (series.getSeriesID() == sub.getSeriesID()){
+                        s.add(series);
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        ModelAndView mv = new ModelAndView("home");
+        mv.addObject("series", s);
+        return mv;
+
+    }
+
 
     @RequestMapping(value = "/search") // Map ONLY GET Requests
     public ModelAndView getSearchOption(HttpServletRequest req,
