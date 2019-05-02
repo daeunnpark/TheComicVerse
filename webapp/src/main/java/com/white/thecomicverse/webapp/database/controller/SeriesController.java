@@ -245,12 +245,14 @@ public class SeriesController {
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesID() == seriesID) {
+                series.setImageData(new String(series.getThumbnail()));
                 mv.addObject("series", series);
             }
         }
 
         for (Episode episode : episodeRepository.findAll()) {
             if (episode.getSeriesID() == seriesID) {
+                episode.setImageData(new String(episode.getThumbnail()));
                 episodeList.add(episode);
             }
         }
