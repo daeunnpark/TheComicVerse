@@ -29,6 +29,16 @@ public class Episode {
 
     private Blob thumbnail;
 
+    private String imageData;
+
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
+    }
+
     public int getEpisodeID(){
         return this.EpisodeID;
     }
