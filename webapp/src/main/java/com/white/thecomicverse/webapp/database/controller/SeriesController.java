@@ -214,7 +214,7 @@ public class SeriesController {
 
     @RequestMapping(value = "/deleteSeries") // Map ONLY GET Requests
     public ModelAndView deleteEpisode(HttpServletRequest req, @RequestParam(value = "username") String username,
-            @RequestParam(value = "seriesID") String seriesID) {
+            @RequestParam(value = "seriesID") int seriesID) {
         /*
          * List<String> episodeIDList = new ArrayList<>(); for (Episode epi :
          * episodeRepository.findAll()) { if (epi.getSeriesID() ==
@@ -228,20 +228,27 @@ public class SeriesController {
          * return "redirect:/manage_my_episodes";
          */
 
-        List<String> episodeIDList = new ArrayList<>();
+        List<Integer> episodeIDList = new ArrayList<Integer>();
 
         for (Episode epi : episodeRepository.findAll()) {
-            if (epi.getSeriesID() == (Integer.parseInt(seriesID))) {
-                episodeIDList.add(Integer.toString(epi.getEpisodeID()));
+            if (epi.getSeriesID() == seriesID) {
+                episodeIDList.add(epi.getEpisodeID());
                 episodeRepository.delete(epi);
             }
         }
 
         for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
-            for (String epiID : episodeIDList) {
-                if (episodeImage.getEpisodeID() == Integer.parseInt(epiID)) {
+            for (int epiID : episodeIDList) {
+                if (episodeImage.getEpisodeID() == epiID) {
                     episodeImageRepository.delete(episodeImage);
                 }
+            }
+        }
+
+
+        for (Series s : seriesRepository.findAll()){
+            if (seriesID == s.getSeriesID()){
+                seriesRepository.delete(s);
             }
         }
 
