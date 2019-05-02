@@ -27,6 +27,10 @@ public class Episode {
 
     private int numDislikes;
 
+    private Blob thumbnail;
+
+    private String imageData;
+
     public String getImageData() {
         return imageData;
     }
@@ -34,11 +38,6 @@ public class Episode {
     public void setImageData(String imageData) {
         this.imageData = imageData;
     }
-
-    private Blob thumbnail;
-
-    private String imageData;
-
 
     public int getEpisodeID(){
         return this.EpisodeID;

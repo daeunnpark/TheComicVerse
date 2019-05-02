@@ -183,7 +183,7 @@
             <div class="row">
               <div class="col-sm-3">
                 <img
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
+                  th:src="${series.imageData}"
                   alt="Card image cap"
                   height="200"
                   width="200"
@@ -205,6 +205,30 @@
                   sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
                   lorem ipsum dolor sit amet lorem ipsum dolor sit amet</label
                 >
+                <form
+                        id="submitSubscription"
+                        th:action="@{/subs/checkSubscription}"
+                        method="POST"
+                >
+                  <input
+                          type="hidden"
+                          name="username"
+                          id="dummyUsernameForm4"
+                  />
+                  <input
+                          type="hidden"
+                          name="SeriesID"
+                          th:value="${serie.SeriesID}"
+                  />
+                  <button
+                          id="subscribeButton"
+                          type="button"
+                          class="btn btn-primary"
+                          onclick=submitSubscribe();
+                  >
+                    Subscribe
+                  </button>
+                </form>
               </div>
             </div>
           </div>
@@ -219,7 +243,7 @@
               <div class="card">
                 <img
                   class="card-img-top"
-                  src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png"
+                  th:src="${episode.imageData}"
                   alt="Card image cap"
                 />
                 <div class="card-body">
