@@ -200,16 +200,25 @@ public class EpisodeController {
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesID() == seriesID) {
+                series.setImageData(new String(series.getThumbnail()));
                 mv.addObject("series", series); // single serie
                 break;
             }
         }
 
+        System.out.println("FEFEF");
+
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getSeriesID() == seriesID) {
+                episode.setImageData(new String(episode.getThumbnail()));
+                System.out.println(episode.getImageData());
                 episodeList.add(episode);
+
             }
         }
+
+
+
         mv.addObject("episodes", episodeList);
 
         return mv;

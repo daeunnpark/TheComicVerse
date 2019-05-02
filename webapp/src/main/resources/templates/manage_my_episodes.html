@@ -225,8 +225,7 @@
           <div th:if="${episodes} != null" class="row">
             <div th:each="episode : ${episodes}" class="col-sm-4" style="margin:10px 0px;">
               <div class="card">
-                <img class="card-img-top" src="https://pbs.twimg.com/profile_images/458955466756726784/KQpNPBA_.png" alt="Card image cap" />
-                  <!--Replace by th:src="${series.imageData} -->
+                <img class="card-img-top" th:src="${episode.imageData}" alt="Card image cap" />
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-8">
