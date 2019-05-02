@@ -237,23 +237,24 @@ public class SeriesController {
 
     @GetMapping(path = "/view_series")
     public @ResponseBody ModelAndView viewSeries(HttpServletRequest req,
-            @RequestParam(value = "seriesID") String seriesID) {
+            @RequestParam(value = "seriesID") int seriesID) {
         // System.out.println("view_Epi :series ID = " + seriesID);
 
         ModelAndView mv = new ModelAndView("view_comic_series");
         List<Episode> episodeList = new ArrayList<>();
 
         for (Series series : seriesRepository.findAll()) {
-            if (series.getSeriesID() == Integer.parseInt(seriesID)) {
+            if (series.getSeriesID() == seriesID) {
                 mv.addObject("series", series);
             }
         }
 
         for (Episode episode : episodeRepository.findAll()) {
-            if (episode.getSeriesID() == Integer.parseInt(seriesID)) {
+            if (episode.getSeriesID() == seriesID) {
                 episodeList.add(episode);
             }
         }
+
         mv.addObject("episodes", episodeList);
 
         return mv;
