@@ -129,6 +129,10 @@
       fr.readAsText(this.files[0]);
     });
 
+    $( "#save_png" ).click(function( event ) {
+      this.href = canvas.toDataURL("image/png;base64");
+    });
+
 
   });
 
