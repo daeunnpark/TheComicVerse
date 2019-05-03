@@ -449,6 +449,15 @@
         textbox.enterEditing();
         textbox.hiddenTextarea.focus();
         break;
+      case "bubble":
+        fabric.Image.fromURL("../image/speech_bubble.png", function(img) {
+          img.set({
+            scaleY: 0.5,
+            scaleX: 0.5
+          });
+          canvas.add(img);
+        });
+        break;
       case "remove":
         break;
       default:
