@@ -224,7 +224,7 @@
                           id="subscribeButton2"
                           type="button"
                           class="btn btn-primary"
-                          onclick=submitSubscribe();
+                          onclick="this.form.submit();"
                   >
                     Subscribe
                   </button>
@@ -260,15 +260,13 @@
                         <input
                         name="episodeID"
                         th:value="${episode.EpisodeID}"
-                        hidden
                         />
+                      <input class="btn btn-primary"
+                             type="button"
+                             onclick="this.form.submit();"
+                             value="View"
+                      />
                       </form>
-                      <a
-                        href="#"
-                        class="btn btn-primary"
-                        onclick="document.getElementById('submitReadEpisode').submit()"
-                        >View</a
-                      >
                     </div>
                   </div>
                 </div>
