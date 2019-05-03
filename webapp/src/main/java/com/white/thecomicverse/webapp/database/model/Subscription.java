@@ -1,4 +1,5 @@
 package com.white.thecomicverse.webapp.database.model;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,9 +9,9 @@ import java.sql.SQLException;
 import javax.sql.rowset.serial.SerialBlob;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class subscription {
+public class Subscription {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int subscriptionID;
 
     private int SeriesID;

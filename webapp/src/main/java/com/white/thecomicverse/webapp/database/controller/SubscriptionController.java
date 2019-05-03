@@ -4,6 +4,7 @@ package com.white.thecomicverse.webapp.database.controller;
 
 
 import com.white.thecomicverse.webapp.database.model.Login;
+import com.white.thecomicverse.webapp.database.model.Subscription;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.white.thecomicverse.webapp.database.model.subscription;
 import com.white.thecomicverse.webapp.database.model.Series;
 
 import com.white.thecomicverse.webapp.database.repositories.SubscriptionRepository;
@@ -36,10 +36,8 @@ public class SubscriptionController {
 
     @RequestMapping(value="/addSubscription")
     public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
         Date d = new Date();
-        subscription sub = new subscription();
+        Subscription sub = new Subscription();
         sub.setDate(d.toGMTString());
         sub.setSeriesID(seriesID);
         sub.setUsername(username);
@@ -48,28 +46,21 @@ public class SubscriptionController {
         List<Series> se = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-            System.out.println("returning");
-
-            System.out.println(new String(series.getThumbnail()));
             series.setImageData(new String(series.getThumbnail()));
             se.add(series);
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        // mv.addObject(s);
         mv.addObject("series", se);
         return mv;
-
-
-
     }
 
     @RequestMapping(value="/deleteSubscription")
     public ModelAndView unsubscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        subscription sub = new subscription();
-        for (subscription s : subscriptionRepository.findAll()){
+        Subscription sub = new Subscription();
+        for (Subscription s : subscriptionRepository.findAll()){
             if (s.getSeriesID() == seriesID){
                 if (s.getUsername().equals(username)){
                     sub = s;
@@ -77,27 +68,16 @@ public class SubscriptionController {
             }
         }
 
-
         this.subscriptionRepository.delete(sub);
-/*
 
-        Series s = new Series();
-        for (Series series : seriesRepository.findAll()) {
-            s= series;
-        }
-*/
         List<Series> se = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
-            System.out.println("returning");
-
-            System.out.println(new String(series.getThumbnail()));
             series.setImageData(new String(series.getThumbnail()));
             se.add(series);
         }
 
         ModelAndView mv = new ModelAndView("browse");
-        // mv.addObject(s);
         mv.addObject("series", se);
         return mv;
 
@@ -110,9 +90,8 @@ public class SubscriptionController {
     public ModelAndView checkSub(HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        System.out.println("EFEFFEFEF");
-        subscription sub = new subscription();
-        for (subscription s : subscriptionRepository.findAll()){
+        Subscription sub = new Subscription();
+        for (Subscription s : subscriptionRepository.findAll()){
             if (s.getSeriesID() == seriesID){
                 if (s.getUsername().equals(username)){
                     return unsubscribe(req, username, seriesID);
@@ -127,7 +106,7 @@ public class SubscriptionController {
     }
 
     @GetMapping(path = "/allSub")
-    public @ResponseBody Iterable<subscription> getAllSub() {
+    public @ResponseBody Iterable<Subscription> getAllSub() {
         // This returns a JSON or XML with the users
         return this.subscriptionRepository.findAll();
     }

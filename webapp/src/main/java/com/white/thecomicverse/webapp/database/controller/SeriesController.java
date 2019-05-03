@@ -1,11 +1,7 @@
 package com.white.thecomicverse.webapp.database.controller;
 
-import com.white.thecomicverse.webapp.database.model.Episode;
-import com.white.thecomicverse.webapp.database.model.EpisodeImage;
-import com.white.thecomicverse.webapp.database.model.Login;
-import com.white.thecomicverse.webapp.database.model.subscription;
+import com.white.thecomicverse.webapp.database.model.*;
 
-import com.white.thecomicverse.webapp.database.model.Series;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeImageRepository;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
@@ -120,7 +116,7 @@ public class SeriesController {
         List<Series> s = new ArrayList<Series>();
         List<Integer> seriesIDs = new ArrayList<Integer>();
 
-        for (subscription sub : subscriptionRepository.findAll()) {
+        for (Subscription sub : subscriptionRepository.findAll()) {
             if (sub.getUsername().equalsIgnoreCase(username)) {
                 for (Series series : seriesRepository.findAll()) {
                     if (series.getSeriesID() == sub.getSeriesID()) {
