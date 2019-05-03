@@ -13,6 +13,12 @@ function readURL(url) {
   };
   request.send();
 }
+
+function viewSeriesSubmit(){
+  document.getElementById("usernameInput1").value = window.sessionStorage.getItem("username");
+  document.getElementById('submitViewSeries').submit()
+
+}
 /*
 function readURL() {
     var file = document.getElementById("fileThumbnailInput").files[0];

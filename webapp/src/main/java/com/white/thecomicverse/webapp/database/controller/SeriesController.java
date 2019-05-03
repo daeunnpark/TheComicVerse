@@ -233,7 +233,7 @@ public class SeriesController {
 
     @GetMapping(path = "/view_series")
     public @ResponseBody ModelAndView viewSeries(HttpServletRequest req,
-            @RequestParam(value = "seriesID") int seriesID) {
+            @RequestParam(value = "seriesID") int seriesID, @RequestParam(value="username") String username) {
         // System.out.println("view_Epi :series ID = " + seriesID);
 
         ModelAndView mv = new ModelAndView("view_comic_series");
@@ -253,7 +253,32 @@ public class SeriesController {
             }
         }
 
+        for (Subscription subscription: subscriptionRepository.findAll()){
+            if(subscription.getSeriesID() == seriesID && subscription.getUsername() == username){
+                mv.addObject("subscribed");
+            }
+            else
+                mv.addObject("unsubscribed");
+        }
+
         mv.addObject("episodes", episodeList);
+
+        return mv;
+    }
+
+    @GetMapping(path = "/editComic")
+    public @ResponseBody ModelAndView editSeries(HttpServletRequest req,
+                                                 @RequestParam(value = "seriesID") int seriesID) {
+        // System.out.println("view_Epi :series ID = " + seriesID);
+
+        ModelAndView mv = new ModelAndView("edit_series");
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID) {
+                series.setImageData(new String(series.getThumbnail()));
+                mv.addObject("series", series);
+            }
+        }
 
         return mv;
     }

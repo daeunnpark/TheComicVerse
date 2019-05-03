@@ -218,13 +218,23 @@
                   <input
                           type="hidden"
                           name="SeriesID"
-                          th:value="${serie.SeriesID}"
+                          th:value="${series.SeriesID}"
                   />
                   <button
-                          id="subscribeButton"
+                          id="subscribeButton1"
                           type="button"
                           class="btn btn-primary"
-                          onclick="document.getElementById('submitSubscription').submit()"
+                          onclick=submitSubscribe();
+                          th:if="${param.subscribed}"
+                  >
+                    Subscribed
+                  </button>
+                  <button
+                          id="subscribeButton2"
+                          type="button"
+                          class="btn btn-primary"
+                          onclick=submitSubscribe();
+                          th:if="${param.unsubscribed}"
                   >
                     Subscribe
                   </button>
@@ -298,5 +308,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script src="../static/js/view_comic_series.js" th:src="@{/js/view_comic_series.js}"></script>
   </body>
 </html>
