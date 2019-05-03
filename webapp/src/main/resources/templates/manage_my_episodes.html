@@ -227,20 +227,8 @@
                     <div>
                       <form id="submitReadEpisode" th:action="@{/episodes/readEpisode}">
                         <input name="episodeID" th:value="${episode.EpisodeID}" hidden />
-                      </form>
-        
-                      <form id="submitViewSeries" th:action="@{/series/view_episodes}" method="GET">
-                        <input
-                                type="number"
-                                name="seriesID"
-                                hidden
-                                th:value="${episode.SeriesID}"
-                        />
-                        <input class="btn btn-primary"
-                               type="button"
-                               onclick="this.form.submit();"
-                               value="Manage"
-                        />
+                        <input class="btn btn-primary" type="button" onclick="this.form.submit();" value="View" />
+
                       </form>
                     </div>
                     <div>

@@ -126,7 +126,7 @@
                   class="dropdown-item"
                   href="#"
                   onclick="document.getElementById('submitDraw').submit()"
-                  >Draw an Episode</a
+                  >Draw a Panel</a
                 >
               </form>
             </div>
@@ -214,7 +214,7 @@
                     <form
                       id="manageEpisodes"
                       th:action="@{/episodes/allEpisodes}"
-                      method="GET"
+                      method="POST"
                     >
                       <input
                         id="seriesID"
@@ -223,7 +223,7 @@
                         hidden
                         th:value="${serie.SeriesID}"
                       />
-                      <input
+                      <input class="btn btn-primary"
                         type="button"
                         onclick="this.form.submit();"
                         value="Manage"

@@ -118,7 +118,7 @@
                   class="dropdown-item"
                   href="#"
                   onclick="document.getElementById('submitDraw').submit()"
-                  >Draw an Episode</a
+                  >Draw a Panel</a
                 >
               </form>
             </div>
@@ -422,34 +422,13 @@
                       th:value="${serie.SeriesID}"
                       hidden
                     />
-                    <a
-                      class="btn btn-primary"
-                      onclick="document.getElementById('submitViewSeries').submit()"
-                      >View Comic Page</a
-                    >
-                  </form>
-                  <form
-                    id="submitSubscription"
-                    th:action="@{/subs/checkSubscription}"
-                    method="POST"
-                  >
                     <input
-                      type="hidden"
-                      name="username"
-                      id="dummyUsernameForm4"
+                            type="button"
+                            onclick="this.form.submit();"
+                            value="View"
                     />
-                    <input
-                      type="hidden"
-                      name="SeriesID"
-                      th:value="${serie.SeriesID}"
-                    />
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      onclick="document.getElementById('submitSubscription').submit()"
-                    >
-                      Subscribe
-                    </button>
+
+
                   </form>
                 </div>
               </div>
