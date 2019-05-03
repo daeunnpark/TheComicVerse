@@ -8,21 +8,21 @@ import java.sql.SQLException;
 import javax.sql.rowset.serial.SerialBlob;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Like {
+public class Likes {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int likeID;
+    private int likesID;
 
     private int EpisodeID;
 
     private String username;
 
     public int getLikeID() {
-        return likeID;
+        return likesID;
     }
 
     public void setLikeID(int likeID) {
-        this.likeID = likeID;
+        this.likesID = likeID;
     }
 
     public int getEpisodeID() {
