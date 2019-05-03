@@ -416,17 +416,19 @@
                     method="GET"
                   >
                     <input
-                      id="seriesID"
-                      type="text"
-                      name="seriesID"
-                      th:value="${serie.SeriesID}"
-                      hidden
+                          id="seriesID"
+                          type="number"
+                          name="seriesID"
+                          hidden
+                          th:value="${serie.SeriesID}"
+                  />
+                    <input
+                            class="btn btn-primary"
+                            type="button"
+                            onclick="this.form.submit();"
+                            value="View Comic Series"
                     />
-                    <a
-                      class="btn btn-primary"
-                      onclick="document.getElementById('submitViewSeries').submit()"
-                      >View Comic Page</a
-                    >
+
                   </form>
                 </div>
               </div>
