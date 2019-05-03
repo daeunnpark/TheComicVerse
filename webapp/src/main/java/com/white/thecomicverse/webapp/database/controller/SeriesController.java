@@ -233,7 +233,7 @@ public class SeriesController {
 
     @GetMapping(path = "/view_series")
     public @ResponseBody ModelAndView viewSeries(HttpServletRequest req,
-            @RequestParam(value = "seriesID") int seriesID, @RequestParam(value="username") String username) {
+            @RequestParam(value = "seriesID") int seriesID) {
         // System.out.println("view_Epi :series ID = " + seriesID);
 
         ModelAndView mv = new ModelAndView("view_comic_series");
@@ -251,14 +251,6 @@ public class SeriesController {
                 episode.setImageData(new String(episode.getThumbnail()));
                 episodeList.add(episode);
             }
-        }
-
-        for (Subscription subscription: subscriptionRepository.findAll()){
-            if(subscription.getSeriesID() == seriesID && subscription.getUsername() == username){
-                mv.addObject("subscribed");
-            }
-            else
-                mv.addObject("unsubscribed");
         }
 
         mv.addObject("episodes", episodeList);

@@ -221,20 +221,10 @@
                           th:value="${series.SeriesID}"
                   />
                   <button
-                          id="subscribeButton1"
-                          type="button"
-                          class="btn btn-primary"
-                          onclick=submitSubscribe();
-                          th:if="${param.subscribed}"
-                  >
-                    Subscribed
-                  </button>
-                  <button
                           id="subscribeButton2"
                           type="button"
                           class="btn btn-primary"
                           onclick=submitSubscribe();
-                          th:if="${param.unsubscribed}"
                   >
                     Subscribe
                   </button>

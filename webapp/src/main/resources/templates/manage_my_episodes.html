@@ -231,7 +231,7 @@
         
                       <form id="submitViewSeries" th:action="@{/series/view_episodes}" method="GET">
                         <input id="seriesID" type="text" name="seriesID" th:value="${episode.SeriesID}" hidden />
-                        <a class="btn btn-primary" onclick="document.getElementById('submitViewSeries').submit()">View Comic
+                        <a class="btn btn-primary" onclick="this.form.submit()">View Comic
                           Page</a>
                       </form>
                     </div>
@@ -241,10 +241,10 @@
                     <div>
         
                       <form id="deleteEpisode" th:action="@{/episodes/deleteEpisode}" method="GET">
-                        <input id="seriesID" type="text" name="seriesID" hidden th:value="${episode.SeriesID}" />
+                        <input id="seriesID2" type="text" name="seriesID" hidden th:value="${episode.SeriesID}" />
                         <input name="episodeID" th:value="${episode.EpisodeID}" hidden />
                         <a class="btn btn-danger" href="#"
-                          onclick="document.getElementById('deleteEpisode').submit()">Delete</a>
+                          onclick="this.form.submit()">Delete</a>
                       </form>
                     </div>
                   </div>
