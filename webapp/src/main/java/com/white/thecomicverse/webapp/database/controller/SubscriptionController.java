@@ -86,6 +86,25 @@ public class SubscriptionController {
 
     }
 
+    @RequestMapping(value="/checkAndSubscribe")
+    public ModelAndView checkAndSub(HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        Subscription sub = new Subscription();
+        for (Subscription s : subscriptionRepository.findAll()){
+            if (s.getSeriesID() == seriesID){
+                if (s.getUsername().equals(username)){
+                    return unsubscribe(req, username, seriesID);
+                }
+            }
+        }
+
+
+        return subscribe(req, username, seriesID);
+
+
+    }
+
     @RequestMapping(value="/checkSubscription")
     public ModelAndView checkSub(HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name

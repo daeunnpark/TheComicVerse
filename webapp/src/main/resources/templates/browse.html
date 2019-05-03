@@ -422,9 +422,14 @@
                       th:value="${serie.SeriesID}"
                       hidden
                     />
+                    <input
+                      id="usernameInput1"
+                      name="username"
+                      hidden
+                    />
                     <a
                       class="btn btn-primary"
-                      onclick="document.getElementById('submitViewSeries').submit()"
+                      onclick=viewSeriesSubmit()
                       >View Comic Page</a
                     >
                   </form>
