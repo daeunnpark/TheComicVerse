@@ -262,6 +262,23 @@ public class SeriesController {
         return mv;
     }
 
+    @GetMapping(path = "/editComic")
+    public @ResponseBody ModelAndView editSeries(HttpServletRequest req,
+                                                 @RequestParam(value = "seriesID") int seriesID) {
+        // System.out.println("view_Epi :series ID = " + seriesID);
+
+        ModelAndView mv = new ModelAndView("edit_series");
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID) {
+                series.setImageData(new String(series.getThumbnail()));
+                mv.addObject("series", series);
+            }
+        }
+
+        return mv;
+    }
+
     @RequestMapping(value = "/deleteSeries") // Map ONLY GET Requests
     public ModelAndView deleteEpisode(HttpServletRequest req, @RequestParam(value = "username") String username,
             @RequestParam(value = "seriesID") int seriesID) {
