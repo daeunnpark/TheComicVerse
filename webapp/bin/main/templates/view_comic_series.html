@@ -175,7 +175,9 @@
     </nav>
 
     <div class="card">
-      <div class="card-header" th:text="${series.SeriesName}"></div>
+      <div class="card-header">
+        <span th:text="${series.SeriesName}" style="font-weight: bold;"></span>
+      </div>
       <div class="card-body">
         <div class="card">
           <div class="card-header">Information</div>

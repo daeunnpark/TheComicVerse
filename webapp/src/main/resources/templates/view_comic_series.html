@@ -175,7 +175,9 @@
     </nav>
 
     <div class="card">
-      <div class="card-header" th:text="${series.SeriesName}"></div>
+      <div class="card-header">
+      <span th:text="${series.SeriesName}"style="font-weight: bold;"></span>
+      </div>
       <div class="card-body">
         <div class="card">
           <div class="card-header">Information</div>
@@ -249,10 +251,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-8">
-                      <h5
-                        class="card-title"
-                        th:text="${episode.EpisodeName}"
-                      ></h5>
+                      <h5 class="card-title"><span th:text="${episode.EpisodeName}"style="font-weight: bold;"></span></h5>
                     </div>
                     <div class="col-sm-4">
                       <form
