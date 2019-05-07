@@ -189,38 +189,40 @@
       <div class="card-body" style="min-height:90vh">
         <div class="card">
           <div class="card-header">
-            <span
-              th:text="${series.SeriesName}"
-              style="font-weight: bold;"
-            ></span>
+              <span
+                  th:text="${series.SeriesName}"
+                  style="font-weight: bold;"
+                  ></span>
+            <div style = "float:right">
+                <form
+                    id="deleteSeries"
+                    th:action="@{/series/deleteSeries}"
+                    method="GET"
+                    >
+                    <input
+                    id="dummyUsernameForm4"
+                    type="text"
+                    name="username"
+                    hidden
+                    />
+                    <input
+                    id="seriesID"
+                    type="text"
+                    name="seriesID"
+                    hidden
+                    th:value="${series.SeriesID}"
+                    />
+                    <a
+                        class="btn btn-danger"
+                        href="#"
+                        onclick="document.getElementById('deleteSeries').submit()"
+                        >Delete</a
+                    >
+                </form>
+            </div>
+            
           </div>
-          <div>
-            <form
-              id="deleteSeries"
-              th:action="@{/series/deleteSeries}"
-              method="GET"
-            >
-              <input
-                id="dummyUsernameForm4"
-                type="text"
-                name="username"
-                hidden
-              />
-              <input
-                id="seriesID"
-                type="text"
-                name="seriesID"
-                hidden
-                th:value="${series.SeriesID}"
-              />
-              <a
-                class="btn btn-danger"
-                href="#"
-                onclick="document.getElementById('deleteSeries').submit()"
-                >Delete</a
-              >
-            </form>
-          </div>
+          
 
           <div class="card-body">
             <div class="row">
