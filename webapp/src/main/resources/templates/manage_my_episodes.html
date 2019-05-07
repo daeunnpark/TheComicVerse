@@ -186,9 +186,14 @@
 
     <div class="card">
       <div class="card-header">Manage My Episodes</div>
-      <div class="card-body">
+      <div class="card-body" style="min-height:90vh">
         <div class="card">
-          <div class="card-header" th:text="${series.SeriesName}"></div>
+          <div class="card-header">
+            <span
+              th:text="${series.SeriesName}"
+              style="font-weight: bold;"
+            ></span>
+          </div>
           <div>
             <form
               id="deleteSeries"
@@ -306,15 +311,14 @@
 
         <form id="submitDraw2" action="/drawing_page" method="GET">
           <span
-            class="fa-stack fa-1x"
-            style="position: absolute; bottom:15px; right:15px"
+            class="fa-stack fa-2x"
+            style="position: fixed; bottom:15px; right:15px"
             onclick="document.getElementById('submitDraw2').submit()"
           >
-            <i class="fas fa-circle fa-stack-2x" style="color:red"></i>
+            <i class="fas fa-circle fa-stack-2x" style="color:orange"></i>
             <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
           </span>
         </form>
-        
       </div>
     </div>
 
