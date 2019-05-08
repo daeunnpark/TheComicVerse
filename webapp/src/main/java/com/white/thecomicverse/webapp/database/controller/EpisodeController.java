@@ -66,6 +66,8 @@ public class EpisodeController {
 
     }
 
+
+
     @RequestMapping(value = "/addEpisode") // Map ONLY GET Requests
     public ModelAndView addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
@@ -115,7 +117,7 @@ public class EpisodeController {
      **/
     @RequestMapping(value = "/prevEp")
     public ModelAndView prevEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-            @RequestParam(value = "episodeIndex") int episodeIndex) {
+            @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
         int seriesID = -1;
         for (Episode episode : EpiRepository.findAll()) {
             if (episodeID == episode.getEpisodeID()) {
@@ -154,26 +156,24 @@ public class EpisodeController {
 
         for (Likes like : LikesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
-                l = true;
-                break;
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    l = true;
+                    break;
+                }
             }
         }
 
         for (Dislike dislike : DislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
-                dl = true;
-                break;
+                if (dislike.getUsername().equalsIgnoreCase(username)) {
+                    dl = true;
+                    break;
+                }
             }
         }
 
         mv.addObject("like", l);
         mv.addObject("dislike", dl);
-
-
-
-
-
-        
 
 
         return mv;
@@ -184,7 +184,7 @@ public class EpisodeController {
      **/
     @RequestMapping(value = "/nextEp") // Map ONLY GET Requests
     public ModelAndView nextEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-            @RequestParam(value = "episodeIndex") int episodeIndex) {
+            @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
         int nextEpID = -1;
         int max = -1;
         int epiIndex = episodeIndex;
@@ -231,21 +231,24 @@ public class EpisodeController {
 
         for (Likes like : LikesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
-                l = true;
-                break;
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    l = true;
+                    break;
+                }
             }
         }
 
         for (Dislike dislike : DislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
-                dl = true;
-                break;
+                if (dislike.getUsername().equalsIgnoreCase(username)) {
+                    dl = true;
+                    break;
+                }
             }
         }
 
         mv.addObject("like", l);
         mv.addObject("dislike", dl);
-
 
 
 
@@ -282,25 +285,6 @@ public class EpisodeController {
             }
         }
 
-        boolean l = false;
-        boolean dl = true;
-
-        for (Likes like : LikesRepository.findAll()){
-            if (like.getEpisodeID() == episodeID){
-                l = true;
-                break;
-            }
-        }
-
-        for (Dislike dislike : DislikeRepository.findAll()){
-            if (dislike.getEpisodeID() == episodeID){
-                dl = true;
-                break;
-            }
-        }
-
-        mv.addObject("like", l);
-        mv.addObject("dislike", dl);
 
 
 
@@ -313,11 +297,13 @@ public class EpisodeController {
         return mv;
     }
 
+
     /**
      * read Episode
      */
     @RequestMapping(value = "/readEpisode") // Map ONLY GET Requests
-    public ModelAndView readEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID) {
+    public ModelAndView readEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
 
         System.out.println("received episode ID: " + episodeID);
 
@@ -358,21 +344,24 @@ public class EpisodeController {
 
         for (Likes like : LikesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
-                l = true;
-                break;
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    l = true;
+                    break;
+                }
             }
         }
 
         for (Dislike dislike : DislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
-                dl = true;
-                break;
+                if (dislike.getUsername().equalsIgnoreCase(username)) {
+                    dl = true;
+                    break;
+                }
             }
         }
 
         mv.addObject("like", l);
         mv.addObject("dislike", dl);
-
 
 
 
