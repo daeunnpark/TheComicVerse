@@ -179,12 +179,10 @@
     </nav>
 
     <div class="card">
-      <div class="card-header">Read Episode</div>
+      <div class="card-header"><span th:text="${series.SeriesName}"style="font-weight: bold;"></div>
       <div class="card-body">
         <div class="card">
-          <div class="card-header"
-          th:text="${episode.EpisodeName}"></div>
-
+          <div class="card-header"> <span th:text="${episode.EpisodeName}"style="font-weight: bold;"></span></div>
           <!-- Episode images -->
           <div class="card-body" th:if="${imageList} != null">
             <div id="panelTable" th:each="image : ${imageList}">

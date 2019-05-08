@@ -129,6 +129,10 @@
       fr.readAsText(this.files[0]);
     });
 
+    $( "#save_png" ).click(function( event ) {
+      this.href = canvas.toDataURL("image/png;base64");
+    });
+
 
   });
 
@@ -444,6 +448,15 @@
         canvas.add(textbox);
         textbox.enterEditing();
         textbox.hiddenTextarea.focus();
+        break;
+      case "bubble":
+        fabric.Image.fromURL("../image/speech_bubble.png", function(img) {
+          img.set({
+            scaleY: 0.5,
+            scaleX: 0.5
+          });
+          canvas.add(img);
+        });
         break;
       case "remove":
         break;

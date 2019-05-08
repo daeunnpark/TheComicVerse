@@ -67,7 +67,7 @@ public class EpisodeController {
 
         }
 
-        ModelAndView mv = new ModelAndView("home");
+        //ModelAndView mv = new ModelAndView("home");
 
         byte[] thumbnailByteArr = thumbnail.getBytes();
         Date d = new Date();
@@ -81,6 +81,7 @@ public class EpisodeController {
         epi.setDateCreated(d.toGMTString());
 
         int max = -1;
+
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getSeriesID() == SeriesID && episode.getIndices() > max) {
                 max = episode.getIndices();
@@ -90,7 +91,9 @@ public class EpisodeController {
         this.EpiRepository.save(epi);
         addImage(epi.getEpisodeID(), image);
 
-        return mv;
+        return allEpisodes(req, SeriesID);
+
+       // return mv;
 
     }
 
@@ -206,8 +209,6 @@ public class EpisodeController {
             }
         }
 
-        System.out.println("FEFEF");
-
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getSeriesID() == seriesID) {
                 episode.setImageData(new String(episode.getThumbnail()));
@@ -229,9 +230,15 @@ public class EpisodeController {
      */
     @RequestMapping(value = "/readEpisode") // Map ONLY GET Requests
     public ModelAndView readEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID) {
+
         System.out.println("received episode ID: " + episodeID);
+
         ModelAndView mv = new ModelAndView("read_episode"); // ("redirect:/read_episode");
+
+        Episode epi = new Episode();
         List<EpisodeImage> imageList = new ArrayList<>();
+
+
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeID() == episodeID) {
                 mv.addObject("episode", episode);
@@ -246,8 +253,20 @@ public class EpisodeController {
                 // System.out.println("ImageList: "+ imageList);
                 mv.addObject("imageList", imageList);
                 // ra.addFlashAttribute("imageList",imageList);
+
+                for (Series series : seriesRepository.findAll()) {
+                    if (series.getSeriesID() == episode.getSeriesID()) {
+                        series.setImageData(new String(series.getThumbnail()));
+                        mv.addObject("series", series); // single serie
+                        break;
+                    }
+                }
+
             }
         }
+
+        
+
         return mv;
     }
 

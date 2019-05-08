@@ -408,7 +408,10 @@
                    -->
                 <div class="card-body">
                   <h5 class="card-title">
-                    <span th:text="${serie.SeriesName}"></span>
+                    <span
+                      th:text="${serie.SeriesName}"
+                      style="font-weight: bold;"
+                    ></span>
                   </h5>
                   <form
                     id="submitViewSeries"
@@ -430,15 +433,10 @@
                     />
 
                     <input
-                      id="usernameInput1"
-                      name="username"
-                      hidden
+                      type="button"
+                      onclick="this.form.submit();"
+                      value="View"
                     />
-                    <a
-                      class="btn btn-primary"
-                      onclick=viewSeriesSubmit()
-                      >View Comic Page</a
-                    >
                   </form>
                 </div>
               </div>

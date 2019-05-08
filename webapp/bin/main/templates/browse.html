@@ -118,7 +118,7 @@
                   class="dropdown-item"
                   href="#"
                   onclick="document.getElementById('submitDraw').submit()"
-                  >Draw an Episode</a
+                  >Draw a Panel</a
                 >
               </form>
             </div>
@@ -408,7 +408,10 @@
                    -->
                 <div class="card-body">
                   <h5 class="card-title">
-                    <span th:text="${serie.SeriesName}"></span>
+                    <span
+                      th:text="${serie.SeriesName}"
+                      style="font-weight: bold;"
+                    ></span>
                   </h5>
                   <form
                     id="submitViewSeries"
@@ -422,34 +425,11 @@
                       th:value="${serie.SeriesID}"
                       hidden
                     />
-                    <a
-                      class="btn btn-primary"
-                      onclick="document.getElementById('submitViewSeries').submit()"
-                      >View Comic Page</a
-                    >
-                  </form>
-                  <form
-                    id="submitSubscription"
-                    th:action="@{/subs/checkSubscription}"
-                    method="POST"
-                  >
                     <input
-                      type="hidden"
-                      name="username"
-                      id="dummyUsernameForm4"
-                    />
-                    <input
-                      type="hidden"
-                      name="SeriesID"
-                      th:value="${serie.SeriesID}"
-                    />
-                    <button
                       type="button"
-                      class="btn btn-primary"
-                      onclick="document.getElementById('submitSubscription').submit()"
-                    >
-                      Subscribe
-                    </button>
+                      onclick="this.form.submit();"
+                      value="View"
+                    />
                   </form>
                 </div>
               </div>
