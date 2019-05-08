@@ -3,7 +3,10 @@ package com.white.thecomicverse.webapp.database.controller;
 
 import com.white.thecomicverse.webapp.database.model.EpisodeImage;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeImageRepository;
+import com.white.thecomicverse.webapp.database.repositories.LikesRepository;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
+import com.white.thecomicverse.webapp.database.repositories.DislikeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.white.thecomicverse.webapp.database.model.Episode;
 import com.white.thecomicverse.webapp.database.model.Series;
+import com.white.thecomicverse.webapp.database.model.Likes;
+
+import com.white.thecomicverse.webapp.database.model.Dislike;
+
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,6 +42,12 @@ public class EpisodeController {
 
     @Autowired
     private SeriesRepository seriesRepository;
+
+    @Autowired
+    private LikesRepository likesRepository;
+
+    @Autowired
+    private DislikeRepository dislikeRepository;
 
     @RequestMapping(value = "/upload_episode")
     public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username) {
@@ -136,6 +149,32 @@ public class EpisodeController {
                 mv.addObject("imageList", imageList);
             }
         }
+        boolean l = false;
+        boolean dl = true;
+
+        for (Likes like : LikesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                l = true;
+                break;
+            }
+        }
+
+        for (Dislike dislike : DislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                dl = true;
+                break;
+            }
+        }
+
+        mv.addObject("like", l);
+        mv.addObject("dislike", dl);
+
+
+
+
+
+        
+
 
         return mv;
     }
