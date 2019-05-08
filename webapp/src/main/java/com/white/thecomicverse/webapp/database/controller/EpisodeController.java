@@ -195,7 +195,7 @@ public class EpisodeController {
 
     @RequestMapping(value = "/addDislike") // Map ONLY GET Requests
     public ModelAndView addDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                 @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+                                    @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
 
 
         Dislike dl = new Dislike();
@@ -203,6 +203,38 @@ public class EpisodeController {
         dl.setUsername(username);
 
         LikesRepository.save(dl);
+
+        return readEpisode(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/removeDislike") // Map ONLY GET Requests
+    public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+
+        for (Dislike dislike : DislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                if (dislike.getUsername().equalsIgnoreCase(username)) {
+                    DislikeRepository.delete(dislike);
+                    break;
+                }
+            }
+        }
+
+        return readEpisode(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/removeLike") // Map ONLY GET Requests
+    public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                       @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+
+        for (Likes like : LikesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    LikesRepository.delete(like);
+                    break;
+                }
+            }
+        }
 
         return readEpisode(req, episodeID, username);
     }
