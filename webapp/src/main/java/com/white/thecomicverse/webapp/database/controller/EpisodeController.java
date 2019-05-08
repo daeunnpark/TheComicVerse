@@ -179,6 +179,34 @@ public class EpisodeController {
         return mv;
     }
 
+    @RequestMapping(value = "/addLike") // Map ONLY GET Requests
+    public ModelAndView addLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+
+
+        Likes l = new Likes();
+        l.setEpisodeID(episodeID);
+        l.setUsername(username);
+
+        LikesRepository.save(l);
+
+        return readEpisode(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/addDislike") // Map ONLY GET Requests
+    public ModelAndView addDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                 @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+
+
+        Dislike dl = new Dislike();
+        dl.setEpisodeID(episodeID);
+        dl.setUsername(username);
+
+        LikesRepository.save(dl);
+
+        return readEpisode(req, episodeID, username);
+    }
+
     /**
      * redirect to next episode
      **/
