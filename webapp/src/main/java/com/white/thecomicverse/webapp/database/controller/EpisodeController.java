@@ -225,6 +225,31 @@ public class EpisodeController {
             }
         }
 
+
+        boolean l = false;
+        boolean dl = true;
+
+        for (Likes like : LikesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                l = true;
+                break;
+            }
+        }
+
+        for (Dislike dislike : DislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                dl = true;
+                break;
+            }
+        }
+
+        mv.addObject("like", l);
+        mv.addObject("dislike", dl);
+
+
+
+
+
         return mv;
     }
 
@@ -256,6 +281,30 @@ public class EpisodeController {
 
             }
         }
+
+        boolean l = false;
+        boolean dl = true;
+
+        for (Likes like : LikesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                l = true;
+                break;
+            }
+        }
+
+        for (Dislike dislike : DislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                dl = true;
+                break;
+            }
+        }
+
+        mv.addObject("like", l);
+        mv.addObject("dislike", dl);
+
+
+
+
 
 
 
@@ -304,7 +353,31 @@ public class EpisodeController {
             }
         }
 
-        
+        boolean l = false;
+        boolean dl = true;
+
+        for (Likes like : LikesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                l = true;
+                break;
+            }
+        }
+
+        for (Dislike dislike : DislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                dl = true;
+                break;
+            }
+        }
+
+        mv.addObject("like", l);
+        mv.addObject("dislike", dl);
+
+
+
+
+
+
 
         return mv;
     }
@@ -342,6 +415,16 @@ public class EpisodeController {
         for (Episode epi : EpiRepository.findAll()) {
             if (epi.getEpisodeID() == episodeID) {
                 EpiRepository.delete(epi);
+            }
+        }
+        for (Likes l : LikesRepository.findAll()){
+            if (l.getEpisodeID() == episodeID) {
+                LikesRepository.delete(l);
+            }
+        }
+        for (Dislike dl : DislikeRepository.findAll()){
+            if (dl.getEpisodeID() == episodeID) {
+                DislikeRepository.delete(dl);
             }
         }
 
