@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.white.thecomicverse.webapp.database.model.Subscription;
+import com.white.thecomicverse.webapp.database.repositories.SubscriptionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -106,6 +109,63 @@ public class SeriesController {
         ModelAndView mv = new ModelAndView("browse");
         mv.addObject("series", s);
         return mv;
+
+    }
+    @RequestMapping(value="/addSubscription")
+    public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+        Date d = new Date();
+        Subscription sub = new Subscription();
+        sub.setDate(d.toGMTString());
+        sub.setSeriesID(seriesID);
+        sub.setUsername(username);
+        this.subscriptionRepository.save(sub);
+
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID){
+                mv.addObject("series", series);
+                break;
+
+            }
+        }
+
+        mv.addObject("subs", true);
+
+        ModelAndView mv = new ModelAndView("manage_my_series");
+        return mv;
+    }
+
+    @RequestMapping(value="/deleteSubscription")
+    public ModelAndView unsubscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        Subscription sub = new Subscription();
+        for (Subscription s : subscriptionRepository.findAll()){
+            if (s.getSeriesID() == seriesID){
+                if (s.getUsername().equals(username)){
+                    sub = s;
+                }
+            }
+        }
+
+        this.subscriptionRepository.delete(sub);
+
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID){
+                mv.addObject("series", series);
+                break;
+
+            }
+        }
+
+        mv.addObject("subs", false);
+
+        ModelAndView mv = new ModelAndView("manage_my_series");
+        return mv;
+
+
+
 
     }
 

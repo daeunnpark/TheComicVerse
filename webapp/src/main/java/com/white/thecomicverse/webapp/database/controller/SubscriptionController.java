@@ -4,7 +4,6 @@ package com.white.thecomicverse.webapp.database.controller;
 
 
 import com.white.thecomicverse.webapp.database.model.Login;
-import com.white.thecomicverse.webapp.database.model.Subscription;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.white.thecomicverse.webapp.database.model.Series;
+import com.white.thecomicverse.webapp.database.model.Subscription;
 
 import com.white.thecomicverse.webapp.database.repositories.SubscriptionRepository;
 
