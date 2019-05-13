@@ -1,5 +1,6 @@
+//DONT USE SUBSCRIPTION CONTROLLER. ALL THE METHODS ARE IN SERIES CONTROLLER
 
-
+/*
 package com.white.thecomicverse.webapp.database.controller;
 
 
@@ -157,6 +158,8 @@ public class SubscriptionController {
 
     }
 
-    */
+
 
 }
+
+*/

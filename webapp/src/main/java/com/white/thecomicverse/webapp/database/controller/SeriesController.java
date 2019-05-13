@@ -136,7 +136,7 @@ public class SeriesController {
     }
 
     @RequestMapping(value="/checkSubscription")
-    public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+    public ModelAndView checkSubscription (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
 
         boolean subs = false;
         Subscription sub = new Subscription();
