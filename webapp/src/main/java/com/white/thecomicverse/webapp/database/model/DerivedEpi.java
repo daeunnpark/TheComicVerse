@@ -15,9 +15,18 @@ public class DerivedEpi {
 
     private int OriginalID;
 
-    private int derivedID;
-
     private Blob endingScene;
+
+    private String author;
+
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public int getDerivedEpiID() {
         return derivedEpiID;
@@ -35,14 +44,6 @@ public class DerivedEpi {
         OriginalID = originalID;
     }
 
-    public int getDerivedID() {
-        return derivedID;
-    }
-
-    public void setDerivedID(int derivedID) {
-        this.derivedID = derivedID;
-    }
-
     public byte[] getEndingScene(){
 
         try {
@@ -57,7 +58,7 @@ public class DerivedEpi {
 
     }
 
-    public void setThumbnail(byte[] byteArray){
+    public void setEndingScene(byte[] byteArray){
 
         try {
             this.endingScene = new SerialBlob(byteArray);

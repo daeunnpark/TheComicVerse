@@ -6,6 +6,9 @@ import com.white.thecomicverse.webapp.database.repositories.EpisodeImageReposito
 import com.white.thecomicverse.webapp.database.repositories.LikesRepository;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import com.white.thecomicverse.webapp.database.repositories.DislikeRepository;
+import com.white.thecomicverse.webapp.database.repositories.DerivedEpiRepository;
+import com.white.thecomicverse.webapp.database.repositories.CommentsRepository;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.white.thecomicverse.webapp.database.model.Episode;
 import com.white.thecomicverse.webapp.database.model.Series;
 import com.white.thecomicverse.webapp.database.model.Likes;
+import com.white.thecomicverse.webapp.database.model.DerivedEpi;
+import com.white.thecomicverse.webapp.database.model.Comments;
+
 
 import com.white.thecomicverse.webapp.database.model.Dislike;
 
@@ -48,6 +54,12 @@ public class EpisodeController {
 
     @Autowired
     private DislikeRepository dislikeRepository;
+
+    @Autowired
+    private DerivedEpiRepository derivedEpiRepository;
+
+    @Autowired
+    private CommentsRepository commentsRepository;
 
     @RequestMapping(value = "/upload_episode")
     public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username) {
@@ -109,6 +121,58 @@ public class EpisodeController {
         return allEpisodes(req, SeriesID);
 
        // return mv;
+
+    }
+
+
+    @RequestMapping(value = "/addDrivedEpi") // Map ONLY GET Requests
+    public ModelAndView addDrivedEpi(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                   @RequestParam(value = "username") String username,
+                                     @RequestParam(value = "endingScene") String ending ){
+
+        // System.out.println("add Epi:series ID = " + SeriesID);
+
+        DerivedEpi dEpi = new DerivedEpi();
+
+        Episode epi = new Episode();
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID){
+                epi = episode;
+                break;
+            }
+
+        }
+
+        dEpi.setAuthor(username);
+        dEpi.setOriginalID(episodeID);
+
+
+        byte[] endingByteArr = ending.getBytes();
+
+        dEpi.setEndingScene(endingByteArr);
+
+        derivedEpiRepository.save(dEpi);
+
+        List<DerivedEpi> dEpiList = new ArrayList<>();
+
+
+        for (DerivedEpi dEpisode : derivedEpiRepository.findAll()) {
+            if (dEpisode.getOriginalID() == episodeID){
+                dEpiList.add(dEpisode);
+            }
+
+        }
+
+        ModelAndView mv = new ModelAndView("See_Derived_Epi");
+
+        mv.addObject("originalEpi", epi);
+        mv.addObject("derivedEpi", dEpiList);
+
+
+        return mv;
+
+        // return mv;
 
     }
 
@@ -181,7 +245,7 @@ public class EpisodeController {
 
     @RequestMapping(value = "/addLike") // Map ONLY GET Requests
     public ModelAndView addLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+                                    @RequestParam(value = "username") String username) {
 
 
         Likes l = new Likes();
@@ -193,9 +257,41 @@ public class EpisodeController {
         return readEpisode(req, episodeID, username);
     }
 
+    @RequestMapping(value = "/addComments") // Map ONLY GET Requests
+    public ModelAndView addComments(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                 @RequestParam(value = "username") String username,
+                                    @RequestParam(value = "text") String text) {
+
+
+        Comments c = new Comments();
+        c.setAuthor(username);
+        c.setText(text);
+        c.setEpisodeID(episodeID);
+
+        commentsRepository.save(c);
+
+        return readEpisode(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/removeComments") // Map ONLY GET Requests
+    public ModelAndView removeComments(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                       @RequestParam(value = "username") String username,
+                                       @RequestParam(value = "commentID") int commentID) {
+
+        for (Comments comments : CommentsRepository.findAll()){
+            if (comments.getCommentID() == commentID){
+                commentsRepository.delete(comments);
+            }
+        }
+
+        return readEpisode(req, episodeID, username);
+    }
+
+
+
     @RequestMapping(value = "/addDislike") // Map ONLY GET Requests
     public ModelAndView addDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+                                    @RequestParam(value = "username") String username) {
 
 
         Dislike dl = new Dislike();
@@ -209,7 +305,7 @@ public class EpisodeController {
 
     @RequestMapping(value = "/removeDislike") // Map ONLY GET Requests
     public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+                                    @RequestParam(value = "username") String username) {
 
         for (Dislike dislike : DislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
@@ -225,7 +321,7 @@ public class EpisodeController {
 
     @RequestMapping(value = "/removeLike") // Map ONLY GET Requests
     public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                       @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+                                       @RequestParam(value = "username") String username) {
 
         for (Likes like : LikesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
@@ -422,6 +518,17 @@ public class EpisodeController {
 
         mv.addObject("like", l);
         mv.addObject("dislike", dl);
+
+        List<Comments> commentsList = new ArrayList<>();
+
+        for (Comments c : commentsRepository.findAll()){
+            if (c.getEpisodeID() == episodeID){
+                commentsList.add(c);
+            }
+        }
+
+        mv.addObject("comments", commentsList);
+
 
 
 

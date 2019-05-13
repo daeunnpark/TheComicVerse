@@ -17,6 +17,16 @@ public class Comments {
 
     private String text;
 
+    private int episodeID;
+
+    public int getEpisodeID() {
+        return episodeID;
+    }
+
+    public void setEpisodeID(int episodeID) {
+        this.episodeID = episodeID;
+    }
+
     public int getCommentID() {
         return CommentID;
     }
