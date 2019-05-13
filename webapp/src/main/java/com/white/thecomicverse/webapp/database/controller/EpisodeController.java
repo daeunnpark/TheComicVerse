@@ -218,7 +218,7 @@ public class EpisodeController {
         boolean l = false;
         boolean dl = true;
 
-        for (Likes like : LikesRepository.findAll()){
+        for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
                 if (like.getUsername().equalsIgnoreCase(username)) {
                     l = true;
@@ -227,7 +227,7 @@ public class EpisodeController {
             }
         }
 
-        for (Dislike dislike : DislikeRepository.findAll()){
+        for (Dislike dislike : dislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
                 if (dislike.getUsername().equalsIgnoreCase(username)) {
                     dl = true;
@@ -252,7 +252,7 @@ public class EpisodeController {
         l.setEpisodeID(episodeID);
         l.setUsername(username);
 
-        LikesRepository.save(l);
+        likesRepository.save(l);
 
         return readEpisode(req, episodeID, username);
     }
@@ -278,7 +278,7 @@ public class EpisodeController {
                                        @RequestParam(value = "username") String username,
                                        @RequestParam(value = "commentID") int commentID) {
 
-        for (Comments comments : CommentsRepository.findAll()){
+        for (Comments comments : commentsRepository.findAll()){
             if (comments.getCommentID() == commentID){
                 commentsRepository.delete(comments);
             }
@@ -298,7 +298,7 @@ public class EpisodeController {
         dl.setEpisodeID(episodeID);
         dl.setUsername(username);
 
-        LikesRepository.save(dl);
+        dislikeRepository.save(dl);
 
         return readEpisode(req, episodeID, username);
     }
@@ -307,10 +307,10 @@ public class EpisodeController {
     public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "username") String username) {
 
-        for (Dislike dislike : DislikeRepository.findAll()){
+        for (Dislike dislike : dislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
                 if (dislike.getUsername().equalsIgnoreCase(username)) {
-                    DislikeRepository.delete(dislike);
+                    dislikeRepository.delete(dislike);
                     break;
                 }
             }
@@ -320,13 +320,13 @@ public class EpisodeController {
     }
 
     @RequestMapping(value = "/removeLike") // Map ONLY GET Requests
-    public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+    public ModelAndView removelikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                        @RequestParam(value = "username") String username) {
 
-        for (Likes like : LikesRepository.findAll()){
+        for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
                 if (like.getUsername().equalsIgnoreCase(username)) {
-                    LikesRepository.delete(like);
+                    likesRepository.delete(like);
                     break;
                 }
             }
@@ -385,7 +385,7 @@ public class EpisodeController {
         boolean l = false;
         boolean dl = true;
 
-        for (Likes like : LikesRepository.findAll()){
+        for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
                 if (like.getUsername().equalsIgnoreCase(username)) {
                     l = true;
@@ -394,7 +394,7 @@ public class EpisodeController {
             }
         }
 
-        for (Dislike dislike : DislikeRepository.findAll()){
+        for (Dislike dislike : dislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
                 if (dislike.getUsername().equalsIgnoreCase(username)) {
                     dl = true;
@@ -498,7 +498,7 @@ public class EpisodeController {
         boolean l = false;
         boolean dl = true;
 
-        for (Likes like : LikesRepository.findAll()){
+        for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
                 if (like.getUsername().equalsIgnoreCase(username)) {
                     l = true;
@@ -507,7 +507,7 @@ public class EpisodeController {
             }
         }
 
-        for (Dislike dislike : DislikeRepository.findAll()){
+        for (Dislike dislike : dislikeRepository.findAll()){
             if (dislike.getEpisodeID() == episodeID){
                 if (dislike.getUsername().equalsIgnoreCase(username)) {
                     dl = true;
@@ -573,14 +573,14 @@ public class EpisodeController {
                 EpiRepository.delete(epi);
             }
         }
-        for (Likes l : LikesRepository.findAll()){
+        for (Likes l : likesRepository.findAll()){
             if (l.getEpisodeID() == episodeID) {
-                LikesRepository.delete(l);
+                likesRepository.delete(l);
             }
         }
-        for (Dislike dl : DislikeRepository.findAll()){
+        for (Dislike dl : dislikeRepository.findAll()){
             if (dl.getEpisodeID() == episodeID) {
-                DislikeRepository.delete(dl);
+                dislikeRepository.delete(dl);
             }
         }
 

@@ -113,6 +113,9 @@ public class SeriesController {
     }
     @RequestMapping(value="/addSubscription")
     public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+        ModelAndView mv = new ModelAndView("manage_my_series");
+
+
         Date d = new Date();
         Subscription sub = new Subscription();
         sub.setDate(d.toGMTString());
@@ -131,7 +134,6 @@ public class SeriesController {
 
         mv.addObject("subs", true);
 
-        ModelAndView mv = new ModelAndView("manage_my_series");
         return mv;
     }
 
@@ -147,10 +149,11 @@ public class SeriesController {
                 }
             }
         }
+        ModelAndView mv = new ModelAndView("manage_my_series");
+
 
         mv.addObject("subs", subs);
 
-        ModelAndView mv = new ModelAndView("manage_my_series");
         return mv;
     }
 
@@ -158,6 +161,9 @@ public class SeriesController {
     public ModelAndView unsubscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
+
+        ModelAndView mv = new ModelAndView("manage_my_series");
+
         Subscription sub = new Subscription();
         for (Subscription s : subscriptionRepository.findAll()){
             if (s.getSeriesID() == seriesID){
@@ -178,9 +184,9 @@ public class SeriesController {
             }
         }
 
+
         mv.addObject("subs", false);
 
-        ModelAndView mv = new ModelAndView("manage_my_series");
         return mv;
 
 
