@@ -135,6 +135,25 @@ public class SeriesController {
         return mv;
     }
 
+    @RequestMapping(value="/checkSubscription")
+    public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+
+        boolean subs = false;
+        Subscription sub = new Subscription();
+        for (Subscription s : subscriptionRepository.findAll()){
+            if (s.getSeriesID() == seriesID){
+                if (s.getUsername().equals(username)){
+                    subs = true;
+                }
+            }
+        }
+
+        mv.addObject("subs", subs);
+
+        ModelAndView mv = new ModelAndView("manage_my_series");
+        return mv;
+    }
+
     @RequestMapping(value="/deleteSubscription")
     public ModelAndView unsubscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
         // @ResponseBody means the returned String is the response, not a view name
