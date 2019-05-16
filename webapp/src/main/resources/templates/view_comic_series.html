@@ -209,7 +209,7 @@
                 >
                 <form
                   id="submitSubscription"
-                  th:action="@{/subs/checkSubscription}"
+                  th:action="@{/series/checkSubscription}"
                   method="POST"
                 >
                   <input
@@ -225,8 +225,16 @@
                   <button
                     id="subscribeButton2"
                     type="button"
-                    class="btn btn-primary"
-                    onclick="this.form.submit();"
+                    class="btn btn-success"
+                    onclick="
+                      if($(this).innerHTML === 'Subscribe'){
+                        $(this).innerHTML = 'Unsubscribe';
+                      }
+                      else{
+                        $(this).innerHTML = 'Subscribe';
+                      }
+                      this.form.submit();
+                     "
                   >
                     Subscribe
                   </button>
