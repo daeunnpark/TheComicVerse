@@ -220,9 +220,9 @@
                     >
                 </form>
             </div>
-            
+
           </div>
-          
+
 
           <div class="card-body">
             <div class="row">
@@ -230,7 +230,14 @@
                 <img th:src="${series.imageData}" alt="Card image cap" />
               </div>
               <div class="col-sm-9">
-                <label>Likes - 456</label>
+                <span><strong>Likes :</strong></span><span th:text="${series.sumLikes}"></span>
+                <br />
+                <br />
+                <span><strong>Category:</strong></span><span th:text="${series.categories}"></span>
+                <br />
+                <br />
+                <span><strong>Description:</strong></span><p th:text="${series.description}"></p>
+
                 <br />
               </div>
             </div>
