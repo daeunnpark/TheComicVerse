@@ -175,7 +175,7 @@ public class SeriesController {
             }
         }
 
-        mv.addOject("sub", subs);
+        mv.addObject("sub", subs);
 
         mv.addObject("episodes", episodeList);
 
