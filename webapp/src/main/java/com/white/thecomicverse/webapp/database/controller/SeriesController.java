@@ -93,13 +93,16 @@ public class SeriesController {
         mv.addObject("series", seriesList);
         return mv;
     }
-
+/*
     @RequestMapping(value = "/categoryBrowse")
     public ModelAndView getSeriesByCategories(HttpServletRequest req,
             @RequestParam(value = "searchOption") List<String> categoryList) {
 
         List<Series> s = new ArrayList<Series>();
 
+        if (categoryList.size() == 0){
+
+        }
         for (Series series : seriesRepository.findAll()) {
             if (categoryList.contains(series.getCategories())) {
                 s.add(series);
@@ -111,6 +114,7 @@ public class SeriesController {
         return mv;
 
     }
+    */
     @RequestMapping(value="/addSubscription")
     public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
 
