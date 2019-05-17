@@ -113,6 +113,7 @@ public class SeriesController {
     }
     @RequestMapping(value="/addSubscription")
     public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
+
         ModelAndView mv = new ModelAndView("manage_my_series");
 
 
@@ -165,6 +166,8 @@ public class SeriesController {
                 episodeList.add(episode);
             }
         }
+
+        mv.addOject("sub", subs);
 
         mv.addObject("episodes", episodeList);
 
@@ -332,30 +335,41 @@ public class SeriesController {
 
     @GetMapping(path = "/view_series")
     public @ResponseBody ModelAndView viewSeries(HttpServletRequest req,
-            @RequestParam(value = "seriesID") int seriesID) {
+                                                 @RequestParam(value = "seriesID") int seriesID, @RequestParam(value = "username") String username) {
         // System.out.println("view_Epi :series ID = " + seriesID);
 
-        ModelAndView mv = new ModelAndView("view_comic_series");
-        List<Episode> episodeList = new ArrayList<>();
-
-        for (Series series : seriesRepository.findAll()) {
-            if (series.getSeriesID() == seriesID) {
-                series.setImageData(new String(series.getThumbnail()));
-                mv.addObject("series", series);
-            }
-        }
-
-        for (Episode episode : episodeRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID) {
-                episode.setImageData(new String(episode.getThumbnail()));
-                episodeList.add(episode);
-            }
-        }
-
-        mv.addObject("episodes", episodeList);
-
-        return mv;
+        return checkSubscription(req, username, seriesID);
     }
+
+
+    @GetMapping(path = "/home_series")
+    public @ResponseBody ModelAndView homeSeries(HttpServletRequest req, @RequestParam(value = "username") String username) {
+        // System.out.println("view_Epi :series ID = " + seriesID);
+        List<Series> s = new ArrayList<Series>();
+        for (Subscription sub : subscriptionRepository.findAll()) {
+            if (sub.getUsername().equals(username)) {
+                for (Series se : seriesRepository.findAll()){
+                    if (se.getSeriesID() == sub.getSeriesID()){
+                        s.add(se);
+                    }
+                }
+
+                // System.out.println(seriesName);
+
+            }
+        }
+
+        ModelAndView mv = new ModelAndView("home");
+        // mv.addObject(s);
+        mv.addObject("series", s);
+        return mv;
+
+    }
+
+
+
+
+
 
     @GetMapping(path = "/editComic")
     public @ResponseBody ModelAndView editSeries(HttpServletRequest req,
