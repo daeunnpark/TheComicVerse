@@ -315,7 +315,7 @@
                 </label>
               </div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
               <label>Rating</label>
               <div class="form-check">
                 <input
@@ -372,7 +372,7 @@
                   &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
                 </label>
               </div>
-            </div>
+            </div>-->
             <div class="form-group">
               <button type="submit" class="btn btn-primary">
                 Browse
@@ -426,16 +426,14 @@
                           th:value="${serie.SeriesID}"
                   />
                     <input
+                        id="dummyUsername6"
+                        hidden
+                        name="username"/>
+                    <input
                             class="btn btn-primary"
                             type="button"
                             onclick="this.form.submit();"
                             value="View Comic Series"
-                    />
-
-                    <input
-                      type="button"
-                      onclick="this.form.submit();"
-                      value="View"
                     />
                   </form>
                 </div>

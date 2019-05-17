@@ -232,22 +232,33 @@
               hidden
               type="text"
             />
-            <input
-              type="file"
-              id="fileEpisodeThumbnailInput"
-              onchange="encodeImageFileAsURL('fileEpisodeThumbnailInput','fileEpisodeByteData')"
-              style="display: block; margin: 0 auto;border:1px solid grey;"
-              accept="image/*"
-            />
+            <div class="input-group mb-3">
+              <label for="fileEpisodeThumbnailInput">Upload Episode Thumbnail:</label>
+              <input
+                type="file"
+                id="fileEpisodeThumbnailInput"
+                onchange="encodeImageFileAsURLThumbnail('fileEpisodeThumbnailInput','fileEpisodeByteData')"
+                style="display: block; margin: 0 auto;border:1px solid grey;"
+                accept="image/*"
+              />
+            </div>
+            <center>
+              <img id="thumbnailPreview" src="#" alt="image" width="200" height="200" />
+            </center>
             <br />
-
-            <input
-              type="file"
-              id="fileEpisodeImageInput"
-              onchange="encodeImageFileAsURL('fileEpisodeImageInput','fileEpisodeImageByteData')"
-              style="display: block; margin: 0 auto;border:1px solid grey;"
-              accept="image/*"
-            />
+            <div class="input-group mb-3">
+                <label for="fileEpisodeImageInput">Upload Episode Image:</label>
+                  <input
+                    type="file"
+                    id="fileEpisodeImageInput"
+                    onchange="encodeImageFileAsURLEpisode('fileEpisodeImageInput','fileEpisodeImageByteData')"
+                    style="display: block; margin: 0 auto;border:1px solid grey;"
+                    accept="image/*"
+                  />
+            </div>
+            <center>
+              <img id="episodePreview" src="#" alt="image" width="200" height="200" />
+            </center>
             <br />
             <br />
             <button
