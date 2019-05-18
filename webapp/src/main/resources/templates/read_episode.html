@@ -243,15 +243,23 @@
                     <div class="carousel-caption d-none d-md-block">
                       <h5>Create your own ending!</h5>
 
-                      <form id="submitDraw" action="/drawing_page" method="GET">
-                        <a
-                                class="btn btn-primary"
-                                href="#"
-                                onclick="document.getElementById('submitDraw').submit()"
-                        >Draw a Panel</a
-                        >
+                      <form id="submitDraw2" th:action="@{/episodes/loadOrignalEpi}" method="GET">
+                        <input
+                          id="episodeID2"
+                          type="text"
+                          name="episodeID"
+                          hidden
+                          th:value="${episode.episodeID}"
+                        />
+
                       </form>
 
+                      <a
+                              class="btn btn-primary"
+                              href="#"
+                              onclick="document.getElementById('submitDraw2').submit()"
+                      >Draw a Panel</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -307,12 +315,21 @@
       </div>
       <div class="row">
         <div style="margin:0 auto;">
-          <button type="button" class="btn btn-outline-success">
-            Dislike
-          </button>
-          <button type="button" class="btn btn-outline-primary">
-            Like
-          </button>
+          <form id="submitLike" th:action="@{/episodes/addLike}">
+            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+            <input name="username" id="userNameInput1"/>
+            <button th:if="${like == false}" type="button" id="likeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
+              Like
+            </button>
+          </form>
+          <form id="submitUnlike" th:action="@{/episodes/removeLike}">
+            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+            <input name="username" id="userNameInput2"/>
+            <button th:if="${like == true}" type="button" id="dislikeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
+              Unlike
+            </button>
+          </form>
+
         </div>
       </div>
 
@@ -396,6 +413,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script src="../static/js/read_episode.js" th:src="@{/js/read_episode.js}"></script>
 
   </body>
 </html>

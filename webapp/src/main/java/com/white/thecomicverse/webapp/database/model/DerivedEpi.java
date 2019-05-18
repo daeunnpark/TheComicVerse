@@ -19,6 +19,25 @@ public class DerivedEpi {
 
     private String author;
 
+    private int numLikes;
+
+    private String imageData;
+
+    public int getNumLikes() {
+        return numLikes;
+    }
+
+    public void setNumLikes(int numLikes) {
+        this.numLikes = numLikes;
+    }
+
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
+    }
 
     public String getAuthor() {
         return author;
@@ -41,7 +60,7 @@ public class DerivedEpi {
     }
 
     public void setOriginalID(int originalID) {
-        OriginalID = originalID;
+        this.OriginalID = originalID;
     }
 
     public byte[] getEndingScene(){

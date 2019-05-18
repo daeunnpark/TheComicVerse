@@ -1,36 +1,28 @@
 
 package com.white.thecomicverse.webapp.database.controller;
 
-import com.white.thecomicverse.webapp.database.model.EpisodeImage;
+import com.white.thecomicverse.webapp.database.model.*;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeImageRepository;
 import com.white.thecomicverse.webapp.database.repositories.LikesRepository;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import com.white.thecomicverse.webapp.database.repositories.DislikeRepository;
 import com.white.thecomicverse.webapp.database.repositories.DerivedEpiRepository;
 import com.white.thecomicverse.webapp.database.repositories.CommentsRepository;
+import com.white.thecomicverse.webapp.database.repositories.DerivedLikesRepository;
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.white.thecomicverse.webapp.database.model.Episode;
-import com.white.thecomicverse.webapp.database.model.Series;
-import com.white.thecomicverse.webapp.database.model.Likes;
-import com.white.thecomicverse.webapp.database.model.DerivedEpi;
-import com.white.thecomicverse.webapp.database.model.Comments;
 
-
-import com.white.thecomicverse.webapp.database.model.Dislike;
 
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +52,9 @@ public class EpisodeController {
 
     @Autowired
     private CommentsRepository commentsRepository;
+
+    @Autowired
+    private DerivedLikesRepository derivedLikesRepository;
 
     @RequestMapping(value = "/upload_episode")
     public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username) {
@@ -125,6 +120,20 @@ public class EpisodeController {
     }
 
 
+    @RequestMapping(value = "/loadOrignalEpi") // Map ONLY GET Requests
+    public ModelAndView loadOriginalEpi(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID){
+
+      System.out.println("loadORIGINAL HERE");
+      System.out.println(episodeID);
+
+      ModelAndView mv = new ModelAndView("drawing_page2");
+
+      mv.addObject("episodeID", episodeID);
+      return mv;
+
+}
+
+
     @RequestMapping(value = "/addDrivedEpi") // Map ONLY GET Requests
     public ModelAndView addDrivedEpi(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                    @RequestParam(value = "username") String username,
@@ -141,11 +150,11 @@ public class EpisodeController {
                 epi = episode;
                 break;
             }
-
         }
 
         dEpi.setAuthor(username);
         dEpi.setOriginalID(episodeID);
+        dEpi.setNumLikes(0);
 
 
         byte[] endingByteArr = ending.getBytes();
@@ -153,6 +162,7 @@ public class EpisodeController {
         dEpi.setEndingScene(endingByteArr);
 
         derivedEpiRepository.save(dEpi);
+
 
         List<DerivedEpi> dEpiList = new ArrayList<>();
 
@@ -163,16 +173,14 @@ public class EpisodeController {
             }
 
         }
+        // Set to Home to test
+        ModelAndView mv = new ModelAndView("home");
 
-        ModelAndView mv = new ModelAndView("See_Derived_Epi");
-
-        mv.addObject("originalEpi", epi);
-        mv.addObject("derivedEpi", dEpiList);
+        mv.addObject("episode", epi);
+        mv.addObject("dEpiList", dEpiList);
 
 
         return mv;
-
-        // return mv;
 
     }
 
@@ -246,8 +254,6 @@ public class EpisodeController {
     @RequestMapping(value = "/addLike") // Map ONLY GET Requests
     public ModelAndView addLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "username") String username) {
-
-
         Likes l = new Likes();
         l.setEpisodeID(episodeID);
         l.setUsername(username);
@@ -300,6 +306,14 @@ public class EpisodeController {
     public ModelAndView addDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "username") String username) {
 
+        for (Likes like : likesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    likesRepository.delete(like);
+                    break;
+                }
+            }
+        }
 
         Dislike dl = new Dislike();
         dl.setEpisodeID(episodeID);
@@ -309,6 +323,51 @@ public class EpisodeController {
 
         return readEpisode(req, episodeID, username);
     }
+
+    @RequestMapping(value = "/addDerivedLikes") // Map ONLY GET Requests
+    public ModelAndView addDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                        @RequestParam(value = "username") String username) {
+
+
+        DerivedLikes dl = new DerivedLikes();
+        dl.setEpisodeID(episodeID);
+        dl.setUsername(username);
+
+        for (DerivedEpi de : DerivedEpiRepository.findAll()){
+            if (de.getDerivedEpiID() == episodeID){
+                de.setNumLikes(de.getNumLikes() + 1);
+            }
+        }
+
+        derivedLikesRepository.save(dl);
+
+        return readEpisode2(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/removeDerivedLike") // Map ONLY GET Requests
+    public ModelAndView removelikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        for (DerivedLikes dlike : DerivedLikesRepository.findAll()){
+            if (dlike.getEpisodeID() == episodeID){
+
+                if (dlike.getUsername().equalsIgnoreCase(username)) {
+                    likesRepository.delete(like);
+                    break;
+                }
+            }
+        }
+
+        for (DerivedEpi de : DerivedEpiRepository.findAll()){
+            if (de.getDerivedEpiID() == episodeID){
+                de.setNumLikes(de.getNumLikes() - 1);
+            }
+        }
+
+
+        return readEpisode2(req, episodeID, username);
+    } //return readEpisode(req, episodeID, username);
+
 
     @RequestMapping(value = "/removeDislike") // Map ONLY GET Requests
     public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
@@ -431,10 +490,8 @@ public class EpisodeController {
      */
     @RequestMapping(value = "/allEpisodes") // Map ONLY GET Requests
     public ModelAndView allEpisodes(HttpServletRequest req, @RequestParam(value = "seriesID") int seriesID) {
-
         // System.out.println("ALL EPISODES of series ID = " + seriesID + " in int " +
         // Integer.parseInt(seriesID));
-
         ModelAndView mv = new ModelAndView("manage_my_episodes");
         List<Episode> episodeList = new ArrayList<>();
 
@@ -455,15 +512,7 @@ public class EpisodeController {
             }
         }
 
-
-
-
-
-
-
-
         mv.addObject("episodes", episodeList);
-
         return mv;
     }
 
@@ -481,7 +530,6 @@ public class EpisodeController {
 
         Episode epi = new Episode();
         List<EpisodeImage> imageList = new ArrayList<>();
-
 
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeID() == episodeID) {
@@ -510,7 +558,7 @@ public class EpisodeController {
         }
 
         boolean l = false;
-        boolean dl = true;
+        boolean dl = false;
 
         for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
@@ -547,6 +595,42 @@ public class EpisodeController {
 
 
         return mv;
+    }
+
+
+    /**
+     * read Episode with all deriv epi
+     */
+    @RequestMapping(value = "/readEpisode2") // Map ONLY GET Requests
+    public ModelAndView readEpisode2(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        System.out.println("received episode ID: " + episodeID);
+
+        // Same as readEpisode1
+        ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
+
+        List<DerivedEpi> dEpiList = new ArrayList<>();
+
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (DerivedEpi dEpi : DerivedEpiRepository.findAll()) {
+                    if (dEpi.getOriginalID() == episodeID) {
+                        dEpi.setImageData(new String(dEpi.getEndingScene()));
+                        dEpiList.add(dEpi);
+                    }
+                }
+                // System.out.println("ImageList: "+ imageList);
+                mv.addObject("dEpiList", dEpiList);
+                // ra.addFlashAttribute("imageList",imageList);
+
+            }
+        }
+
+
+      return mv;
     }
 
     public void addImage(int episodeID, String imageData) {
