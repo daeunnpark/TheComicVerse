@@ -1,13 +1,15 @@
 
 package com.white.thecomicverse.webapp.database.controller;
 
-import com.white.thecomicverse.webapp.database.model.EpisodeImage;
+import com.white.thecomicverse.webapp.database.model.*;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeImageRepository;
 import com.white.thecomicverse.webapp.database.repositories.LikesRepository;
 import com.white.thecomicverse.webapp.database.repositories.SeriesRepository;
 import com.white.thecomicverse.webapp.database.repositories.DislikeRepository;
 import com.white.thecomicverse.webapp.database.repositories.DerivedEpiRepository;
 import com.white.thecomicverse.webapp.database.repositories.CommentsRepository;
+import com.white.thecomicverse.webapp.database.repositories.DerivedLikesRepository;
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +17,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.white.thecomicverse.webapp.database.model.Episode;
-import com.white.thecomicverse.webapp.database.model.Series;
-import com.white.thecomicverse.webapp.database.model.Likes;
-import com.white.thecomicverse.webapp.database.model.DerivedEpi;
-import com.white.thecomicverse.webapp.database.model.Comments;
 
-
-import com.white.thecomicverse.webapp.database.model.Dislike;
 
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,6 +55,9 @@ public class EpisodeController {
 
     @Autowired
     private CommentsRepository commentsRepository;
+
+    @Autowired
+    private DerivedLikesRepository derivedLikesRepository;
 
     @RequestMapping(value = "/upload_episode")
     public ModelAndView uploadEpisode(HttpServletRequest req, @RequestParam(value = "username") String username) {
@@ -159,6 +157,7 @@ public class EpisodeController {
 
         dEpi.setAuthor(username);
         dEpi.setOriginalID(episodeID);
+        dEpi.setNumLikes(0);
 
 
         byte[] endingByteArr = ending.getBytes();
@@ -321,6 +320,51 @@ public class EpisodeController {
 
         return readEpisode(req, episodeID, username);
     }
+
+    @RequestMapping(value = "/addDerivedLikes") // Map ONLY GET Requests
+    public ModelAndView addDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                        @RequestParam(value = "username") String username) {
+
+
+        DerivedLikes dl = new DerivedLikes();
+        dl.setEpisodeID(episodeID);
+        dl.setUsername(username);
+
+        for (DerivedEpi de : DerivedEpiRepository.findAll()){
+            if (de.getDerivedEpiID() == episodeID){
+                de.setNumLikes(de.getNumLikes() + 1);
+            }
+        }
+
+        derivedLikesRepository.save(dl);
+
+        return readEpisode2(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/removeDerivedLike") // Map ONLY GET Requests
+    public ModelAndView removelikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        for (DerivedLikes dlike : DerivedLikesRepository.findAll()){
+            if (dlike.getEpisodeID() == episodeID){
+
+                if (dlike.getUsername().equalsIgnoreCase(username)) {
+                    likesRepository.delete(like);
+                    break;
+                }
+            }
+        }
+
+        for (DerivedEpi de : DerivedEpiRepository.findAll()){
+            if (de.getDerivedEpiID() == episodeID){
+                de.setNumLikes(de.getNumLikes() - 1);
+            }
+        }
+
+
+        return readEpisode2(req, episodeID, username);
+    } //return readEpisode(req, episodeID, username);
+
 
     @RequestMapping(value = "/removeDislike") // Map ONLY GET Requests
     public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
@@ -574,78 +618,25 @@ public class EpisodeController {
         // Same as readEpisode1
         ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
 
-        Episode epi = new Episode();
-        List<EpisodeImage> imageList = new ArrayList<>();
+        List<DerivedEpi> dEpiList = new ArrayList<>();
 
 
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeID() == episodeID) {
                 mv.addObject("episode", episode);
-                for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
-                    if (episodeImage.getEpisodeID() == episodeID) {
-                        episodeImage.setImageString(new String(episodeImage.getImageData()));
-                        System.out.println("epiString length = " + episodeImage.getImageString().length());
-                        System.out.println("epiImageData length = " + episodeImage.getImageString().length());
-                        imageList.add(episodeImage.getIndices(), episodeImage);
+                for (DerivedEpi dEpi : DerivedEpiRepository.findAll()) {
+                    if (dEpi.getOriginalID() == episodeID) {
+                        dEpi.setImageData(new String(dEpi.getEndingScene()));
+                        dEpiList.add(dEpi);
                     }
                 }
                 // System.out.println("ImageList: "+ imageList);
-                mv.addObject("imageList", imageList);
+                mv.addObject("dEpiList", dEpiList);
                 // ra.addFlashAttribute("imageList",imageList);
 
-                for (Series series : seriesRepository.findAll()) {
-                    if (series.getSeriesID() == episode.getSeriesID()) {
-                        series.setImageData(new String(series.getThumbnail()));
-                        mv.addObject("series", series); // single serie
-                        break;
-                    }
-                }
-
             }
         }
 
-
-
-
-        boolean l = false;
-        boolean dl = true;
-
-        for (Likes like : likesRepository.findAll()){
-            if (like.getEpisodeID() == episodeID){
-                if (like.getUsername().equalsIgnoreCase(username)) {
-                    l = true;
-                    break;
-                }
-            }
-        }
-
-        for (Dislike dislike : dislikeRepository.findAll()){
-            if (dislike.getEpisodeID() == episodeID){
-                if (dislike.getUsername().equalsIgnoreCase(username)) {
-                    dl = true;
-                    break;
-                }
-            }
-        }
-
-        mv.addObject("like", l);
-        mv.addObject("dislike", dl);
-
-        List<Comments> commentsList = new ArrayList<>();
-
-        for (Comments c : commentsRepository.findAll()){
-            if (c.getEpisodeID() == episodeID){
-                commentsList.add(c);
-            }
-        }
-
-        mv.addObject("comments", commentsList);
-
-      // Same as readEpisode1 until HERE, nothing to add
-
-
-      // TODO: Return Derived Epi List with images by
-      //mv.addObject("dEpiList", dEpiList);
 
       return mv;
     }
