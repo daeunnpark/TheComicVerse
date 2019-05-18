@@ -202,16 +202,16 @@
                 <br />
                 <br />
                 <span><strong>Description:</strong></span><p th:text="${series.description}"></p>
-                <form id="submitSubscribe" th:action="@{/episodes/addSubscription}">
+                <form id="submitSubscribe" th:action="@{/series/addSubscription}" hidden>
                   <input name="SeriesID" th:value="${series.SeriesID}" hidden/>
                   <input name="username" id="userNameInput1"/>
                   <button th:if="${sub == false}" type="button" id="subscribeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
                     Subscribe
                   </button>
                 </form>
-                <form id="submitUnsubscribe" th:action="@{/episodes/deleteSubscription}">
+                <form id="submitUnsubscribe" th:action="@{/series/deleteSubscription}">
                   <input name="SeriesID" th:value="${series.SeriesID}" hidden/>
-                  <input name="username" id="userNameInput2"/>
+                  <input name="username" id="userNameInput2" hidden/>
                   <button th:if="${sub == true}" type="button" id="unsubscribeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
                     Unsubscribe
                   </button>
