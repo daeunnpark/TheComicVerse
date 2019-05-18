@@ -19,6 +19,8 @@ public class DerivedEpi {
 
     private String author;
 
+    private String imageData;
+
 
     public String getAuthor() {
         return author;

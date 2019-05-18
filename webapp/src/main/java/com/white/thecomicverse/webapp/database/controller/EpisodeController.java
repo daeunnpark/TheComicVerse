@@ -167,6 +167,7 @@ public class EpisodeController {
 
         derivedEpiRepository.save(dEpi);
 
+
         List<DerivedEpi> dEpiList = new ArrayList<>();
 
 
@@ -176,7 +177,7 @@ public class EpisodeController {
             }
 
         }
-
+        // Set to Home to test
         ModelAndView mv = new ModelAndView("home");
 
         mv.addObject("episode", epi);
@@ -184,8 +185,6 @@ public class EpisodeController {
 
 
         return mv;
-
-        // return mv;
 
     }
 
@@ -560,6 +559,95 @@ public class EpisodeController {
 
 
         return mv;
+    }
+
+
+    /**
+     * read Episode with all deriv epi
+     */
+    @RequestMapping(value = "/readEpisode2") // Map ONLY GET Requests
+    public ModelAndView readEpisode2(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        System.out.println("received episode ID: " + episodeID);
+
+        // Same as readEpisode1
+        ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
+
+        Episode epi = new Episode();
+        List<EpisodeImage> imageList = new ArrayList<>();
+
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+                    if (episodeImage.getEpisodeID() == episodeID) {
+                        episodeImage.setImageString(new String(episodeImage.getImageData()));
+                        System.out.println("epiString length = " + episodeImage.getImageString().length());
+                        System.out.println("epiImageData length = " + episodeImage.getImageString().length());
+                        imageList.add(episodeImage.getIndices(), episodeImage);
+                    }
+                }
+                // System.out.println("ImageList: "+ imageList);
+                mv.addObject("imageList", imageList);
+                // ra.addFlashAttribute("imageList",imageList);
+
+                for (Series series : seriesRepository.findAll()) {
+                    if (series.getSeriesID() == episode.getSeriesID()) {
+                        series.setImageData(new String(series.getThumbnail()));
+                        mv.addObject("series", series); // single serie
+                        break;
+                    }
+                }
+
+            }
+        }
+
+
+
+
+        boolean l = false;
+        boolean dl = true;
+
+        for (Likes like : likesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    l = true;
+                    break;
+                }
+            }
+        }
+
+        for (Dislike dislike : dislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                if (dislike.getUsername().equalsIgnoreCase(username)) {
+                    dl = true;
+                    break;
+                }
+            }
+        }
+
+        mv.addObject("like", l);
+        mv.addObject("dislike", dl);
+
+        List<Comments> commentsList = new ArrayList<>();
+
+        for (Comments c : commentsRepository.findAll()){
+            if (c.getEpisodeID() == episodeID){
+                commentsList.add(c);
+            }
+        }
+
+        mv.addObject("comments", commentsList);
+
+      // Same as readEpisode1 until HERE, nothing to add
+
+
+      // TODO: Return Derived Epi List with images by
+      //mv.addObject("dEpiList", dEpiList);
+
+      return mv;
     }
 
     public void addImage(int episodeID, String imageData) {
