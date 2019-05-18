@@ -129,18 +129,7 @@ public class SeriesController {
         sub.setUsername(username);
         this.subscriptionRepository.save(sub);
 
-
-        for (Series series : seriesRepository.findAll()) {
-            if (series.getSeriesID() == seriesID){
-                mv.addObject("series", series);
-                break;
-
-            }
-        }
-
-        mv.addObject("subs", true);
-
-        return mv;
+        return checkSubscription(req, username, seriesID);
     }
 
 
@@ -196,22 +185,9 @@ public class SeriesController {
                 }
             }
         }
-
         this.subscriptionRepository.delete(sub);
 
-
-        for (Series series : seriesRepository.findAll()) {
-            if (series.getSeriesID() == seriesID){
-                mv.addObject("series", series);
-                break;
-
-            }
-        }
-
-
-        mv.addObject("subs", false);
-
-        return mv;
+        return checkSubscription(req, username, seriesID);
 
 
 

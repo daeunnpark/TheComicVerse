@@ -202,38 +202,19 @@
                 <br />
                 <br />
                 <span><strong>Description:</strong></span><p th:text="${series.description}"></p>
-                <form
-                  id="submitSubscription"
-                  th:action="@{/series/checkSubscription}"
-                  method="POST"
-                >
-                  <input
-                    type="hidden"
-                    name="username"
-                    id="dummyUsernameForm4"
-                  />
-                  <input
-                    type="hidden"
-                    name="SeriesID"
-                    th:value="${series.SeriesID}"
-                  />
-                  <button
-                    id="subscribeButton2"
-                    type="button"
-                    class="btn btn-success"
-                    onclick="
-                      if($(this).innerHTML === 'Subscribe'){
-                        $(this).innerHTML = 'Unsubscribe';
-                      }
-                      else{
-                        $(this).innerHTML = 'Subscribe';
-                      }
-                      this.form.submit();
-                     "
-                  >
+                <form id="submitSubscribe" th:action="@{/episodes/addSubscription}">
+                  <input name="SeriesID" th:value="${series.SeriesID}" hidden/>
+                  <input name="username" id="userNameInput1"/>
+                  <button th:if="${sub == false}" type="button" id="subscribeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
                     Subscribe
                   </button>
                 </form>
+                <form id="submitUnsubscribe" th:action="@{/episodes/deleteSubscription}">
+                  <input name="SeriesID" th:value="${series.SeriesID}" hidden/>
+                  <input name="username" id="userNameInput2"/>
+                  <button th:if="${sub == true}" type="button" id="unsubscribeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
+                    Unsubscribe
+                  </button>
               </div>
             </div>
           </div>

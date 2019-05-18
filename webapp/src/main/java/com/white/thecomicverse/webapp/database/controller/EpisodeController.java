@@ -333,7 +333,7 @@ public class EpisodeController {
         dl.setEpisodeID(episodeID);
         dl.setUsername(username);
 
-        for (DerivedEpi de : DerivedEpiRepository.findAll()){
+        for (DerivedEpi de : derivedEpiRepository.findAll()){
             if (de.getDerivedEpiID() == episodeID){
                 de.setNumLikes(de.getNumLikes() + 1);
             }
@@ -345,20 +345,20 @@ public class EpisodeController {
     }
 
     @RequestMapping(value = "/removeDerivedLike") // Map ONLY GET Requests
-    public ModelAndView removelikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+    public ModelAndView removeDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "username") String username) {
 
-        for (DerivedLikes dlike : DerivedLikesRepository.findAll()){
+        for (DerivedLikes dlike : derivedLikesRepository.findAll()){
             if (dlike.getEpisodeID() == episodeID){
 
                 if (dlike.getUsername().equalsIgnoreCase(username)) {
-                    likesRepository.delete(like);
+                    derivedLikesRepository.delete(dlike);
                     break;
                 }
             }
         }
 
-        for (DerivedEpi de : DerivedEpiRepository.findAll()){
+        for (DerivedEpi de : derivedEpiRepository.findAll()){
             if (de.getDerivedEpiID() == episodeID){
                 de.setNumLikes(de.getNumLikes() - 1);
             }
@@ -386,7 +386,7 @@ public class EpisodeController {
     }
 
     @RequestMapping(value = "/removeLike") // Map ONLY GET Requests
-    public ModelAndView removelikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+    public ModelAndView removeLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                        @RequestParam(value = "username") String username) {
         for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
@@ -616,7 +616,7 @@ public class EpisodeController {
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeID() == episodeID) {
                 mv.addObject("episode", episode);
-                for (DerivedEpi dEpi : DerivedEpiRepository.findAll()) {
+                for (DerivedEpi dEpi : derivedEpiRepository.findAll()) {
                     if (dEpi.getOriginalID() == episodeID) {
                         dEpi.setImageData(new String(dEpi.getEndingScene()));
                         dEpiList.add(dEpi);
