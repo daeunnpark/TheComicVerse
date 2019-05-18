@@ -237,15 +237,23 @@
                     <div class="carousel-caption d-none d-md-block">
                       <h5>Create your own ending!</h5>
 
-                      <form id="submitDraw" action="/drawing_page" method="GET">
-                        <a
-                                class="btn btn-primary"
-                                href="#"
-                                onclick="document.getElementById('submitDraw').submit()"
-                        >Draw a Panel</a
-                        >
+                      <form id="submitDraw2" th:action="@{/episodes/loadOrignalEpi}" method="GET">
+                        <input
+                          id="episodeID2"
+                          type="text"
+                          name="episodeID"
+                          hidden
+                          th:value="${episode.episodeID}"
+                        />
+
                       </form>
 
+                      <a
+                              class="btn btn-primary"
+                              href="#"
+                              onclick="document.getElementById('submitDraw2').submit()"
+                      >Draw a Panel</a
+                      >
                     </div>
                   </div>
                 </div>
