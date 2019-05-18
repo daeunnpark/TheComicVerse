@@ -1,3 +1,4 @@
+//SeriesName dropdown
 $(".dropdown-menu a").click(function() {
   // Update dropdown UI
   $(this)
@@ -5,7 +6,7 @@ $(".dropdown-menu a").click(function() {
     .find(".btn")
     .html($(this).text());
 
-  // Update drop box value
+  // Update dropdown value
   $(this)
     .parents(".dropdown")
     .find(".btn")
@@ -14,12 +15,24 @@ $(".dropdown-menu a").click(function() {
   $("#seriesID").val($(this).data("value"));
 });
 
-function encodeImageFileAsURL(inputID, outputID) {
+function encodeImageFileAsURLThumbnail(inputID, outputID) {
   var file = document.getElementById(inputID).files[0];
   var reader = new FileReader();
   reader.onloadend = function() {
     console.log("RESULT", reader.result);
     document.getElementById(outputID).value = reader.result;
+    $("#thumbnailPreview").attr("src", reader.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+function encodeImageFileAsURLEpisode(inputID, outputID) {
+  var file = document.getElementById(inputID).files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    console.log("RESULT", reader.result);
+    document.getElementById(outputID).value = reader.result;
+    $("#episodePreview").attr("src", reader.result);
   };
   reader.readAsDataURL(file);
 }

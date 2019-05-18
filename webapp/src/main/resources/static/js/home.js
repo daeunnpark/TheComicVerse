@@ -39,3 +39,7 @@ $(".dropdown-menu a").click(function() {
   // Update searchOption
   $("#searchOption").val($(this).data("value"));
 });
+
+function forgotPassword() {
+  
+}

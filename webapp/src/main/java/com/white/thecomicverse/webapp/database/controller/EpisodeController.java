@@ -246,6 +246,14 @@ public class EpisodeController {
         Likes l = new Likes();
         l.setEpisodeID(episodeID);
         l.setUsername(username);
+
+        for (Episode epi : EpiRepository.findAll()){
+            if (epi.getEpisodeID() == episodeID){
+                epi.setNumLikes(epi.getNumLikes() + 1 );
+            }
+        }
+
+
         likesRepository.save(l);
 
         return readEpisode(req, episodeID, username);
@@ -324,15 +332,22 @@ public class EpisodeController {
     @RequestMapping(value = "/removeLike") // Map ONLY GET Requests
     public ModelAndView removelikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                        @RequestParam(value = "username") String username) {
-
         for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){
+
                 if (like.getUsername().equalsIgnoreCase(username)) {
                     likesRepository.delete(like);
                     break;
                 }
             }
         }
+
+        for (Episode epi : EpiRepository.findAll()){
+            if (epi.getEpisodeID() == episodeID){
+                epi.setNumLikes(epi.getNumLikes() - 1 );
+            }
+        }
+
 
         return readEpisode(req, episodeID, username);
     }
@@ -519,6 +534,10 @@ public class EpisodeController {
         }
 
         mv.addObject("comments", commentsList);
+
+
+
+
         return mv;
     }
 

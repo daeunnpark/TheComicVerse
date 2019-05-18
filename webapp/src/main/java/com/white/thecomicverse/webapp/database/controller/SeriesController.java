@@ -21,6 +21,8 @@ import com.white.thecomicverse.webapp.database.repositories.SubscriptionReposito
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,7 +58,6 @@ public class SeriesController {
                 return mv2;
             }
         }
-        // System.out.println("enteringing: " + thumbnail.length());
 
         byte[] b = thumbnail.getBytes();
         Series newSeries = new Series();
@@ -93,13 +94,16 @@ public class SeriesController {
         mv.addObject("series", seriesList);
         return mv;
     }
-
+/*
     @RequestMapping(value = "/categoryBrowse")
     public ModelAndView getSeriesByCategories(HttpServletRequest req,
             @RequestParam(value = "searchOption") List<String> categoryList) {
 
         List<Series> s = new ArrayList<Series>();
 
+        if (categoryList.size() == 0){
+
+        }
         for (Series series : seriesRepository.findAll()) {
             if (categoryList.contains(series.getCategories())) {
                 s.add(series);
@@ -111,6 +115,7 @@ public class SeriesController {
         return mv;
 
     }
+    */
     @RequestMapping(value="/addSubscription")
     public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
 
@@ -137,6 +142,8 @@ public class SeriesController {
 
         return mv;
     }
+
+
 
     @RequestMapping(value="/checkSubscription")
     public ModelAndView checkSubscription (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
@@ -341,7 +348,7 @@ public class SeriesController {
         return checkSubscription(req, username, seriesID);
     }
 
-
+//loged in user
     @GetMapping(path = "/home_series")
     public @ResponseBody ModelAndView homeSeries(HttpServletRequest req, @RequestParam(value = "username") String username) {
         // System.out.println("view_Epi :series ID = " + seriesID);
@@ -358,6 +365,36 @@ public class SeriesController {
 
             }
         }
+
+        ModelAndView mv = new ModelAndView("home");
+        // mv.addObject(s);
+        mv.addObject("series", s);
+        return mv;
+
+    }
+
+    //unlogged in user
+    @GetMapping(path = "/home_series2")
+    public @ResponseBody ModelAndView homeSeries2(HttpServletRequest req, @RequestParam(value = "username") String username) {
+        // System.out.println("view_Epi :series ID = " + seriesID);
+        List<Series> s = new ArrayList<Series>();
+
+        for (Series se : seriesRepository.findAll()){
+            se.setSumLikes(0);
+            for (Episode ep : episodeRepository.findAll()){
+                if (ep.getSeriesID() == se.getSeriesID()){
+                    se.setSumLikes(se.getSumLikes() + ep.getNumLikes());
+                }
+            }
+        }
+        Collections.sort(s, new Comparator<Series>() {
+            @Override
+            public int compare(Series o1, Series o2) {
+                Integer num1 = new Integer(o1.getSumLikes());
+                Integer num2 = new Integer(o2.getSumLikes());
+                return num1.compareTo(num2);
+            }
+        });
 
         ModelAndView mv = new ModelAndView("home");
         // mv.addObject(s);

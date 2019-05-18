@@ -180,33 +180,28 @@
       </div>
       <div class="card-body">
         <div class="card">
-          <div class="card-header">Information</div>
+          <div class="card-header"><span th:text="${series.SeriesName}"style="font-weight: bold;"></span></div>
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <img
                   th:src="${series.imageData}"
                   alt="Card image cap"
-                  height="200"
-                  width="200"
+
                 />
               </div>
+
               <div class="col-sm-9">
-                <label th:value="${series.categories}"
-                  >Category - Sample Category</label
-                >
+                <span><strong>Likes :</strong></span><span th:text="${series.sumLikes}"/></span>
                 <br />
-                <label th:value="${series.author}"
-                  >Author - Sample Author</label
-                >
                 <br />
-                <label th:value="${series.categories}"
-                  >Summary - Sample summary lorem ipsum dolor sit amet lorem
-                  ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum
-                  dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor
-                  sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                  lorem ipsum dolor sit amet lorem ipsum dolor sit amet</label
-                >
+                <span><strong>Category:</strong></span><span th:text="${series.categories}"></span>
+                <br />
+                <br />
+                <span><strong>Author:</strong></span><span th:text="${series.author}"/></span>
+                <br />
+                <br />
+                <span><strong>Description:</strong></span><p th:text="${series.description}"></p>
                 <form
                   id="submitSubscription"
                   th:action="@{/series/checkSubscription}"
@@ -271,10 +266,10 @@
                           th:value="${episode.EpisodeID}"
                         />
                         <input
-                                type="hidden"
-                                name="username"
+                                hidden
                                 id="dummyUsernameForm5"
-                        />
+                          name="username"
+                          />
                         <input
                           class="btn btn-primary"
                           type="button"

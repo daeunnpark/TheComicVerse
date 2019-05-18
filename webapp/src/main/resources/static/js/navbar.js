@@ -37,4 +37,10 @@ $(document).ready(function() {
   document.getElementById(
       "dummyUsernameForm5"
   ).value = window.sessionStorage.getItem("username");
+  document.getElementById(
+      "dummyUsernameForm6"
+  ).value = window.sessionStorage.getItem("username");
+  document.getElementById(
+      "dummyUsernameForm7"
+  ).value = window.sessionStorage.getItem("username");
 });

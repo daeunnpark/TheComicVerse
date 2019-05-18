@@ -26,6 +26,16 @@ public class Series {
 
     private String imageData;
 
+    private int sumLikes;
+
+    public int getSumLikes() {
+        return sumLikes;
+    }
+
+    public void setSumLikes(int sumLikes) {
+        this.sumLikes = sumLikes;
+    }
+
     public String getImageData() {
         return this.imageData;
     }
