@@ -36,3 +36,9 @@ function encodeImageFileAsURLEpisode(inputID, outputID) {
   };
   reader.readAsDataURL(file);
 }
+
+$(document).ready(function () {
+  document.getElementById(
+      "dummyUsernameForm9"
+  ).value = window.sessionStorage.getItem("username");
+});

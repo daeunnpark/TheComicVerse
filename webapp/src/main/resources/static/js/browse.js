@@ -19,6 +19,12 @@ function viewSeriesSubmit(){
   document.getElementById('submitViewSeries').submit()
 
 }
+
+$(document).ready(function () {
+  document.getElementById(
+      "dummyUsernameForm6"
+  ).value = window.sessionStorage.getItem("username");
+});
 /*
 function readURL() {
     var file = document.getElementById("fileThumbnailInput").files[0];
@@ -30,6 +36,8 @@ function readURL() {
     reader.readAsDataURL(file);
     console.log(reader.result);
 }
+
+
 
 
 */
