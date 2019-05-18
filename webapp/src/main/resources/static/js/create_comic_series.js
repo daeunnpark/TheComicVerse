@@ -6,13 +6,13 @@ $(".dropdown-menu a").click(function() {
     .find(".btn")
     .html($(this).text());
 
-  // Update drop box value
+  // Update dropdown value
   $(this)
     .parents(".dropdown")
     .find(".btn")
     .val($(this).data("value"));
 
-  $("#seriesID").val($(this).data("value"));
+  $("#categories").val($(this).data("value"));
 });
 
 function encodeImageFileAsURL() {

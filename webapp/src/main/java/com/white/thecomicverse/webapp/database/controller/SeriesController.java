@@ -58,9 +58,7 @@ public class SeriesController {
                 return mv2;
             }
         }
-        // System.out.println("enteringing: " + thumbnail.length());
-System.out.println("Create: author is " + author);
-System.out.println("Create: cate is " + categories);
+
         byte[] b = thumbnail.getBytes();
         Series newSeries = new Series();
         newSeries.setSeriesName(seriesName);
@@ -87,8 +85,6 @@ System.out.println("Create: cate is " + categories);
         for (Series s : seriesRepository.findAll()) {
             // if (s.getSeriesName().equals(seriesName)) {
             if (s.getAuthor().equals(author)) {
-
-              System.out.println("cate is " + s.getCategories());
                 seriesList.add(s);
             }
             // }

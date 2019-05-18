@@ -1,3 +1,4 @@
+//SeriesName dropdown
 $(".dropdown-menu a").click(function() {
   // Update dropdown UI
   $(this)
@@ -5,7 +6,7 @@ $(".dropdown-menu a").click(function() {
     .find(".btn")
     .html($(this).text());
 
-  // Update drop box value
+  // Update dropdown value
   $(this)
     .parents(".dropdown")
     .find(".btn")
