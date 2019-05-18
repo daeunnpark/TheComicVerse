@@ -125,6 +125,20 @@ public class EpisodeController {
     }
 
 
+    @RequestMapping(value = "/loadOrignalEpi") // Map ONLY GET Requests
+    public ModelAndView loadOriginalEpi(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID){
+
+      System.out.println("loadORIGINAL HERE");
+      System.out.println(episodeID);
+
+      ModelAndView mv = new ModelAndView("drawing_page2");
+
+      mv.addObject("episodeID", episodeID);
+      return mv;
+
+}
+
+
     @RequestMapping(value = "/addDrivedEpi") // Map ONLY GET Requests
     public ModelAndView addDrivedEpi(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                    @RequestParam(value = "username") String username,
@@ -141,7 +155,6 @@ public class EpisodeController {
                 epi = episode;
                 break;
             }
-
         }
 
         dEpi.setAuthor(username);
@@ -164,10 +177,10 @@ public class EpisodeController {
 
         }
 
-        ModelAndView mv = new ModelAndView("See_Derived_Epi");
+        ModelAndView mv = new ModelAndView("home");
 
-        mv.addObject("originalEpi", epi);
-        mv.addObject("derivedEpi", dEpiList);
+        mv.addObject("episode", epi);
+        mv.addObject("dEpiList", dEpiList);
 
 
         return mv;

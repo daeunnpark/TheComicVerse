@@ -41,7 +41,7 @@ public class DerivedEpi {
     }
 
     public void setOriginalID(int originalID) {
-        OriginalID = originalID;
+        this.OriginalID = originalID;
     }
 
     public byte[] getEndingScene(){
