@@ -502,7 +502,7 @@ public class EpisodeController {
         }
 
         boolean l = false;
-        boolean dl = true;
+        boolean dl = false;
 
         for (Likes like : likesRepository.findAll()){
             if (like.getEpisodeID() == episodeID){

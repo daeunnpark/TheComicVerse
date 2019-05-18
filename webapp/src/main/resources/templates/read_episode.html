@@ -303,15 +303,19 @@
         <div style="margin:0 auto;">
           <form id="submitLike" th:action="@{/episodes/addLike}">
             <input name="episodeID" th:value="${episode.episodeID}" hidden/>
-            <input name="username" id="userNameInput1" hidden/>
+            <input name="username" id="userNameInput1"/>
+            <button th:if="${like == false}" type="button" id="likeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
+              Like
+            </button>
           </form>
           <form id="submitUnlike" th:action="@{/episodes/removeLike}">
             <input name="episodeID" th:value="${episode.episodeID}" hidden/>
-            <input name="username" id="userNameInput2" hidden/>
+            <input name="username" id="userNameInput2"/>
+            <button th:if="${like == true}" type="button" id="dislikeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
+              Unlike
+            </button>
           </form>
-          <button type="button" id="likeButton" onclick="submitLike()" class="btn btn-outline-primary">
-            Like
-          </button>
+
         </div>
       </div>
 
