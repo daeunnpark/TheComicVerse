@@ -1,7 +1,7 @@
 package com.white.thecomicverse.webapp.database.repositories;
 
-import com.white.thecomicverse.webapp.database.model.Likes;
 
+import com.white.thecomicverse.webapp.database.model.Likes;
 import org.springframework.data.repository.CrudRepository;
 
 

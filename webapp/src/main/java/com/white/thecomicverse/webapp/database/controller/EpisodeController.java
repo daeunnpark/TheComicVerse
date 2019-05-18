@@ -11,7 +11,6 @@ import com.white.thecomicverse.webapp.database.repositories.CommentsRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,11 +25,9 @@ import com.white.thecomicverse.webapp.database.model.Dislike;
 
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -246,12 +243,9 @@ public class EpisodeController {
     @RequestMapping(value = "/addLike") // Map ONLY GET Requests
     public ModelAndView addLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "username") String username) {
-
-
         Likes l = new Likes();
         l.setEpisodeID(episodeID);
         l.setUsername(username);
-
         likesRepository.save(l);
 
         return readEpisode(req, episodeID, username);
@@ -293,6 +287,14 @@ public class EpisodeController {
     public ModelAndView addDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "username") String username) {
 
+        for (Likes like : likesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    likesRepository.delete(like);
+                    break;
+                }
+            }
+        }
 
         Dislike dl = new Dislike();
         dl.setEpisodeID(episodeID);
@@ -417,10 +419,8 @@ public class EpisodeController {
      */
     @RequestMapping(value = "/allEpisodes") // Map ONLY GET Requests
     public ModelAndView allEpisodes(HttpServletRequest req, @RequestParam(value = "seriesID") int seriesID) {
-
         // System.out.println("ALL EPISODES of series ID = " + seriesID + " in int " +
         // Integer.parseInt(seriesID));
-
         ModelAndView mv = new ModelAndView("manage_my_episodes");
         List<Episode> episodeList = new ArrayList<>();
 
@@ -441,15 +441,7 @@ public class EpisodeController {
             }
         }
 
-
-
-
-
-
-
-
         mv.addObject("episodes", episodeList);
-
         return mv;
     }
 
@@ -467,7 +459,6 @@ public class EpisodeController {
 
         Episode epi = new Episode();
         List<EpisodeImage> imageList = new ArrayList<>();
-
 
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeID() == episodeID) {
@@ -528,13 +519,6 @@ public class EpisodeController {
         }
 
         mv.addObject("comments", commentsList);
-
-
-
-
-
-
-
         return mv;
     }
 
