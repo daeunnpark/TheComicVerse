@@ -215,6 +215,7 @@
                   <button th:if="${sub == true}" type="button" id="unsubscribeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
                     Unsubscribe
                   </button>
+                  </form>
               </div>
             </div>
           </div>
@@ -247,10 +248,10 @@
                           th:value="${episode.EpisodeID}"
                         />
                         <input
-                                hidden
-                                id="dummyUsernameForm5"
+                          id="dummyUsernameForm5"
                           name="username"
-                          />
+                          hidden
+                        />
                         <input
                           class="btn btn-primary"
                           type="button"
