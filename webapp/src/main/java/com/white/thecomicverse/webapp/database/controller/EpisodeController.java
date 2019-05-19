@@ -157,34 +157,37 @@ public class EpisodeController {
         dEpi.setOriginalID(episodeID);
         dEpi.setNumLikes(0);
 
-
         byte[] endingByteArr = ending.getBytes();
 
         dEpi.setEndingScene(endingByteArr);
 
         derivedEpiRepository.save(dEpi);
 
-
-        List<DerivedEpi> dEpiList = new ArrayList<>();
-
-
-        for (DerivedEpi dEpisode : derivedEpiRepository.findAll()) {
-            if (dEpisode.getOriginalID() == episodeID){
-                dEpiList.add(dEpisode);
-            }
-
-        }
-        // Set to Home to test
-        /*
-        ModelAndView mv = new ModelAndView("home");
-
-        mv.addObject("episode", epi);
-        mv.addObject("dEpiList", dEpiList);
-*/
-
         return readEpisode(req, episodeID, username);
 
     }
+
+
+    /**
+     * retrieve all episodes with derived episodes
+     */
+    @RequestMapping(value = "/allEpiWithDerivedEpi") // Map ONLY GET Requests
+    public ModelAndView allEpisodesWDerived(HttpServletRequest req) {
+
+        ModelAndView mv = new ModelAndView("browse_derivedEpi");
+
+        List<Episode> episodeList = new ArrayList<>();
+
+        for (Episode episode : EpiRepository.findAll()) {
+                episode.setImageData(new String(episode.getThumbnail()));
+                episodeList.add(episode);
+        }
+
+        mv.addObject("episodes", episodeList);
+        return mv;
+    }
+
+
 
     /**
      * redirect to previous episode
