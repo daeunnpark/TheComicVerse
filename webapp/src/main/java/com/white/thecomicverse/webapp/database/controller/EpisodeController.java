@@ -342,6 +342,7 @@ public class EpisodeController {
         System.out.println("add likes username = " + username );
 
         for (Episode epi : EpiRepository.findAll()){
+            System.out.println("Episode ID appears: " + epi.getEpisodeID());
             if (epi.getEpisodeID() == episodeID){
                 System.out.println("before" + epi.getNumLikes());
                 epi.setNumLikes(epi.getNumLikes() + 1 );

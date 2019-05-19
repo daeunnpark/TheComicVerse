@@ -202,9 +202,9 @@
                 <br />
                 <br />
                 <span><strong>Description:</strong></span><p th:text="${series.description}"></p>
-                <form id="submitSubscribe" th:action="@{/series/addSubscription}" hidden>
+                <form id="submitSubscribe" th:action="@{/series/addSubscription}">
                   <input name="SeriesID" th:value="${series.SeriesID}" hidden/>
-                  <input name="username" id="userNameInput1"/>
+                  <input name="username" id="userNameInput1" hidden/>
                   <button th:if="${sub == false}" type="button" id="subscribeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
                     Subscribe
                   </button>

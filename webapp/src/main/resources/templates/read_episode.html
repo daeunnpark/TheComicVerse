@@ -287,12 +287,12 @@
             <input name="episodeID" th:value="${episode.episodeID}" hidden/>
             <input name="episodeIndex" th:value="${episode.indices}" hidden/>
           </form>
-          <button type="button" onclick="document.getElementById('submitPrev').submit()" class="btn btn-outline-success">Previous</button>
+          <button type="button" onclick="this.form.submit();" class="btn btn-outline-success">Previous</button>
           <form id="submitNext" th:action="@{/episodes/nextEp}">
             <input name="episodeID" th:value="${episode.episodeID}" hidden/>
             <input name="episodeIndex" th:value="${episode.indices}" hidden/>
           </form>
-          <button type="button" onclick="document.getElementById('submitNext').submit()" class="btn btn-outline-primary">Next</button>
+          <button type="button" onclick="this.form.submit();" class="btn btn-outline-primary">Next</button>
         </div>
       </div>
       <div class="row">
