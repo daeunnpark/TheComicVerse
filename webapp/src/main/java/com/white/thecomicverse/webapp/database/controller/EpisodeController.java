@@ -188,7 +188,6 @@ public class EpisodeController {
     }
 
 
-
     /**
      * redirect to previous episode
      **/
@@ -256,178 +255,12 @@ public class EpisodeController {
         return mv;
     }
 
-    @RequestMapping(value = "/addLike") // Map ONLY GET Requests
-    public ModelAndView addLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "username") String username) {
-        Likes l = new Likes();
-        l.setEpisodeID(episodeID);
-        l.setUsername(username);
-
-        System.out.println("add likes episodeID = " + episodeID );
-        System.out.println("add likes username = " + username );
-
-        for (Episode epi : EpiRepository.findAll()){
-            if (epi.getEpisodeID() == episodeID){
-                System.out.println("before" + epi.getNumLikes());
-                epi.setNumLikes(epi.getNumLikes() + 1 );
-                System.out.println("after" + epi.getNumLikes());
-
-            }
-            break;
-        }
-
-
-        likesRepository.save(l);
-        System.out.println();
-
-        return readEpisode(req, episodeID, username);
-    }
-
-    @RequestMapping(value = "/addComments") // Map ONLY GET Requests
-    public ModelAndView addComments(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                 @RequestParam(value = "username") String username,
-                                    @RequestParam(value = "text") String text) {
-
-
-        Comments c = new Comments();
-        c.setAuthor(username);
-        c.setText(text);
-        c.setEpisodeID(episodeID);
-
-        commentsRepository.save(c);
-
-        return readEpisode(req, episodeID, username);
-    }
-
-    @RequestMapping(value = "/removeComments") // Map ONLY GET Requests
-    public ModelAndView removeComments(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                       @RequestParam(value = "username") String username,
-                                       @RequestParam(value = "commentID") int commentID) {
-
-        for (Comments comments : commentsRepository.findAll()){
-            if (comments.getCommentID() == commentID){
-                commentsRepository.delete(comments);
-            }
-        }
-
-        return readEpisode(req, episodeID, username);
-    }
-
-
-
-    @RequestMapping(value = "/addDislike") // Map ONLY GET Requests
-    public ModelAndView addDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "username") String username) {
-
-        for (Likes like : likesRepository.findAll()){
-            if (like.getEpisodeID() == episodeID){
-                if (like.getUsername().equalsIgnoreCase(username)) {
-                    likesRepository.delete(like);
-                    break;
-                }
-            }
-        }
-
-        Dislike dl = new Dislike();
-        dl.setEpisodeID(episodeID);
-        dl.setUsername(username);
-
-        dislikeRepository.save(dl);
-
-        return readEpisode(req, episodeID, username);
-    }
-
-    @RequestMapping(value = "/addDerivedLikes") // Map ONLY GET Requests
-    public ModelAndView addDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                        @RequestParam(value = "username") String username) {
-
-
-
-        DerivedLikes dl = new DerivedLikes();
-        dl.setEpisodeID(episodeID);
-        dl.setUsername(username);
-
-        for (DerivedEpi de : derivedEpiRepository.findAll()){
-            if (de.getDerivedEpiID() == episodeID){
-                de.setNumLikes(de.getNumLikes() + 1);
-            }
-        }
-
-        derivedLikesRepository.save(dl);
-
-        return readEpisode(req, episodeID, username);
-    }
-
-    @RequestMapping(value = "/removeDerivedLike") // Map ONLY GET Requests
-    public ModelAndView removeDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "username") String username) {
-
-        for (DerivedLikes dlike : derivedLikesRepository.findAll()){
-            if (dlike.getEpisodeID() == episodeID){
-
-                if (dlike.getUsername().equalsIgnoreCase(username)) {
-                    derivedLikesRepository.delete(dlike);
-                    break;
-                }
-            }
-        }
-
-        for (DerivedEpi de : derivedEpiRepository.findAll()){
-            if (de.getDerivedEpiID() == episodeID){
-                de.setNumLikes(de.getNumLikes() - 1);
-            }
-        }
-
-
-        return readEpisode(req, episodeID, username);
-    } //return readEpisode(req, episodeID, username);
-
-
-    @RequestMapping(value = "/removeDislike") // Map ONLY GET Requests
-    public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "username") String username) {
-
-        for (Dislike dislike : dislikeRepository.findAll()){
-            if (dislike.getEpisodeID() == episodeID){
-                if (dislike.getUsername().equalsIgnoreCase(username)) {
-                    dislikeRepository.delete(dislike);
-                    break;
-                }
-            }
-        }
-
-        return readEpisode(req, episodeID, username);
-    }
-
-    @RequestMapping(value = "/removeLike") // Map ONLY GET Requests
-    public ModelAndView removeLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                       @RequestParam(value = "username") String username) {
-        for (Likes like : likesRepository.findAll()){
-            if (like.getEpisodeID() == episodeID){
-
-                if (like.getUsername().equalsIgnoreCase(username)) {
-                    likesRepository.delete(like);
-                    break;
-                }
-            }
-        }
-
-        for (Episode epi : EpiRepository.findAll()){
-            if (epi.getEpisodeID() == episodeID){
-                epi.setNumLikes(epi.getNumLikes() - 1 );
-            }
-        }
-
-
-        return readEpisode(req, episodeID, username);
-    }
-
     /**
      * redirect to next episode
      **/
     @RequestMapping(value = "/nextEp") // Map ONLY GET Requests
     public ModelAndView nextEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-            @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+                                    @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
         int nextEpID = -1;
         int max = -1;
         int epiIndex = episodeIndex;
@@ -498,6 +331,139 @@ public class EpisodeController {
 
         return mv;
     }
+
+
+    @RequestMapping(value = "/addLike") // Map ONLY GET Requests
+    public ModelAndView addLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+        Likes l = new Likes();
+        l.setEpisodeID(episodeID);
+        l.setUsername(username);
+
+        System.out.println("add likes episodeID = " + episodeID );
+        System.out.println("add likes username = " + username );
+
+        for (Episode epi : EpiRepository.findAll()){
+            if (epi.getEpisodeID() == episodeID){
+                System.out.println("before" + epi.getNumLikes());
+                epi.setNumLikes(epi.getNumLikes() + 1 );
+                System.out.println("after" + epi.getNumLikes());
+
+            }
+            break;
+        }
+
+
+        likesRepository.save(l);
+        System.out.println();
+
+        return readEpisode(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/removeLike") // Map ONLY GET Requests
+    public ModelAndView removeLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+        for (Likes like : likesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    likesRepository.delete(like);
+                    break;
+                }
+            }
+        }
+
+        for (Episode epi : EpiRepository.findAll()){
+            if (epi.getEpisodeID() == episodeID){
+                epi.setNumLikes(epi.getNumLikes() - 1 );
+            }
+        }
+
+
+        return readEpisode(req, episodeID, username);
+    }
+
+
+    @RequestMapping(value = "/addComments") // Map ONLY GET Requests
+    public ModelAndView addComments(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                 @RequestParam(value = "username") String username,
+                                    @RequestParam(value = "text") String text) {
+
+
+        Comments c = new Comments();
+        c.setAuthor(username);
+        c.setText(text);
+        c.setEpisodeID(episodeID);
+
+        commentsRepository.save(c);
+
+        return readEpisode(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/removeComments") // Map ONLY GET Requests
+    public ModelAndView removeComments(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                       @RequestParam(value = "username") String username,
+                                       @RequestParam(value = "commentID") int commentID) {
+
+        for (Comments comments : commentsRepository.findAll()){
+            if (comments.getCommentID() == commentID){
+                commentsRepository.delete(comments);
+            }
+        }
+
+        return readEpisode(req, episodeID, username);
+    }
+
+    @RequestMapping(value = "/addDerivedLikes") // Map ONLY GET Requests
+    public ModelAndView addDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                        @RequestParam(value = "username") String username) {
+
+
+
+        DerivedLikes dl = new DerivedLikes();
+        dl.setEpisodeID(episodeID);
+        dl.setUsername(username);
+
+        int oriEpiID = 0;
+        for (DerivedEpi de : derivedEpiRepository.findAll()){
+            if (de.getDerivedEpiID() == episodeID){
+                oriEpiID = de.getOriginalID();
+                de.setNumLikes(de.getNumLikes() + 1);
+            }
+        }
+
+        derivedLikesRepository.save(dl);
+
+        return readEpisode(req, oriEpiID, username);
+    }
+
+    @RequestMapping(value = "/removeDerivedLike") // Map ONLY GET Requests
+    public ModelAndView removeDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        for (DerivedLikes dlike : derivedLikesRepository.findAll()){
+            if (dlike.getEpisodeID() == episodeID){
+
+                if (dlike.getUsername().equalsIgnoreCase(username)) {
+                    derivedLikesRepository.delete(dlike);
+                    break;
+                }
+            }
+        }
+        int oriEpiID = 0;
+        for (DerivedEpi de : derivedEpiRepository.findAll()){
+            if (de.getDerivedEpiID() == episodeID){
+                oriEpiID = de.getOriginalID();
+                de.setNumLikes(de.getNumLikes() - 1);
+            }
+        }
+
+
+        return readEpisode(req, oriEpiID, username);
+    }
+
+
+
 
     /**
      * retrieve episodes of a specific series
@@ -683,6 +649,48 @@ public class EpisodeController {
 
     }
 }
+
+/*
+    @RequestMapping(value = "/addDislike") // Map ONLY GET Requests
+    public ModelAndView addDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        for (Likes like : likesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    likesRepository.delete(like);
+                    break;
+                }
+            }
+        }
+
+        Dislike dl = new Dislike();
+        dl.setEpisodeID(episodeID);
+        dl.setUsername(username);
+
+        dislikeRepository.save(dl);
+
+        return readEpisode(req, episodeID, username);
+    }
+*/
+
+/*
+    @RequestMapping(value = "/removeDislike") // Map ONLY GET Requests
+    public ModelAndView removeDislikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        for (Dislike dislike : dislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                if (dislike.getUsername().equalsIgnoreCase(username)) {
+                    dislikeRepository.delete(dislike);
+                    break;
+                }
+            }
+        }
+
+        return readEpisode(req, episodeID, username);
+    }
+*/
 
 
 /*

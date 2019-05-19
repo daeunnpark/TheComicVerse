@@ -223,9 +223,20 @@
                         <span style = "color:black;"><strong>Author:</strong></span><span th:text="${depi.author}" style = "color:black;"></span>
                         <br />
                         <span style = "color:black;"><strong>Likes :</strong></span><span th:text="${depi.numLikes}" style = "color:black;"></span>
-                          <a class="btn btn-primary"
-                          href="#"
-                          >Like </a>
+                          <form id="submitDerivedLike" th:action="@{/episodes/addDerivedLikes}">
+                              <input name="episodeID" th:value="${depi.derivedEpiID}" hidden/>
+                              <input name="username" id="userNameInput3" hidden/>
+                              <button th:if="${like == false}" type="button" onclick="this.form.submit();" class="btn btn-outline-primary">
+                                  Like
+                              </button>
+                          </form>
+                          <form id="submitDerivedUnlike" th:action="@{/episodes/removeDerivedLike}">
+                              <input name="episodeID" th:value="${depi.derivedEpiID}" hidden/>
+                              <input name="username" id="userNameInput4" hidden/>
+                              <button th:if="${like == true}" type="button" onclick="this.form.submit();" class="btn btn-outline-primary">
+                                  Unlike
+                              </button>
+                          </form>
 
                       </div>
                     </div>
