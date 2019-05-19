@@ -67,6 +67,7 @@ public class SeriesController {
         newSeries.setCategories(categories);
         newSeries.setThumbnail(b);
         newSeries.setImageData(null);
+        newSeries.setSumLikes(0);
         this.seriesRepository.save(newSeries);
 
         return getMySeries(req, author);
@@ -77,6 +78,8 @@ public class SeriesController {
 
         // System.out.println(author + "in My Series");
         List<Series> seriesList = new ArrayList<Series>();
+
+
 
         for (Series series : seriesRepository.findAll()) {
             series.setImageData(new String(series.getThumbnail()));
@@ -90,10 +93,13 @@ public class SeriesController {
             // }
         }
 
+
         ModelAndView mv = new ModelAndView("manage_my_series");
         mv.addObject("series", seriesList);
         return mv;
     }
+
+
 /*
     @RequestMapping(value = "/categoryBrowse")
     public ModelAndView getSeriesByCategories(HttpServletRequest req,
@@ -137,6 +143,8 @@ public class SeriesController {
     @RequestMapping(value="/checkSubscription")
     public ModelAndView checkSubscription (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
 
+        updateSumLikes(seriesID);
+
         boolean subs = false;
         Subscription sub = new Subscription();
         for (Subscription s : subscriptionRepository.findAll()){
@@ -146,8 +154,12 @@ public class SeriesController {
                 }
             }
         }
+
+
         ModelAndView mv = new ModelAndView("view_comic_series");
         List<Episode> episodeList = new ArrayList<>();
+
+
 
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesID() == seriesID) {
@@ -168,6 +180,34 @@ public class SeriesController {
         mv.addObject("episodes", episodeList);
 
         return mv;
+    }
+
+
+    public void updateSumLikes(int SeriesID){
+
+      System.out.println("sum likes here");
+
+      for (Series se : seriesRepository.findAll()){
+        int sum = 0;
+
+        if(se.getSeriesID() == SeriesID){
+          se.setSumLikes(0);
+          //System.out.println("sum likes before" + se.getSumLikes());
+
+          for (Episode ep : episodeRepository.findAll()){
+              if (ep.getSeriesID() == se.getSeriesID()){
+                //System.out.println("this epi num" + ep.getNumLikes());
+                  sum  = sum + ep.getNumLikes();
+                  //System.out.println("sum likes en cours" + sum);
+              }
+          }
+          se.setSumLikes(sum);
+          //System.out.println("sum likes done" + se.getSumLikes());
+          break;
+        }
+
+      }
+
     }
 
     @RequestMapping(value="/deleteSubscription")

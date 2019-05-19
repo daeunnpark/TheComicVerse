@@ -263,14 +263,22 @@ public class EpisodeController {
         l.setEpisodeID(episodeID);
         l.setUsername(username);
 
+        System.out.println("add likes episodeID = " + episodeID );
+        System.out.println("add likes username = " + username );
+
         for (Episode epi : EpiRepository.findAll()){
             if (epi.getEpisodeID() == episodeID){
+                System.out.println("before" + epi.getNumLikes());
                 epi.setNumLikes(epi.getNumLikes() + 1 );
+                System.out.println("after" + epi.getNumLikes());
+
             }
+            break;
         }
 
 
         likesRepository.save(l);
+        System.out.println();
 
         return readEpisode(req, episodeID, username);
     }
@@ -347,7 +355,7 @@ public class EpisodeController {
 
         derivedLikesRepository.save(dl);
 
-        return readEpisode2(req, episodeID, username);
+        return readEpisode(req, episodeID, username);
     }
 
     @RequestMapping(value = "/removeDerivedLike") // Map ONLY GET Requests
@@ -371,7 +379,7 @@ public class EpisodeController {
         }
 
 
-        return readEpisode2(req, episodeID, username);
+        return readEpisode(req, episodeID, username);
     } //return readEpisode(req, episodeID, username);
 
 
@@ -524,7 +532,7 @@ public class EpisodeController {
 
 
     /**
-     * read Episode
+    read Episode with all deriv epi
      */
     @RequestMapping(value = "/readEpisode") // Map ONLY GET Requests
     public ModelAndView readEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
@@ -563,6 +571,7 @@ public class EpisodeController {
             }
         }
 
+
         boolean l = false;
         boolean dl = false;
 
@@ -615,119 +624,14 @@ public class EpisodeController {
 
             }
         }
+
 
 
         return mv;
     }
 
 
-    /**
-     * read Episode with all deriv epi
-     */
-    @RequestMapping(value = "/readEpisode2") // Map ONLY GET Requests
-    public ModelAndView readEpisode2(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
-                                    @RequestParam(value = "username") String username) {
 
-
-        System.out.println("received episode ID: readepi2 = " + episodeID);
-
-        ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
-
-        Episode epi = new Episode();
-        List<EpisodeImage> imageList = new ArrayList<>();
-
-        for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getEpisodeID() == episodeID) {
-                mv.addObject("episode", episode);
-                for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
-                    if (episodeImage.getEpisodeID() == episodeID) {
-                        episodeImage.setImageString(new String(episodeImage.getImageData()));
-                      //  System.out.println("epiString length = " + episodeImage.getImageString().length());
-                    //    System.out.println("epiImageData length = " + episodeImage.getImageString().length());
-                        imageList.add(episodeImage.getIndices(), episodeImage);
-                    }
-                }
-                // System.out.println("ImageList: "+ imageList);
-                mv.addObject("imageList", imageList);
-                // ra.addFlashAttribute("imageList",imageList);
-
-                for (Series series : seriesRepository.findAll()) {
-                    if (series.getSeriesID() == episode.getSeriesID()) {
-                        series.setImageData(new String(series.getThumbnail()));
-                        mv.addObject("series", series); // single serie
-                        break;
-                    }
-                }
-
-            }
-        }
-
-        boolean l = false;
-        boolean dl = false;
-
-        for (Likes like : likesRepository.findAll()){
-            if (like.getEpisodeID() == episodeID){
-                if (like.getUsername().equalsIgnoreCase(username)) {
-                    l = true;
-                    break;
-                }
-            }
-        }
-
-        for (Dislike dislike : dislikeRepository.findAll()){
-            if (dislike.getEpisodeID() == episodeID){
-                if (dislike.getUsername().equalsIgnoreCase(username)) {
-                    dl = true;
-                    break;
-                }
-            }
-        }
-
-        mv.addObject("like", l);
-        mv.addObject("dislike", dl);
-
-        List<Comments> commentsList = new ArrayList<>();
-
-        for (Comments c : commentsRepository.findAll()){
-            if (c.getEpisodeID() == episodeID){
-                commentsList.add(c);
-            }
-        }
-
-        mv.addObject("comments", commentsList);
-
-
-
-
-
-
-
-        // Same as readEpisode1
-
-
-        List<DerivedEpi> dEpiList = new ArrayList<>();
-
-
-        for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getEpisodeID() == episodeID) {
-                mv.addObject("episode", episode);
-                for (DerivedEpi dEpi : derivedEpiRepository.findAll()) {
-                    if (dEpi.getOriginalID() == episodeID) {
-                        dEpi.setImageData(new String(dEpi.getEndingScene()));
-                        dEpiList.add(dEpi);
-                    }
-                }
-                // System.out.println("ImageList: "+ imageList);
-                mv.addObject("dEpiList", dEpiList);
-                // ra.addFlashAttribute("imageList",imageList);
-
-            }
-        }
-
-
-      return mv;
-
-    }
 
     public void addImage(int episodeID, String imageData) {
         //System.out.println("imageData passed: " + imageData);
@@ -779,3 +683,114 @@ public class EpisodeController {
 
     }
 }
+
+
+/*
+
+@RequestMapping(value = "/readEpisode2") // Map ONLY GET Requests
+public ModelAndView readEpisode2(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                @RequestParam(value = "username") String username) {
+
+
+    System.out.println("received episode ID: readepi2 = " + episodeID);
+
+    ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
+
+    Episode epi = new Episode();
+    List<EpisodeImage> imageList = new ArrayList<>();
+
+    for (Episode episode : EpiRepository.findAll()) {
+        if (episode.getEpisodeID() == episodeID) {
+            mv.addObject("episode", episode);
+            for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+                if (episodeImage.getEpisodeID() == episodeID) {
+                    episodeImage.setImageString(new String(episodeImage.getImageData()));
+                  //  System.out.println("epiString length = " + episodeImage.getImageString().length());
+                //    System.out.println("epiImageData length = " + episodeImage.getImageString().length());
+                    imageList.add(episodeImage.getIndices(), episodeImage);
+                }
+            }
+            // System.out.println("ImageList: "+ imageList);
+            mv.addObject("imageList", imageList);
+            // ra.addFlashAttribute("imageList",imageList);
+
+            for (Series series : seriesRepository.findAll()) {
+                if (series.getSeriesID() == episode.getSeriesID()) {
+                    series.setImageData(new String(series.getThumbnail()));
+                    mv.addObject("series", series); // single serie
+                    break;
+                }
+            }
+
+        }
+    }
+
+    boolean l = false;
+    boolean dl = false;
+
+    for (Likes like : likesRepository.findAll()){
+        if (like.getEpisodeID() == episodeID){
+            if (like.getUsername().equalsIgnoreCase(username)) {
+                l = true;
+                break;
+            }
+        }
+    }
+
+    for (Dislike dislike : dislikeRepository.findAll()){
+        if (dislike.getEpisodeID() == episodeID){
+            if (dislike.getUsername().equalsIgnoreCase(username)) {
+                dl = true;
+                break;
+            }
+        }
+    }
+
+    mv.addObject("like", l);
+    mv.addObject("dislike", dl);
+
+    List<Comments> commentsList = new ArrayList<>();
+
+    for (Comments c : commentsRepository.findAll()){
+        if (c.getEpisodeID() == episodeID){
+            commentsList.add(c);
+        }
+    }
+
+    mv.addObject("comments", commentsList);
+
+
+
+
+
+
+
+    // Same as readEpisode1
+
+
+    List<DerivedEpi> dEpiList = new ArrayList<>();
+
+
+    for (Episode episode : EpiRepository.findAll()) {
+        if (episode.getEpisodeID() == episodeID) {
+            mv.addObject("episode", episode);
+            for (DerivedEpi dEpi : derivedEpiRepository.findAll()) {
+                if (dEpi.getOriginalID() == episodeID) {
+                    dEpi.setImageData(new String(dEpi.getEndingScene()));
+                    dEpiList.add(dEpi);
+                }
+            }
+            // System.out.println("ImageList: "+ imageList);
+            mv.addObject("dEpiList", dEpiList);
+            // ra.addFlashAttribute("imageList",imageList);
+
+        }
+    }
+
+
+  return mv;
+
+}
+
+
+*/
