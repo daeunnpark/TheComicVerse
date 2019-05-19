@@ -134,7 +134,7 @@ public class EpisodeController {
 }
 
 
-    @RequestMapping(value = "/addDrivedEpi") // Map ONLY GET Requests
+    @RequestMapping(value = "/addDerivedEpi") // Map ONLY GET Requests
     public ModelAndView addDrivedEpi(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                    @RequestParam(value = "username") String username,
                                      @RequestParam(value = "endingScene") String ending ){
