@@ -543,8 +543,8 @@ public class EpisodeController {
                 for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
                     if (episodeImage.getEpisodeID() == episodeID) {
                         episodeImage.setImageString(new String(episodeImage.getImageData()));
-                        System.out.println("epiString length = " + episodeImage.getImageString().length());
-                        System.out.println("epiImageData length = " + episodeImage.getImageString().length());
+                      //  System.out.println("epiString length = " + episodeImage.getImageString().length());
+                      //  System.out.println("epiImageData length = " + episodeImage.getImageString().length());
                         imageList.add(episodeImage.getIndices(), episodeImage);
                     }
                 }
@@ -642,8 +642,8 @@ public class EpisodeController {
                 for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
                     if (episodeImage.getEpisodeID() == episodeID) {
                         episodeImage.setImageString(new String(episodeImage.getImageData()));
-                        System.out.println("epiString length = " + episodeImage.getImageString().length());
-                        System.out.println("epiImageData length = " + episodeImage.getImageString().length());
+                      //  System.out.println("epiString length = " + episodeImage.getImageString().length());
+                    //    System.out.println("epiImageData length = " + episodeImage.getImageString().length());
                         imageList.add(episodeImage.getIndices(), episodeImage);
                     }
                 }
