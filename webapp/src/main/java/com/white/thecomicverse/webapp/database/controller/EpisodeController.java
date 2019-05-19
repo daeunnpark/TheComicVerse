@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.white.thecomicverse.webapp.database.repositories.EpisodeRepository;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -585,6 +583,7 @@ public class EpisodeController {
                     }
                 }
                 // System.out.println("ImageList: "+ imageList);
+                dEpiList = sortDerivedEpiByNumLikes(dEpiList);
                 mv.addObject("dEpiList", dEpiList);
                 // ra.addFlashAttribute("imageList",imageList);
 
@@ -596,8 +595,24 @@ public class EpisodeController {
         return mv;
     }
 
+    /**
+     *  Sort the list of derived episodes.
+     * @param dEpiList
+     * @return dEpiList
+     */
+    public List<DerivedEpi> sortDerivedEpiByNumLikes(List<DerivedEpi> dEpiList){
+        Collections.sort(dEpiList, new SortByNumLikes());
+        return dEpiList;
+    }
 
-
+    /**
+     *  Comparator class to sort by numLikes
+     */
+    class SortByNumLikes implements Comparator<DerivedEpi>{
+        public int compare(DerivedEpi a, DerivedEpi b){
+            return b.getNumLikes() - a.getNumLikes();
+        }
+    }
 
     public void addImage(int episodeID, String imageData) {
         //System.out.println("imageData passed: " + imageData);
@@ -789,6 +804,7 @@ public ModelAndView readEpisode2(HttpServletRequest req, @RequestParam(value = "
                 }
             }
             // System.out.println("ImageList: "+ imageList);
+            dEpiList = sortDerivedEpiByNumLikes(dEpiList);
             mv.addObject("dEpiList", dEpiList);
             // ra.addFlashAttribute("imageList",imageList);
 
