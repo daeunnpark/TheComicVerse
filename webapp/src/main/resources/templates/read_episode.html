@@ -25,6 +25,10 @@
       crossorigin="anonymous"
     />
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+
     <script
       type="text/javascript"
       src="../static/js/usersession.js"
@@ -282,12 +286,21 @@
       </div>
       <div class="row">
         <div style="margin:0 auto;">
-          <button type="button" class="btn btn-outline-success">
-            Dislike
-          </button>
-          <button type="button" class="btn btn-outline-primary">
-            Like
-          </button>
+          <form id="submitLike" th:action="@{/episodes/addLike}">
+            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+            <input name="username" id="userNameInput1" hidden/>
+            <button th:if="${like == false}" type="button" id="likeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
+              Like
+            </button>
+          </form>
+          <form id="submitUnlike" th:action="@{/episodes/removeLike}">
+            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+            <input name="username" id="userNameInput2" hidden/>
+            <button th:if="${like == true}" type="button" id="dislikeButton" onclick="this.form.submit();" class="btn btn-outline-primary">
+              Unlike
+            </button>
+          </form>
+
         </div>
       </div>
 

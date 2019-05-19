@@ -139,8 +139,8 @@ public class EpisodeController {
                                    @RequestParam(value = "username") String username,
                                      @RequestParam(value = "endingScene") String ending ){
 
-        System.out.println("add Epi:epi ID = " + episodeID);
-        System.out.println("add Epi:username = " + username);
+        //System.out.println("add Epi:epi ID = " + episodeID);
+        //System.out.println("add Epi:username = " + username);
 
         DerivedEpi dEpi = new DerivedEpi();
 
