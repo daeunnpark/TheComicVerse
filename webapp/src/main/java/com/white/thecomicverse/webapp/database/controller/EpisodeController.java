@@ -338,18 +338,12 @@ public class EpisodeController {
         l.setEpisodeID(episodeID);
         l.setUsername(username);
 
-        System.out.println("add likes episodeID = " + episodeID );
-        System.out.println("add likes username = " + username );
-
         for (Episode epi : EpiRepository.findAll()){
-            System.out.println("Episode ID appears: " + epi.getEpisodeID());
             if (epi.getEpisodeID() == episodeID){
-                System.out.println("before" + epi.getNumLikes());
                 epi.setNumLikes(epi.getNumLikes() + 1 );
-                System.out.println("after" + epi.getNumLikes());
-
+                break;
             }
-            break;
+
         }
 
 
