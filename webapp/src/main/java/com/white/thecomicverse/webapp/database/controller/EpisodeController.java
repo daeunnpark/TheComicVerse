@@ -496,7 +496,7 @@ public class EpisodeController {
 
 
     /**
-    read Episode with all deriv epi
+    read Episode with top 3(most liked) derived epi
      */
     @RequestMapping(value = "/readEpisode") // Map ONLY GET Requests
     public ModelAndView readEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
@@ -572,6 +572,7 @@ public class EpisodeController {
 
 
         List<DerivedEpi> dEpiList = new ArrayList<>();
+        List<DerivedEpi> temp_dEpiList = new ArrayList<>();
 
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeID() == episodeID) {
@@ -583,7 +584,15 @@ public class EpisodeController {
                     }
                 }
                 // System.out.println("ImageList: "+ imageList);
-                dEpiList = sortDerivedEpiByNumLikes(dEpiList);
+
+                temp_dEpiList = sortDerivedEpiByNumLikes(dEpiList);
+
+                if(temp_dEpiList.size()>3){
+                  dEpiList = temp_dEpiList.subList(0, 3);
+                } else{
+                  dEpiList = temp_dEpiList;
+                }
+
                 mv.addObject("dEpiList", dEpiList);
                 // ra.addFlashAttribute("imageList",imageList);
 
@@ -594,6 +603,111 @@ public class EpisodeController {
 
         return mv;
     }
+
+
+    /**
+    read Episode with all derived epi
+     */
+    @RequestMapping(value = "/readEpisode2") // Map ONLY GET Requests
+    public ModelAndView readEpisode2(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
+                                    @RequestParam(value = "username") String username) {
+
+        System.out.println("READEPI: received episode ID: " + episodeID);
+
+        ModelAndView mv = new ModelAndView("read_episode"); // ("redirect:/read_episode");
+
+        Episode epi = new Episode();
+        List<EpisodeImage> imageList = new ArrayList<>();
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
+                    if (episodeImage.getEpisodeID() == episodeID) {
+                        episodeImage.setImageString(new String(episodeImage.getImageData()));
+                      //  System.out.println("epiString length = " + episodeImage.getImageString().length());
+                      //  System.out.println("epiImageData length = " + episodeImage.getImageString().length());
+                        imageList.add(episodeImage.getIndices(), episodeImage);
+                    }
+                }
+                // System.out.println("ImageList: "+ imageList);
+                mv.addObject("imageList", imageList);
+                // ra.addFlashAttribute("imageList",imageList);
+
+                for (Series series : seriesRepository.findAll()) {
+                    if (series.getSeriesID() == episode.getSeriesID()) {
+                        series.setImageData(new String(series.getThumbnail()));
+                        mv.addObject("series", series); // single serie
+                        break;
+                    }
+                }
+
+            }
+        }
+
+
+        boolean l = false;
+        boolean dl = false;
+
+        for (Likes like : likesRepository.findAll()){
+            if (like.getEpisodeID() == episodeID){
+                if (like.getUsername().equalsIgnoreCase(username)) {
+                    l = true;
+                    break;
+                }
+            }
+        }
+
+        for (Dislike dislike : dislikeRepository.findAll()){
+            if (dislike.getEpisodeID() == episodeID){
+                if (dislike.getUsername().equalsIgnoreCase(username)) {
+                    dl = true;
+                    break;
+                }
+            }
+        }
+
+        mv.addObject("like", l);
+        mv.addObject("dislike", dl);
+
+        List<Comments> commentsList = new ArrayList<>();
+
+        for (Comments c : commentsRepository.findAll()){
+            if (c.getEpisodeID() == episodeID){
+                commentsList.add(c);
+            }
+        }
+
+        mv.addObject("comments", commentsList);
+
+
+        List<DerivedEpi> dEpiList = new ArrayList<>();
+        List<DerivedEpi> temp_dEpiList = new ArrayList<>();
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (DerivedEpi dEpi : derivedEpiRepository.findAll()) {
+                    if (dEpi.getOriginalID() == episodeID) {
+                        dEpi.setImageData(new String(dEpi.getEndingScene()));
+                        dEpiList.add(dEpi);
+                    }
+                }
+                // System.out.println("ImageList: "+ imageList);
+
+                dEpiList = sortDerivedEpiByNumLikes(dEpiList);
+
+                mv.addObject("dEpiList", dEpiList);
+                // ra.addFlashAttribute("imageList",imageList);
+
+            }
+        }
+
+
+
+        return mv;
+    }
+
 
     /**
      *  Sort the list of derived episodes.
