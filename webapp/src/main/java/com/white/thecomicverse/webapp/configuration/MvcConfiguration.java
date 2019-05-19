@@ -16,7 +16,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
         registry.addViewController("/contest_info").setViewName("contest_info");
         registry.addViewController("/create_comic_series").setViewName("create_comic_series");
         registry.addViewController("/drawing_page").setViewName("drawing_page");
-        registry.addViewController("/drawing_page2").setViewName("drawing_page2");
+        registry.addViewController("/drawing_page_derivedEpi").setViewName("drawing_page_derivedEpi");
         registry.addViewController("/manage_my_episodes").setViewName("manage_my_episodes");
         registry.addViewController("/manage_my_series").setViewName("manage_my_series");
         registry.addViewController("/read_episode").setViewName("read_episode");

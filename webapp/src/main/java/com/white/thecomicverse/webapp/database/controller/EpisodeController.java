@@ -126,7 +126,7 @@ public class EpisodeController {
       System.out.println("loadORIGINAL HERE");
       System.out.println(episodeID);
 
-      ModelAndView mv = new ModelAndView("drawing_page2");
+      ModelAndView mv = new ModelAndView("drawing_page_derivedEpi");
 
       mv.addObject("episodeID", episodeID);
       return mv;
@@ -512,7 +512,7 @@ public class EpisodeController {
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getSeriesID() == seriesID) {
                 episode.setImageData(new String(episode.getThumbnail()));
-                System.out.println(episode.getImageData());
+                //System.out.println(episode.getImageData());
                 episodeList.add(episode);
 
             }
@@ -730,8 +730,8 @@ public class EpisodeController {
     }
 
     public void addImage(int episodeID, String imageData) {
-        System.out.println("imageData passed: " + imageData);
-        System.out.println("episodeID passed: " + episodeID);
+        //System.out.println("imageData passed: " + imageData);
+        //System.out.println("episodeID passed: " + episodeID);
         int max = -1;
         for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
             if (episodeImage.getEpisodeID() == episodeID && episodeImage.getIndices() > max) {

@@ -17,5 +17,6 @@ $("#submitLogin").submit(function(e) {
         $("#secretWordModal").modal("hide");
     }
     return false;
-    */
+
 });
+*/

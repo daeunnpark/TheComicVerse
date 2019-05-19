@@ -8,8 +8,11 @@ $(document).ready(function() {
   document.getElementById(
     "dummyUsernameForm3"
   ).value = window.sessionStorage.getItem("username");
-
+  document.getElementById(
+    "dummyUsernameForm4"
+  ).value = window.sessionStorage.getItem("username");
 });
+
 
 
 
@@ -32,6 +35,9 @@ $(".dropdown-menu a").click(function() {
 });
 
 
+
 $( "#save_png" ).click(function( event ) {
   this.href = canvas.toDataURL("image/png;base64");
+  document.getElementById("endingScene").value = this.href;
+  document.getElementById("AddDerivedEpi").submit();
 });
