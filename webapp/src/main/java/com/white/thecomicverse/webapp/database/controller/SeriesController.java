@@ -234,7 +234,7 @@ public class SeriesController {
 
     }
 
-    @RequestMapping(value = "subscriptedSeries")
+    @RequestMapping(value = "/subscriptedSeries")
     public ModelAndView getSeriesBySubscription(HttpServletRequest req,
             @RequestParam(value = "username") String username) {
 
@@ -390,11 +390,12 @@ public class SeriesController {
     }
 
     //unlogged in user
-    @GetMapping(path = "/home_series2")
+    @GetMapping(path = "/seriesByNumLikes")
     public @ResponseBody ModelAndView homeSeries2(HttpServletRequest req, @RequestParam(value = "username") String username) {
         // System.out.println("view_Epi :series ID = " + seriesID);
         List<Series> s = new ArrayList<Series>();
 
+/*
         for (Series se : seriesRepository.findAll()){
             se.setSumLikes(0);
             for (Episode ep : episodeRepository.findAll()){
@@ -403,6 +404,13 @@ public class SeriesController {
                 }
             }
         }
+*/
+
+        for (Series se : seriesRepository.findAll()){
+          updateSumLikes(se.getSeriesID());
+          s.add(se);
+        }
+
         Collections.sort(s, new Comparator<Series>() {
             @Override
             public int compare(Series o1, Series o2) {
