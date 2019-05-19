@@ -385,13 +385,14 @@ public class SeriesController {
         ModelAndView mv = new ModelAndView("home");
         // mv.addObject(s);
         mv.addObject("series", s);
+        mv.addObject("username", username);
         return mv;
 
     }
 
     //unlogged in user
     @GetMapping(path = "/seriesByNumLikes")
-    public @ResponseBody ModelAndView homeSeries2(HttpServletRequest req, @RequestParam(value = "username") String username) {
+    public @ResponseBody ModelAndView homeSeries2(HttpServletRequest req) {
         // System.out.println("view_Epi :series ID = " + seriesID);
         List<Series> s = new ArrayList<Series>();
 
@@ -411,11 +412,11 @@ public class SeriesController {
           s.add(se);
         }
 
-        Collections.sort(s, new Comparator<Series>() {
+        s.sort(new Comparator<Series>() {
             @Override
             public int compare(Series o1, Series o2) {
-                Integer num1 = new Integer(o1.getSumLikes());
-                Integer num2 = new Integer(o2.getSumLikes());
+                Integer num1 = o1.getSumLikes();
+                Integer num2 = o2.getSumLikes();
                 return num1.compareTo(num2);
             }
         });
@@ -423,6 +424,7 @@ public class SeriesController {
         ModelAndView mv = new ModelAndView("home");
         // mv.addObject(s);
         mv.addObject("series", s);
+        mv.addObject("username", null);
         return mv;
 
     }
