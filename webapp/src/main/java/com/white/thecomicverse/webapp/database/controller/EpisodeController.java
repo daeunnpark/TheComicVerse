@@ -139,7 +139,8 @@ public class EpisodeController {
                                    @RequestParam(value = "username") String username,
                                      @RequestParam(value = "endingScene") String ending ){
 
-        // System.out.println("add Epi:series ID = " + SeriesID);
+        System.out.println("add Epi:epi ID = " + episodeID);
+        System.out.println("add Epi:username = " + username);
 
         DerivedEpi dEpi = new DerivedEpi();
 
@@ -181,7 +182,7 @@ public class EpisodeController {
         mv.addObject("dEpiList", dEpiList);
 */
 
-        return readEpisode2(req, episodeID, username);
+        return readEpisode(req, episodeID, username);
 
     }
 
@@ -328,6 +329,7 @@ public class EpisodeController {
     @RequestMapping(value = "/addDerivedLikes") // Map ONLY GET Requests
     public ModelAndView addDerivedLikes(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                         @RequestParam(value = "username") String username) {
+
 
 
         DerivedLikes dl = new DerivedLikes();
@@ -593,6 +595,23 @@ public class EpisodeController {
         mv.addObject("comments", commentsList);
 
 
+        List<DerivedEpi> dEpiList = new ArrayList<>();
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (DerivedEpi dEpi : derivedEpiRepository.findAll()) {
+                    if (dEpi.getOriginalID() == episodeID) {
+                        dEpi.setImageData(new String(dEpi.getEndingScene()));
+                        dEpiList.add(dEpi);
+                    }
+                }
+                // System.out.println("ImageList: "+ imageList);
+                mv.addObject("dEpiList", dEpiList);
+                // ra.addFlashAttribute("imageList",imageList);
+
+            }
+        }
 
 
         return mv;
@@ -607,7 +626,7 @@ public class EpisodeController {
                                     @RequestParam(value = "username") String username) {
 
 
-        System.out.println("received episode ID: readepi2" + episodeID);
+        System.out.println("received episode ID: readepi2 = " + episodeID);
 
         ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
 
