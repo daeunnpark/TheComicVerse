@@ -609,7 +609,7 @@ public class EpisodeController {
 
         System.out.println("READEPI: received episode ID: " + episodeID);
 
-        ModelAndView mv = new ModelAndView("read_episode"); // ("redirect:/read_episode");
+        ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
 
         Episode epi = new Episode();
         List<EpisodeImage> imageList = new ArrayList<>();
