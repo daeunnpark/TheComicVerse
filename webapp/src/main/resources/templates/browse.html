@@ -26,7 +26,12 @@
       src="../static/js/usersession.js"
       th:src="@{/js/usersession.js}"
     ></script>
-    <script src="../static/js/browse.js" th:src="@{/js/browse.js}"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <!--<script src="../static/js/browse.js" th:src="@{/js/browse.js}"></script>-->
   </head>
 
   <body>
@@ -56,19 +61,45 @@
               >
             </form>
           </li>
-          <li class="nav-item">
-            <form
-              id="submitBrowse"
-              th:action="@{/series/allSeries}"
-              method="POST"
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
             >
-              <a
-                class="nav-link"
-                href="#"
-                onclick="document.getElementById('submitBrowse').submit()"
-                >Browse</a
+              Browse
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <form
+                id="submitBrowseSeries"
+                th:action="@{/series/allSeries}"
+                method="POST"
               >
-            </form>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="document.getElementById('submitBrowseSeries').submit();"
+                  >Browse Series</a
+                >
+              </form>
+
+              <form
+                id="submitBrowseDerivEpi"
+                th:action="@{/episodes/allEpiWithDerivedEpi}"
+                method="POST"
+              >
+
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="document.getElementById('submitBrowseDerivEpi').submit();"
+                  >Browse Derived Episodes</a
+                >
+              </form>
+            </div>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -182,6 +213,7 @@
             <a class="navbar-brand" style="color: orange;">TheComicVerse</a>
           </nav>
           <button
+            id = "searchOptionBtn"
             class="btn btn-outline-secondary dropdown-toggle"
             type="button"
             data-toggle="dropdown"
@@ -221,6 +253,7 @@
             style="height:0"
           />
           <input
+          id="keywordinput"
             type="search"
             class="form-control"
             placeholder="Search"
@@ -228,7 +261,68 @@
             name="keyword"
             style="height:100%; width:100%;"
           />
+
         </form>
+        <div th:if="${th_searchOption == 'all'}" class="row">
+          <div th:text= "${th_searchOption}"></div>
+          <script type="text/javascript" th:inline="javascript">
+
+//alert("first" + document.getElementById("searchOptionBtn").value + document.getElementById("searchOption").value);
+          // Update drop box text
+          $("#searchOptionBtn").html("all");
+          // Update drop box value
+
+          $("#searchOptionBtn").val("all").change();
+
+          // Update searchOption
+          $("#searchOption").val("all").change();
+
+          </script>
+        </div>
+        <div th:if="${th_searchOption == 'title'}" class="row">
+          <div th:text= "${th_searchOption}"></div>
+          <script type="text/javascript" th:inline="javascript">
+
+          // Update drop box text
+          $("#searchOptionBtn").html("title");
+
+          // Update drop box value
+          $("#searchOptionBtn").val("title").change();
+
+          // Update searchOption
+          $("#searchOption").val("title").change();
+
+          </script>
+        </div>
+        <div th:if="${th_searchOption == 'author'}" class="row">
+          <div th:text= "${th_searchOption}"></div>
+          <script type="text/javascript" th:inline="javascript">
+
+          // Update drop box text
+          $("#searchOptionBtn").html("author");
+
+          // Update drop box value
+          $("#searchOptionBtn").val("author").change();
+
+          // Update searchOption
+          $("#searchOption").val("author").change();
+
+          </script>
+        </div>
+
+        <div th:if="${th_keyword != null}" class="row">
+
+          <script type="text/javascript" th:inline="javascript">
+
+        document.getElementById("keywordinput").value =  [[${ th_keyword }]];
+
+        alert("fff" + document.getElementById("keywordinput").value );
+
+          </script>
+        </div>
+
+
+
         <div class="input-group-append">
           <button
             class="btn btn-outline-success"
@@ -472,11 +566,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

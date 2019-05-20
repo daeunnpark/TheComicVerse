@@ -14,24 +14,27 @@ function readURL(url) {
   request.send();
 }
 
-function viewSeriesSubmit(){
-  document.getElementById("usernameInput1").value = window.sessionStorage.getItem("username");
-  document.getElementById('submitViewSeries').submit();
 
-}
 /*
 jQuery(document).ready(function() {
   updateLoginUI();
 });
 */
 
+function viewSeriesSubmit(){
+  document.getElementById("usernameInput1").value = window.sessionStorage.getItem("username");
+  document.getElementById('submitViewSeries').submit();
 
-jQuery(document).ready(function () {
+}
+
+$(document).ready(function () {
 /*
   document.getElementById(
       "dummyUsernameForm6"
   ).value = window.sessionStorage.getItem("username");
 */
+
+
 
   document.getElementById("BrowseBtn").addEventListener('click', function(event){
 
@@ -56,5 +59,5 @@ jQuery(document).ready(function () {
 
     document.getElementById("updateBrowse").submit();
     });
-    
+
 });

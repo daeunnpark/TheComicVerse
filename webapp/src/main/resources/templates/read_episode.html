@@ -63,20 +63,48 @@
               >
             </form>
           </li>
-          <li class="nav-item">
-            <form
-                    id="submitBrowse"
-                    th:action="@{/series/allSeries}"
-                    method="POST"
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
             >
-              <a
-                      class="nav-link"
-                      href="#"
-                      onclick="document.getElementById('submitBrowse').submit()"
-              >Browse</a
+              Browse
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <form
+                id="submitBrowseSeries"
+                th:action="@{/series/allSeries}"
+                method="POST"
               >
-            </form>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="document.getElementById('submitBrowseSeries').submit();"
+                  >Browse Series</a
+                >
+              </form>
+
+              <form
+                id="submitBrowseDerivEpi"
+                th:action="@{/episodes/allEpiWithDerivedEpi}"
+                method="POST"
+              >
+
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="document.getElementById('submitBrowseDerivEpi').submit();"
+                  >Browse Derived Episodes</a
+                >
+              </form>
+            </div>
           </li>
+
+
           <li class="nav-item dropdown">
             <a
                     class="nav-link dropdown-toggle"

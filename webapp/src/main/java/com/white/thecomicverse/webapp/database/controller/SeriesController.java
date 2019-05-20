@@ -324,16 +324,16 @@ public class SeriesController {
             @RequestParam(value = "keyword") String keyword) {
 
         if (searchOption.equals("title")) {
-            return getSeriesByName(req, keyword);
+            return getSeriesByName(req, searchOption, keyword);
         } else if (searchOption.equals("author")) {
-            return getSeriesByAuthor(req, keyword);
+            return getSeriesByAuthor(req, searchOption, keyword);
         }
-        return getSeriesByAll(req, keyword);
+        return getSeriesByAll(req, searchOption, keyword);
 
     }
 
     @RequestMapping(value = "/checkSeriesName") // Map ONLY GET Requests
-    public ModelAndView getSeriesByName(HttpServletRequest req, @RequestParam(value = "seriesName") String seriesName) {
+    public ModelAndView getSeriesByName(HttpServletRequest req, @RequestParam(value = "searchOption") String searchOption, @RequestParam(value = "seriesName") String seriesName) {
 
         List<Series> s = new ArrayList<Series>();
         for (Series series : seriesRepository.findAll()) {
@@ -349,12 +349,17 @@ public class SeriesController {
         ModelAndView mv = new ModelAndView("browse");
         // mv.addObject(s);
         mv.addObject("series", s);
+        mv.addObject("th_searchOption", searchOption);
+        mv.addObject("th_keyword", seriesName);
+
+        System.out.println("th_searchOptionis " +  searchOption);
+        System.out.println("th_keyword is " +  seriesName);
         return mv;
 
     }
 
     @RequestMapping(value = "/checkSeriesAuthor") // Map ONLY GET Requests
-    public ModelAndView getSeriesByAuthor(HttpServletRequest req,
+    public ModelAndView getSeriesByAuthor(HttpServletRequest req,  @RequestParam(value = "searchOption") String searchOption,
             @RequestParam(value = "authorName") String seriesAuthor) {
         List<Series> s = new ArrayList<Series>();
 
@@ -369,12 +374,21 @@ public class SeriesController {
         ModelAndView mv = new ModelAndView("browse");
         // mv.addObject(s);
         mv.addObject("series", s);
+        mv.addObject("th_searchOption", searchOption);
+        mv.addObject("th_keyword", seriesAuthor);
+
+
+        System.out.println("th_searchOptionis " +  searchOption);
+        System.out.println("th_keyword is " +  seriesAuthor);
         return mv;
 
     }
 
     @RequestMapping(value = "/checkSeriesAll") // Map ONLY GET Requests
-    public ModelAndView getSeriesByAll(HttpServletRequest req, @RequestParam(value = "authorName") String seriesInfo) {
+    public ModelAndView getSeriesByAll(HttpServletRequest req,  @RequestParam(value = "searchOption") String searchOption, @RequestParam(value = "authorName") String seriesInfo) {
+      System.out.println(" all called");
+
+
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
@@ -390,7 +404,13 @@ public class SeriesController {
         }
 
         ModelAndView mv = new ModelAndView("browse");
+
         mv.addObject("series", s);
+        mv.addObject("th_searchOption", searchOption);
+        mv.addObject("th_keyword", seriesInfo);
+
+        System.out.println("th_searchOptionis " +  searchOption);
+        System.out.println("th_keyword is " +  seriesInfo);
         return mv;
 
     }
