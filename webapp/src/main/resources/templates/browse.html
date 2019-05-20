@@ -264,7 +264,6 @@
 
         </form>
         <div th:if="${th_searchOption == 'all'}" class="row">
-          <div th:text= "${th_searchOption}"></div>
           <script type="text/javascript" th:inline="javascript">
 
 //alert("first" + document.getElementById("searchOptionBtn").value + document.getElementById("searchOption").value);
@@ -280,7 +279,6 @@
           </script>
         </div>
         <div th:if="${th_searchOption == 'title'}" class="row">
-          <div th:text= "${th_searchOption}"></div>
           <script type="text/javascript" th:inline="javascript">
 
           // Update drop box text
@@ -295,7 +293,6 @@
           </script>
         </div>
         <div th:if="${th_searchOption == 'author'}" class="row">
-          <div th:text= "${th_searchOption}"></div>
           <script type="text/javascript" th:inline="javascript">
 
           // Update drop box text
@@ -316,12 +313,10 @@
 
         document.getElementById("keywordinput").value =  [[${ th_keyword }]];
 
-        alert("fff" + document.getElementById("keywordinput").value );
+        /*alert("fff" + document.getElementById("keywordinput").value );*/
 
           </script>
         </div>
-
-
 
         <div class="input-group-append">
           <button
@@ -344,6 +339,8 @@
             method="POST"
             >
             <div class="form-group">
+              <input id='searchOptionhidden' type='hidden' value='' name='searchOption'>
+              <input id='keywordhidden' type='hidden' value='' name='keyword'>
 
               <label>Category</label>
               <div class="form-check">

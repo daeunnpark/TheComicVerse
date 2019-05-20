@@ -57,7 +57,17 @@ $(document).ready(function () {
       document.getElementById('category6Hidden').disabled = true;
     }
 
+    document.getElementById("searchOptionhidden").value = document.getElementById("searchOption").value;
+    document.getElementById("keywordhidden").value = document.getElementById("keywordinput").value;
+
+/*
+    alert("search opt for browse is" + document.getElementById("searchOptionhidden").value);
+    alert("keyword for browse is" + document.getElementById("keywordhidden").value);
+*/
+
     document.getElementById("updateBrowse").submit();
+
     });
+
 
 });

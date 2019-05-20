@@ -101,10 +101,77 @@ public class SeriesController {
 
 
     @RequestMapping(value = "/categoryBrowse")
-        public ModelAndView getSeriesByCategories(HttpServletRequest req,
+    public ModelAndView getSeriesByCategories(HttpServletRequest req,
+    @RequestParam(value = "searchOption") String searchOption,  @RequestParam(value = "keyword") String keyword,
     @RequestParam(value = "category1") String category1, @RequestParam(value = "category2") String category2,
      @RequestParam(value = "category3") String category3,@RequestParam(value = "category4") String category4,
       @RequestParam(value = "category5") String category5,@RequestParam(value = "category6") String category6){
+
+        List<String> categoryList = new ArrayList<String>();
+
+        if(!category1.equals("")){
+          categoryList.add(category1);
+        }
+        if(!category2.equals("")){
+          categoryList.add(category2);
+        }
+        if(!category3.equals("")){
+          categoryList.add(category3);
+        }
+        if(!category4.equals("")){
+          categoryList.add(category4);
+        }
+        if(!category5.equals("")){
+          categoryList.add(category5);
+        }
+        if(!category6.equals("")){
+          categoryList.add(category6);
+        }
+
+        // Search only
+        if (categoryList.size() == 0){
+          return search( req, searchOption, keyword);
+        }
+
+        // Apply filters
+        List<Series> searchByseriesList = new ArrayList<Series>();
+        searchByseriesList = searchByOption(req, searchOption, keyword);
+
+        List<Series> s = new ArrayList<Series>();
+
+        for (Series series : searchByseriesList) {
+            if (categoryList.contains(series.getCategories())) {
+                series.setImageData(new String(series.getThumbnail()));
+                s.add(series);
+            }
+        }
+
+
+        ModelAndView mv = new ModelAndView("browse");
+
+        mv.addObject("series", s);
+
+        mv.addObject("th_category1", category1);
+        mv.addObject("th_category2", category2);
+        mv.addObject("th_category3", category3);
+        mv.addObject("th_category4", category4);
+        mv.addObject("th_category5", category5);
+        mv.addObject("th_category6", category6);
+
+        mv.addObject("th_searchOption", searchOption);
+        mv.addObject("th_keyword", keyword);
+
+
+        return mv;
+
+
+/*
+        System.out.println("size is =" + categoryList.size());
+        Arrays.toString(categoryList.toArray());
+*/
+
+
+
 
     /*
             category1 = Political
@@ -122,62 +189,7 @@ public class SeriesController {
             System.out.println("category6" + category6);
 */
 
-            List<String> categoryList = new ArrayList<String>();
 
-            List<Series> s = new ArrayList<Series>();
-
-            if(!category1.equals("")){
-              categoryList.add(category1);
-            }
-            if(!category2.equals("")){
-              categoryList.add(category2);
-            }
-            if(!category3.equals("")){
-              categoryList.add(category3);
-            }
-            if(!category4.equals("")){
-              categoryList.add(category4);
-            }
-            if(!category5.equals("")){
-              categoryList.add(category5);
-            }
-            if(!category6.equals("")){
-              categoryList.add(category6);
-            }
-
-
-            if (categoryList.size() == 0){
-              return getAllSeries(req);
-            }
-
-
-    /*
-            System.out.println("size is =" + categoryList.size());
-            Arrays.toString(categoryList.toArray());
-    */
-
-            for (Series series : seriesRepository.findAll()) {
-                if (categoryList.contains(series.getCategories())) {
-                    series.setImageData(new String(series.getThumbnail()));
-                    s.add(series);
-                }
-            }
-
-
-
-            ModelAndView mv = new ModelAndView("browse");
-
-            mv.addObject("series", s);
-
-            mv.addObject("th_category1", category1);
-            mv.addObject("th_category2", category2);
-            mv.addObject("th_category3", category3);
-            mv.addObject("th_category4", category4);
-            mv.addObject("th_category5", category5);
-            mv.addObject("th_category6", category6);
-
-
-           return mv;
 
         }
 
@@ -318,24 +330,46 @@ public class SeriesController {
 
     }
 
-    @RequestMapping(value = "/search") // Map ONLY GET Requests
-    public ModelAndView getSearchOption(HttpServletRequest req,
+
+    @RequestMapping(value = "/search")
+    public ModelAndView search(HttpServletRequest req, String searchOption, String keyword){
+
+      ModelAndView mv = new ModelAndView("browse");
+
+      mv.addObject("series", searchByOption(req, searchOption, keyword));
+      mv.addObject("th_searchOption", searchOption);
+      mv.addObject("th_keyword", keyword);
+
+      System.out.println("th_searchOptionis " +  searchOption);
+      System.out.println("th_keyword is " +  keyword);
+      return mv;
+
+    }
+    
+    public List<Series> searchByOption(HttpServletRequest req,
             @RequestParam(value = "searchOption") String searchOption,
             @RequestParam(value = "keyword") String keyword) {
 
+        List<Series> seriesList = new ArrayList<Series>();
+
         if (searchOption.equals("title")) {
-            return getSeriesByName(req, searchOption, keyword);
+            seriesList =  getSeriesByName(req, searchOption, keyword);
         } else if (searchOption.equals("author")) {
-            return getSeriesByAuthor(req, searchOption, keyword);
+            seriesList =  getSeriesByAuthor(req, searchOption, keyword);
+        } else{
+          seriesList =  getSeriesByAll(req, searchOption, keyword);
         }
-        return getSeriesByAll(req, searchOption, keyword);
+        return seriesList;
 
     }
 
-    @RequestMapping(value = "/checkSeriesName") // Map ONLY GET Requests
-    public ModelAndView getSeriesByName(HttpServletRequest req, @RequestParam(value = "searchOption") String searchOption, @RequestParam(value = "seriesName") String seriesName) {
+
+
+    //@RequestMapping(value = "/checkSeriesName") // Map ONLY GET Requests
+    public List<Series> getSeriesByName(HttpServletRequest req, @RequestParam(value = "searchOption") String searchOption, @RequestParam(value = "seriesName") String seriesName) {
 
         List<Series> s = new ArrayList<Series>();
+
         for (Series series : seriesRepository.findAll()) {
             if (series.getSeriesName().toLowerCase().contains(seriesName.toLowerCase())) {
                 series.setImageData(new String(series.getThumbnail()));
@@ -345,7 +379,7 @@ public class SeriesController {
 
             }
         }
-
+        /*
         ModelAndView mv = new ModelAndView("browse");
         // mv.addObject(s);
         mv.addObject("series", s);
@@ -355,11 +389,13 @@ public class SeriesController {
         System.out.println("th_searchOptionis " +  searchOption);
         System.out.println("th_keyword is " +  seriesName);
         return mv;
+        */
+        return s;
 
     }
 
-    @RequestMapping(value = "/checkSeriesAuthor") // Map ONLY GET Requests
-    public ModelAndView getSeriesByAuthor(HttpServletRequest req,  @RequestParam(value = "searchOption") String searchOption,
+    //@RequestMapping(value = "/checkSeriesAuthor") // Map ONLY GET Requests
+    public List<Series> getSeriesByAuthor(HttpServletRequest req,  @RequestParam(value = "searchOption") String searchOption,
             @RequestParam(value = "authorName") String seriesAuthor) {
         List<Series> s = new ArrayList<Series>();
 
@@ -371,6 +407,7 @@ public class SeriesController {
             }
         }
 
+        /*
         ModelAndView mv = new ModelAndView("browse");
         // mv.addObject(s);
         mv.addObject("series", s);
@@ -381,11 +418,13 @@ public class SeriesController {
         System.out.println("th_searchOptionis " +  searchOption);
         System.out.println("th_keyword is " +  seriesAuthor);
         return mv;
+        */
+        return s;
 
     }
 
-    @RequestMapping(value = "/checkSeriesAll") // Map ONLY GET Requests
-    public ModelAndView getSeriesByAll(HttpServletRequest req,  @RequestParam(value = "searchOption") String searchOption, @RequestParam(value = "authorName") String seriesInfo) {
+    //@RequestMapping(value = "/checkSeriesAll") // Map ONLY GET Requests
+    public List<Series> getSeriesByAll(HttpServletRequest req,  @RequestParam(value = "searchOption") String searchOption, @RequestParam(value = "authorName") String seriesInfo) {
       System.out.println(" all called");
 
 
@@ -403,7 +442,7 @@ public class SeriesController {
             }
         }
 
-        ModelAndView mv = new ModelAndView("browse");
+        /*ModelAndView mv = new ModelAndView("browse");
 
         mv.addObject("series", s);
         mv.addObject("th_searchOption", searchOption);
@@ -412,6 +451,8 @@ public class SeriesController {
         System.out.println("th_searchOptionis " +  searchOption);
         System.out.println("th_keyword is " +  seriesInfo);
         return mv;
+        */
+        return s;
 
     }
 
