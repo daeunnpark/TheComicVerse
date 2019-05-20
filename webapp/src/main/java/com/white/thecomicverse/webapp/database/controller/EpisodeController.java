@@ -161,7 +161,7 @@ public class EpisodeController {
 
         derivedEpiRepository.save(dEpi);
 
-        return readEpisode(req, episodeID, username);
+        return readEpisode2(req, episodeID, username);
 
     }
 
@@ -607,7 +607,7 @@ public class EpisodeController {
     public ModelAndView readEpisode2(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "username") String username) {
 
-        System.out.println("READEPI: received episode ID: " + episodeID);
+        //System.out.println("READEPI: received episode ID: " + episodeID);
 
         ModelAndView mv = new ModelAndView("read_episode2"); // ("redirect:/read_episode");
 
