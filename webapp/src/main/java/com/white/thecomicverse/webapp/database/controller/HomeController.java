@@ -9,10 +9,7 @@ import com.white.thecomicverse.webapp.database.repositories.SubscriptionReposito
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.white.thecomicverse.webapp.database.model.Subscription;
@@ -26,7 +23,6 @@ import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
 @Controller // This means that this class is a Controller
-@RequestMapping(path = "/home")
 public class HomeController {
     @Autowired
     private SeriesRepository seriesRepository;
@@ -68,10 +64,11 @@ public class HomeController {
 
     }
 
-    //unlogged in user
-    @GetMapping(path = "/home2")
-    public @ResponseBody ModelAndView homeSeries2(HttpServletRequest req) {
+    @RequestMapping(value="/homeLoggedOut")
+    public ModelAndView homeSeries2(HttpServletRequest req) {
         // System.out.println("view_Epi :series ID = " + seriesID);
+        System.out.println("home");
+
         List<Series> s = new ArrayList<Series>();
 
 /*
@@ -87,6 +84,7 @@ public class HomeController {
 
         for (Series se : seriesRepository.findAll()){
             updateSumLikes(se.getSeriesID());
+            se.setImageData(new String(se.getThumbnail()));
             s.add(se);
         }
 
@@ -99,24 +97,33 @@ public class HomeController {
             }
         });
 
+        System.out.println("number of series = " + s.size());
+
         ModelAndView mv = new ModelAndView("home");
         // mv.addObject(s);
         mv.addObject("series", s);
         mv.addObject("username", null);
+
+        System.out.println(mv);
+
         return mv;
 
     }
 
 
     //loged in user
-    @GetMapping(path = "/home")
-    public @ResponseBody ModelAndView homeSeries(HttpServletRequest req, @RequestParam(value = "username") String username) {
+    @RequestMapping(value = "/homeLoggedIn")
+    public ModelAndView homeSeries(HttpServletRequest req, @RequestParam(value = "username") String username) {
         // System.out.println("view_Epi :series ID = " + seriesID);
+
+        System.out.println("homeLoggedIn");
         List<Series> s = new ArrayList<Series>();
+
         for (Subscription sub : subscriptionRepository.findAll()) {
             if (sub.getUsername().equals(username)) {
                 for (Series se : seriesRepository.findAll()){
                     if (se.getSeriesID() == sub.getSeriesID()){
+                        se.setImageData(new String(se.getThumbnail()));
                         s.add(se);
                     }
                 }
@@ -130,6 +137,12 @@ public class HomeController {
         // mv.addObject(s);
         mv.addObject("series", s);
         mv.addObject("username", username);
+
+        System.out.println("number of series = " + s.size());
+
+        System.out.println(mv);
+
+
         return mv;
 
     }

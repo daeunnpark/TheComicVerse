@@ -437,7 +437,7 @@ public class SeriesController {
 
 
     // Clean code until here
-
+/*
     //loged in user
     @GetMapping(path = "/home_series")
     public @ResponseBody ModelAndView homeSeries(HttpServletRequest req, @RequestParam(value = "username") String username) {
@@ -460,15 +460,14 @@ public class SeriesController {
         mv.addObject("username", username);
         return mv;
 
-    }
+    }*/
 
     //unlogged in user
-    @GetMapping(path = "/seriesByNumLikes")
+    /*@GetMapping(path = "/seriesByNumLikes")
     public @ResponseBody ModelAndView homeSeries2(HttpServletRequest req) {
-        // System.out.println("view_Epi :series ID = " + seriesID);
         List<Series> s = new ArrayList<Series>();
 
-/*
+
         for (Series se : seriesRepository.findAll()){
             se.setSumLikes(0);
             for (Episode ep : episodeRepository.findAll()){
@@ -477,7 +476,7 @@ public class SeriesController {
                 }
             }
         }
-*/
+
 
         for (Series se : seriesRepository.findAll()){
           updateSumLikes(se.getSeriesID());
@@ -499,7 +498,7 @@ public class SeriesController {
         mv.addObject("username", null);
         return mv;
 
-    }
+    }*/
 
 
 
