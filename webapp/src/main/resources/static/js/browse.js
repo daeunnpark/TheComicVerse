@@ -16,28 +16,45 @@ function readURL(url) {
 
 function viewSeriesSubmit(){
   document.getElementById("usernameInput1").value = window.sessionStorage.getItem("username");
-  document.getElementById('submitViewSeries').submit()
+  document.getElementById('submitViewSeries').submit();
 
 }
+/*
+jQuery(document).ready(function() {
+  updateLoginUI();
+});
+*/
 
-$(document).ready(function () {
+
+jQuery(document).ready(function () {
+/*
   document.getElementById(
       "dummyUsernameForm6"
   ).value = window.sessionStorage.getItem("username");
-});
-/*
-function readURL() {
-    var file = document.getElementById("fileThumbnailInput").files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-        console.log("RESULT", reader.result);
-        document.getElementById("fileByteData").value = reader.result;
-    };
-    reader.readAsDataURL(file);
-    console.log(reader.result);
-}
-
-
-
-
 */
+
+  document.getElementById("BrowseBtn").addEventListener('click', function(event){
+
+    if(document.getElementById("category1").checked) {
+      document.getElementById('category1Hidden').disabled = true;
+    }
+    if(document.getElementById("category2").checked) {
+      document.getElementById('category2Hidden').disabled = true;
+    }
+    if(document.getElementById("category3").checked) {
+      document.getElementById('category3Hidden').disabled = true;
+    }
+    if(document.getElementById("category4").checked) {
+      document.getElementById('category4Hidden').disabled = true;
+    }
+    if(document.getElementById("category5").checked) {
+      document.getElementById('category5Hidden').disabled = true;
+    }
+    if(document.getElementById("category6").checked) {
+      document.getElementById('category6Hidden').disabled = true;
+    }
+
+    document.getElementById("updateBrowse").submit();
+    });
+    
+});

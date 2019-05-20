@@ -100,28 +100,88 @@ public class SeriesController {
     }
 
 
-/*
     @RequestMapping(value = "/categoryBrowse")
-    public ModelAndView getSeriesByCategories(HttpServletRequest req,
-            @RequestParam(value = "searchOption") List<String> categoryList) {
+        public ModelAndView getSeriesByCategories(HttpServletRequest req,
+    @RequestParam(value = "category1") String category1, @RequestParam(value = "category2") String category2,
+     @RequestParam(value = "category3") String category3,@RequestParam(value = "category4") String category4,
+      @RequestParam(value = "category5") String category5,@RequestParam(value = "category6") String category6){
 
-        List<Series> s = new ArrayList<Series>();
+    /*
+            category1 = Political
+            Family
+            Animal
+            Educational
+            Science Fiction
+            Sports
 
-        if (categoryList.size() == 0){
+            System.out.println("category1" + category1);
+            System.out.println("category2" + category2);
+            System.out.println("category3" + category3);
+            System.out.println("category4" + category4);
+            System.out.println("category5" + category5);
+            System.out.println("category6" + category6);
+*/
 
-        }
-        for (Series series : seriesRepository.findAll()) {
-            if (categoryList.contains(series.getCategories())) {
-                s.add(series);
+            List<String> categoryList = new ArrayList<String>();
+
+            List<Series> s = new ArrayList<Series>();
+
+            if(!category1.equals("")){
+              categoryList.add(category1);
             }
+            if(!category2.equals("")){
+              categoryList.add(category2);
+            }
+            if(!category3.equals("")){
+              categoryList.add(category3);
+            }
+            if(!category4.equals("")){
+              categoryList.add(category4);
+            }
+            if(!category5.equals("")){
+              categoryList.add(category5);
+            }
+            if(!category6.equals("")){
+              categoryList.add(category6);
+            }
+
+
+            if (categoryList.size() == 0){
+              return getAllSeries(req);
+            }
+
+
+    /*
+            System.out.println("size is =" + categoryList.size());
+            Arrays.toString(categoryList.toArray());
+    */
+
+            for (Series series : seriesRepository.findAll()) {
+                if (categoryList.contains(series.getCategories())) {
+                    series.setImageData(new String(series.getThumbnail()));
+                    s.add(series);
+                }
+            }
+
+
+
+            ModelAndView mv = new ModelAndView("browse");
+
+            mv.addObject("series", s);
+
+            mv.addObject("th_category1", category1);
+            mv.addObject("th_category2", category2);
+            mv.addObject("th_category3", category3);
+            mv.addObject("th_category4", category4);
+            mv.addObject("th_category5", category5);
+            mv.addObject("th_category6", category6);
+
+
+           return mv;
+
         }
 
-        ModelAndView mv = new ModelAndView("browse");
-        mv.addObject("series", s);
-        return mv;
 
-    }
-    */
     @RequestMapping(value="/addSubscription")
     public ModelAndView subscribe (HttpServletRequest req, @RequestParam(value = "username") String username, @RequestParam(value = "SeriesID") int seriesID) {
 

@@ -245,74 +245,96 @@
       <div class="col-sm-3">
         <div class="container">
           <h2>Browse</h2>
-          <form>
+          <form id="updateBrowse"
+            th:action="@{/series/categoryBrowse}"
+            method="POST"
+            >
             <div class="form-group">
+
               <label>Category</label>
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="categoryCheck1"
-                />
-                <label class="form-check-label" for="categoryCheck1">
+
+                <input id='category1' type='checkbox' value='Political' name='category1'>
+                <input id='category1Hidden' type='hidden' value='' name='category1'>
+
+                <label class="form-check-label" for="category1">
                   Political
                 </label>
+                <div th:if="${th_category1 == 'Political'}" class="row">
+                  <script type="text/javascript" th:inline="javascript">
+                  document.getElementById("category1").checked = true;
+                  </script>
+                </div>
               </div>
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="categoryCheck2"
-                />
-                <label class="form-check-label" for="categoryCheck2">
+                <input id='category2' type='checkbox' value='Family' name='category2'>
+                <input id='category2Hidden' type='hidden' value='' name='category2'>
+                <label class="form-check-label" for="category2">
                   Family
                 </label>
+                <div th:if="${th_category2 == 'Family'}" class="row">
+
+                  <script type="text/javascript" th:inline="javascript">
+                  document.getElementById("category2").checked = true;
+
+                  </script>
+                </div>
               </div>
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="categoryCheck3"
-                />
-                <label class="form-check-label" for="categoryCheck3">
+                <input id='category3' type='checkbox' value='Animal' name='category3'>
+                <input id='category3Hidden' type='hidden' value='' name='category3'>
+                <label class="form-check-label" for="category3">
                   Animal
                 </label>
+                <div th:if="${th_category3 == 'Animal'}" class="row">
+
+                  <script type="text/javascript" th:inline="javascript">
+                  document.getElementById("category3").checked = true;
+
+                  </script>
+                </div>
               </div>
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="categoryCheck4"
-                />
-                <label class="form-check-label" for="categoryCheck4">
+                <input id='category4' type='checkbox' value='Educational' name='category4'>
+                <input id='category4Hidden' type='hidden' value='' name='category4'>
+                <label class="form-check-label" for="category4">
                   Educational
                 </label>
+                <div th:if="${th_category4 == 'Educational'}" class="row">
+
+                  <script type="text/javascript" th:inline="javascript">
+                  document.getElementById("category4").checked = true;
+
+                  </script>
+                </div>
               </div>
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="categoryCheck5"
-                />
-                <label class="form-check-label" for="categoryCheck5">
+                <input id='category5' type='checkbox' value='Science Fiction' name='category5'>
+                <input id='category5Hidden' type='hidden' value='' name='category5'>
+                <label class="form-check-label" for="category5">
                   Science Fiction
                 </label>
+                <div th:if="${th_category5 == 'Science Fiction'}" class="row">
+
+                  <script type="text/javascript" th:inline="javascript">
+                  document.getElementById("category5").checked = true;
+
+                  </script>
+                </div>
               </div>
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="categoryCheck6"
-                />
-                <label class="form-check-label" for="categoryCheck6">
+                <input id='category6' type='checkbox' value='Sports' name='category6'>
+                <input id='category6Hidden' type='hidden' value='' name='category6'>
+                <label class="form-check-label" for="category6">
                   Sports
                 </label>
+                <div th:if="${th_category6 == 'Sports'}" class="row">
+
+                  <script type="text/javascript" th:inline="javascript">
+                  document.getElementById("category6").checked = true;
+
+                  </script>
+                </div>
               </div>
             </div>
             <!--<div class="form-group">
@@ -374,9 +396,13 @@
               </div>
             </div>-->
             <div class="form-group">
-              <button type="submit" class="btn btn-primary">
-                Browse
-              </button>
+              <input
+                class="btn btn-primary"
+                type="button"
+                id = "BrowseBtn"
+                value="Browse"
+              />
+
             </div>
           </form>
         </div>
@@ -464,6 +490,7 @@
 
     <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
     <script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
+    <script src="../static/js/browse.js" th:src="@{/js/browse.js}"></script>
   </body>
 </html>
 
@@ -481,7 +508,7 @@
                       <a class="btn btn-primary" th:href="@{/view_comic_series}"
                         >View Comic Page</a
                       >
-    
+
                       <a href="#" class="btn btn-primary">Subscribe</a>
                     </div>
                   </div>
@@ -498,7 +525,7 @@
                       <a class="btn btn-primary" th:href="@{/view_comic_series}"
                         >View Comic Page</a
                       >
-    
+
                       <a href="#" class="btn btn-primary">Subscribe</a>
                     </div>
                   </div>
@@ -515,7 +542,7 @@
                       <a class="btn btn-primary" th:href="@{/view_comic_series}"
                         >View Comic Page</a
                       >
-    
+
                       <a href="#" class="btn btn-primary">Subscribe</a>
                     </div>
                   </div>
