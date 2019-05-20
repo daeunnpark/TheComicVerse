@@ -16,27 +16,63 @@
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous"
     />
-
-    <!-- js file -->
     <script
             type="text/javascript"
             src="../static/js/usersession.js"
             th:src="@{/js/usersession.js}"
     ></script>
 
+    <link
+      rel="stylesheet"
+      href="../static/css/error.css"
+      th:href="@{/css/error.css}"
+    />
+
     <title>TheComicVerse</title>
 </head>
 
-<body>
-<div> Page Not Found </div>
-<div th:text="${errorMsg}"></div>
-<form id="submitHome2" action="/home" method="GET">
-    <button
-            onclick="this.form.submit();"
-    >Go Back Home
-    </button>
-</form>
+<body class="bg-purple">
+        <div class="stars">
+            <div class="custom-navbar">
+                <div class="brand-logo">
+                  <nav class="navbar navbar-light">
+                    <a class="navbar-brand" style="color: orange;">TheComicVerse</a>
+                  </nav>
+                </div>
+            </div>
+            <div class="central-body">
+                <div th:text="${errorMsg}"></div>
+                <div> LOOKS LIKE YOU ARE LOST IN SPACE</div>
+                <form id="submitHome2" action="/home" method="GET">
+                    <button
+                    id = "btn"
+                    class="btn-go-home"
+                    onclick="this.form.submit();"
+                    >GO BACK HOME
+                    </button>
+                </form>
+            </div>
+            <div class="objects">
+                <img class="object_rocket" src="http://salehriaz.com/404Page/img/rocket.svg" width="40px">
+                <div class="earth-moon">
+                    <img class="object_earth" src="http://salehriaz.com/404Page/img/earth.svg" width="100px">
+                    <img class="object_moon" src="http://salehriaz.com/404Page/img/moon.svg" width="80px">
+                </div>
+                <div class="box_astronaut">
+                    <img class="object_astronaut" src="http://salehriaz.com/404Page/img/astronaut.svg" width="140px">
+                </div>
+            </div>
+            <div class="glowing_stars">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
 
-<script src="../static/js/navbar.js" th:src="@{/js/navbar.js}"></script>
-</body>
-</html>
+            </div>
+
+        </div>
+
+    </body>
+
+    </html>
