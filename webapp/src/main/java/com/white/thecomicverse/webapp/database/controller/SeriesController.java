@@ -217,7 +217,7 @@ public class SeriesController {
 
     // For Browse
     @RequestMapping(value = "/allSeries")
-    public ModelAndView getAllSeries(HttpServletRequest req) {
+    public ModelAndView getAllSeries(HttpServletRequest req, @RequestParam(value = "username") String username) {
         List<Series> s = new ArrayList<Series>();
 
         for (Series series : seriesRepository.findAll()) {
@@ -227,6 +227,7 @@ public class SeriesController {
 
         ModelAndView mv = new ModelAndView("browse");
         mv.addObject("series", s);
+        mv.addObject("username",username);
         return mv;
     }
 

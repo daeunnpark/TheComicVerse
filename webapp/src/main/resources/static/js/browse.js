@@ -28,11 +28,7 @@ function viewSeriesSubmit(){
 }
 
 $(document).ready(function () {
-/*
-  document.getElementById(
-      "dummyUsernameForm6"
-  ).value = window.sessionStorage.getItem("username");
-*/
+  document.getElementById("dummyUsernameForm6").value = window.sessionStorage.getItem("username");
 
 
 
