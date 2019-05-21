@@ -41,4 +41,17 @@ $(document).ready(function () {
   document.getElementById(
       "dummyUsernameForm9"
   ).value = window.sessionStorage.getItem("username");
+
+
+  document.getElementById("uploadbtn").addEventListener('click', function(event){
+
+    if(document.getElementById("canDerived").checked) {
+      document.getElementById("canDerivedHidden").disabled = true;
+    }
+
+  document.getElementById("uploadEpisode").submit();
+
+  });
+
+
 });
