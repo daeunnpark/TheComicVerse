@@ -207,7 +207,9 @@ public class EpisodeController {
     @RequestMapping(value = "/prevEp")
     public ModelAndView prevEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
             @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
+
         int seriesID = -1;
+
         for (Episode episode : EpiRepository.findAll()) {
             if (episodeID == episode.getEpisodeID()) {
                 seriesID = episode.getSeriesID();
@@ -215,16 +217,38 @@ public class EpisodeController {
         }
 
         int prevEpID = -1;
+        int prevEpiIndex = -1;
         int epiIndex = episodeIndex;
+        int max = -1;
         ModelAndView mv = new ModelAndView("read_episode");
 
+        /*
         if (epiIndex == 0) {
             return null;
         }
+        */
+
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID) {
+                System.out.println("HERE");
+                series.setImageData(new String(series.getThumbnail()));
+                mv.addObject("series", series); // single serie
+                break;
+            }
+        }
+
+
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getSeriesID() == seriesID && episode.getIndices() == (episodeIndex - 1)) {
                 prevEpID = episode.getEpisodeID();
+                prevEpiIndex = episode.getIndices();
+                //epiIndex =
             }
+            if (episode.getSeriesID() == seriesID && episode.getIndices() > max) {
+                max = episode.getIndices();
+            }
+
         }
 
         List<EpisodeImage> imageList = new ArrayList<>();
@@ -264,6 +288,65 @@ public class EpisodeController {
         mv.addObject("like", l);
         mv.addObject("dislike", dl);
 
+        /*
+        List<Comments> commentsList = new ArrayList<>();
+
+        for (Comments c : commentsRepository.findAll()){
+            if (c.getEpisodeID() == episodeID){
+                commentsList.add(c);
+            }
+        }
+
+        mv.addObject("comments", commentsList);
+
+
+        List<DerivedEpi> dEpiList = new ArrayList<>();
+        List<DerivedEpi> temp_dEpiList = new ArrayList<>();
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (DerivedEpi dEpi : derivedEpiRepository.findAll()) {
+                    if (dEpi.getOriginalID() == episodeID) {
+                        dEpi.setImageData(new String(dEpi.getEndingScene()));
+                        dEpiList.add(dEpi);
+                    }
+                }
+                // System.out.println("ImageList: "+ imageList);
+
+                temp_dEpiList = sortDerivedEpiByNumLikes(dEpiList);
+
+                if(temp_dEpiList.size()>3){
+                  dEpiList = temp_dEpiList.subList(0, 3);
+                } else{
+                  dEpiList = temp_dEpiList;
+                }
+
+                mv.addObject("dEpiList", dEpiList);
+                // ra.addFlashAttribute("imageList",imageList);
+
+            }
+        }
+
+
+*/
+
+
+        boolean first = false;
+        boolean last = false;
+
+        if(prevEpiIndex == 0){
+          first = true;
+        }
+
+        if(prevEpiIndex >= max){
+          last = true;
+        }
+
+
+        mv.addObject("firstEpi", first);
+        mv.addObject("lastEpi", last);
+
 
         return mv;
     }
@@ -275,8 +358,10 @@ public class EpisodeController {
     public ModelAndView nextEpisode(HttpServletRequest req, @RequestParam(value = "episodeID") int episodeID,
                                     @RequestParam(value = "episodeIndex") int episodeIndex, @RequestParam(value = "username") String username) {
         int nextEpID = -1;
+        int nextEpiIndex = -1;
         int max = -1;
         int epiIndex = episodeIndex;
+
         ModelAndView mv = new ModelAndView("read_episode");
 
         int seriesID = -1;
@@ -286,18 +371,31 @@ public class EpisodeController {
             }
         }
 
-        for (Episode episode : EpiRepository.findAll()) {
-            if (episode.getSeriesID() == seriesID && episode.getIndices() > max) {
-                max = episode.getIndices();
-            }
-        }
+        /*
         if (epiIndex >= max) {
             return null;
         }
+        */
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID) {
+                System.out.println("HERE");
+                series.setImageData(new String(series.getThumbnail()));
+                mv.addObject("series", series); // single serie
+                break;
+            }
+        }
+
+
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getSeriesID() == seriesID && episode.getIndices() == (episodeIndex + 1)) {
                 nextEpID = episode.getEpisodeID();
+                nextEpiIndex = episode.getIndices();
             }
+            if (episode.getSeriesID() == seriesID && episode.getIndices() > max) {
+                max = episode.getIndices();
+            }
+
         }
 
         List<EpisodeImage> imageList = new ArrayList<>();
@@ -338,7 +436,59 @@ public class EpisodeController {
 
         mv.addObject("like", l);
         mv.addObject("dislike", dl);
+        /*
+        List<Comments> commentsList = new ArrayList<>();
 
+        for (Comments c : commentsRepository.findAll()){
+            if (c.getEpisodeID() == episodeID){
+                commentsList.add(c);
+            }
+        }
+
+        mv.addObject("comments", commentsList);
+
+        List<DerivedEpi> dEpiList = new ArrayList<>();
+        List<DerivedEpi> temp_dEpiList = new ArrayList<>();
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getEpisodeID() == episodeID) {
+                mv.addObject("episode", episode);
+                for (DerivedEpi dEpi : derivedEpiRepository.findAll()) {
+                    if (dEpi.getOriginalID() == episodeID) {
+                        dEpi.setImageData(new String(dEpi.getEndingScene()));
+                        dEpiList.add(dEpi);
+                    }
+                }
+                // System.out.println("ImageList: "+ imageList);
+
+                temp_dEpiList = sortDerivedEpiByNumLikes(dEpiList);
+
+                if(temp_dEpiList.size()>3){
+                  dEpiList = temp_dEpiList.subList(0, 3);
+                } else{
+                  dEpiList = temp_dEpiList;
+                }
+
+                mv.addObject("dEpiList", dEpiList);
+                // ra.addFlashAttribute("imageList",imageList);
+
+            }
+        }
+
+*/
+        boolean first = false;
+        boolean last = false;
+
+        if(nextEpiIndex == 0){
+          first = true;
+        }
+
+        if(nextEpiIndex >= max){
+          last = true;
+        }
+
+        mv.addObject("firstEpi", first);
+        mv.addObject("lastEpi", last);
 
 
 
@@ -514,13 +664,20 @@ public class EpisodeController {
 
         System.out.println("READEPI: received episode ID: " + episodeID);
 
+
         ModelAndView mv = new ModelAndView("read_episode"); // ("redirect:/read_episode");
 
         Episode epi = new Episode();
         List<EpisodeImage> imageList = new ArrayList<>();
 
+        //Initalize
+        int epiIndex = -1;
+        int seriesID = -1;
+
         for (Episode episode : EpiRepository.findAll()) {
             if (episode.getEpisodeID() == episodeID) {
+                epiIndex = episode.getIndices();
+                seriesID = episode.getSeriesID();
                 mv.addObject("episode", episode);
                 for (EpisodeImage episodeImage : episodeImageRepository.findAll()) {
                     if (episodeImage.getEpisodeID() == episodeID) {
@@ -608,6 +765,30 @@ public class EpisodeController {
 
             }
         }
+
+        int max = -1;
+
+        for (Episode episode : EpiRepository.findAll()) {
+            if (episode.getSeriesID() == seriesID && episode.getIndices() > max) {
+                max = episode.getIndices();
+            }
+        }
+
+        boolean first = false;
+        boolean last = false;
+
+        if(epiIndex == 0){
+          first = true;
+        }
+
+
+
+        if(epiIndex >= max){
+          last = true;
+        }
+
+        mv.addObject("firstEpi", first);
+        mv.addObject("lastEpi", last);
 
 
 

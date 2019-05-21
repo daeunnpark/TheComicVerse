@@ -22,4 +22,6 @@ $(document).ready(function () {
     document.getElementById("userNameInput2").value = window.sessionStorage.getItem("username");
     document.getElementById("userNameInput3").value = window.sessionStorage.getItem("username");
     document.getElementById("userNameInput4").value = window.sessionStorage.getItem("username");
+    document.getElementById("userNameInput5").value = window.sessionStorage.getItem("username");
+    document.getElementById("userNameInput6").value = window.sessionStorage.getItem("username");
 });
