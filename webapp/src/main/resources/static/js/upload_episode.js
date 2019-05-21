@@ -46,10 +46,10 @@ $(document).ready(function () {
   document.getElementById("uploadbtn").addEventListener('click', function(event){
 
     if(document.getElementById("canDerived").checked) {
-      alert("clicked!");
+      //alert("clicked!");
       document.getElementById("canDerivedHidden").disabled = true;
     }else{
-      alert("notchecked");
+      //alert("notchecked");
       //document.getElementById("canDerivedHidden").disabled = false;
     }
 
@@ -59,6 +59,3 @@ $(document).ready(function () {
 
 
 });
-
-
-
