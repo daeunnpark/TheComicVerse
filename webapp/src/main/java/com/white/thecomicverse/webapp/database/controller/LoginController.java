@@ -180,6 +180,12 @@ public class LoginController {
         for (Series se : seriesRepository.findAll()){
             if (se.getAuthor().equalsIgnoreCase(username)){
                 this.seriesRepository.delete(se);
+
+                for (Episode epi : EpiRepository.findAll()){
+                    if (epi.getSeriesID() == se.getSeriesID()){
+                        this.EpiRepository.delete(epi);
+                    }
+                }
             }
         }
 
@@ -200,6 +206,10 @@ public class LoginController {
                 this.commentsRepository.delete(cm);
             }
         }
+
+
+
+
 
 
 

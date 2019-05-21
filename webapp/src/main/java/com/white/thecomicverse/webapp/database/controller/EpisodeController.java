@@ -189,12 +189,12 @@ public class EpisodeController {
         List<Episode> episodeList = new ArrayList<>();
 
         for (Episode episode : EpiRepository.findAll()) {
-          /*
+
             if (episode.getCanDerive() == true) {
                 episode.setImageData(new String(episode.getThumbnail()));
                 episodeList.add(episode);
             }
-            */
+
         }
 
         mv.addObject("episodes", episodeList);
