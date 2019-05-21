@@ -267,8 +267,7 @@ public class SeriesController {
             if (series.getAuthor().toLowerCase().contains(seriesInfo.toLowerCase())) {
                 series.setImageData(new String(series.getThumbnail()));
                 s.add(series);
-            }
-            if (series.getSeriesName().toLowerCase().contains(seriesInfo.toLowerCase())) {
+            } else if (series.getSeriesName().toLowerCase().contains(seriesInfo.toLowerCase())) {
                 series.setImageData(new String(series.getThumbnail()));
                 s.add(series);
             }

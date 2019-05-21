@@ -251,6 +251,7 @@
             type="hidden"
             name="searchOption"
             id="searchOption"
+            value= "all"
             style="height:0"
           />
           <input
@@ -269,7 +270,7 @@
 
 //alert("first" + document.getElementById("searchOptionBtn").value + document.getElementById("searchOption").value);
           // Update drop box text
-          $("#searchOptionBtn").html("all");
+          $("#searchOptionBtn").html("All");
           // Update drop box value
 
           $("#searchOptionBtn").val("all").change();
@@ -283,7 +284,7 @@
           <script type="text/javascript" th:inline="javascript">
 
           // Update drop box text
-          $("#searchOptionBtn").html("title");
+          $("#searchOptionBtn").html("Title");
 
           // Update drop box value
           $("#searchOptionBtn").val("title").change();
@@ -297,7 +298,7 @@
           <script type="text/javascript" th:inline="javascript">
 
           // Update drop box text
-          $("#searchOptionBtn").html("author");
+          $("#searchOptionBtn").html("Author");
 
           // Update drop box value
           $("#searchOptionBtn").val("author").change();
