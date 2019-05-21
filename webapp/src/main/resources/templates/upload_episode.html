@@ -299,17 +299,20 @@
             <br>
             <br>
             <div class="checkbox" style="text-align: center">
-              <label><input type="checkbox" value="">Allow other users to create custom ending?</label>
+              <!--<label><input type="checkbox" value="">Allow other users to create custom ending?</label>-->
+              <label><input id = "canDerived" type="checkbox" name = "canDerived" value="1">Allow other users to create custom ending?</label>
+              <input id='canDerivedHidden' type='hidden' name="canDerived" value="0">
             </div>
             <br />
             <br />
-            <button
-              type="submit"
+            <input
+              id = "uploadbtn"
+              type="button"
               class="btn btn-primary"
               style="display: block; margin: 0 auto;"
+              value = "Upload"
             >
-              Upload
-            </button>
+
           </form>
         </div>
       </div>
