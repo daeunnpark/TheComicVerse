@@ -1,6 +1,8 @@
 
 package com.white.thecomicverse.webapp.database.controller;
+import com.white.thecomicverse.webapp.database.model.*;
 
+import com.white.thecomicverse.webapp.database.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.white.thecomicverse.webapp.database.model.Login;
-import com.white.thecomicverse.webapp.database.repositories.LoginRepository;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import java.security.MessageDigest;
@@ -20,6 +22,34 @@ public class LoginController {
 
     @Autowired
     private LoginRepository loginRepository;
+
+    @Autowired
+    private EpisodeRepository EpiRepository;
+
+    @Autowired
+    private EpisodeImageRepository episodeImageRepository;
+
+    @Autowired
+    private SeriesRepository seriesRepository;
+
+    @Autowired
+    private LikesRepository likesRepository;
+
+    @Autowired
+    private DislikeRepository dislikeRepository;
+
+    @Autowired
+    private DerivedEpiRepository derivedEpiRepository;
+
+    @Autowired
+    private CommentsRepository commentsRepository;
+
+    @Autowired
+    private DerivedLikesRepository derivedLikesRepository;
+
+
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
     /**
      * Sign up method
@@ -146,6 +176,34 @@ public class LoginController {
                 l = login;
             }
         }
+
+        for (Series se : seriesRepository.findAll()){
+            if (se.getAuthor().equalsIgnoreCase(username)){
+                this.seriesRepository.delete(se);
+            }
+        }
+
+        for (Likes li : likesRepository.findAll()){
+            if(li.getUsername().equalsIgnoreCase(username)){
+                this.likesRepository.delete(li);
+            }
+        }
+
+        for (Subscription sub : subscriptionRepository.findAll()){
+            if (sub.getUsername().equalsIgnoreCase(username)){
+                this.subscriptionRepository.delete(sub);
+            }
+        }
+
+        for (Comments cm : commentsRepository.findAll()){
+            if (cm.getAuthor().equalsIgnoreCase(username)){
+                this.commentsRepository.delete(cm);
+            }
+        }
+
+
+
+
         this.loginRepository.delete(l);
 
         ModelAndView mv = new ModelAndView("home");
