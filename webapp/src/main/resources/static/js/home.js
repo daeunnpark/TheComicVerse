@@ -1,5 +1,5 @@
 // Update LoginUI
-jQuery(document).ready(function() {
+$(document).ready(function() {
   updateLoginUI();
 });
 
@@ -39,7 +39,3 @@ $(".dropdown-menu a").click(function() {
   // Update searchOption
   $("#searchOption").val($(this).data("value"));
 });
-
-function forgotPassword() {
-  
-}

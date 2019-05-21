@@ -31,6 +31,16 @@ public class Episode {
 
     private String imageData;
 
+    private boolean canDerive;
+
+    public boolean getCanDerive() {
+        return canDerive;
+    }
+
+    public void setCanDerive(boolean canDerive) {
+        this.canDerive = canDerive;
+    }
+
     public String getImageData() {
         return imageData;
     }
