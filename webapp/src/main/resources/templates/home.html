@@ -413,14 +413,15 @@
           </div>
         </div>
         <div id="seriesTable" class="col-8">
+          <div id="seriesContent">
 
             <div th:if="${series} != null" class="row">
               <div
                       th:each="serie : ${series}"
-                      class="col-sm-4"
+                      class="col-4"
                       style="margin:10px 0px;"
               >
-                <div class="card" style="height:300px;">
+                <div class="card" style="height:350px;">
                   <img
                           class="card-img-top"
                           id="thumbnail"
@@ -541,6 +542,8 @@
           </div>-->
 
         </div>
+        </div>
+
       </div>
     </div>
 

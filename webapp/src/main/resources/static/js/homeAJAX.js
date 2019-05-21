@@ -9,9 +9,10 @@ $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/homeLoggedOut",
+            async: true,
             success: function (result) {
                 var parsed = $.parseHTML(result);
-                result = $(parsed).find("#seriesTable");
+                result = $(parsed).find("#seriesContent");
                 $('#seriesTable').html(result);
                 console.log(result);
 
@@ -33,9 +34,10 @@ $(document).ready(function () {
             type: "GET",
             url: "/homeLoggedIn",
             data: loginData,
+            async: true,
             success: function (result) {
                 var parsed = $.parseHTML(result);
-                result = $(parsed).find("#seriesTable");
+                result = $(parsed).find("#seriesContent");
                 $('#seriesTable').html(result);
                 console.log(result);
             },
