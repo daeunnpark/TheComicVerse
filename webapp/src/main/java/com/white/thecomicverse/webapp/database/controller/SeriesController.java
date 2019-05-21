@@ -215,8 +215,6 @@ public class SeriesController {
 
     }
 
-
-
     // For Browse
     @RequestMapping(value = "/allSeries")
     public ModelAndView getAllSeries(HttpServletRequest req) {
@@ -502,7 +500,7 @@ public class SeriesController {
 
 
 
-    @GetMapping(path = "/editComic")
+    /*@GetMapping(path = "/editSeries")
     public @ResponseBody ModelAndView editSeries(HttpServletRequest req,
                                                  @RequestParam(value = "seriesID") int seriesID) {
         // System.out.println("view_Epi :series ID = " + seriesID);
@@ -518,6 +516,34 @@ public class SeriesController {
 
         return mv;
     }
+
+    @GetMapping(path = "/updateSeries")
+    public @ResponseBody ModelAndView updateSeries(HttpServletRequest req,
+                                                   @RequestParam(value = "authorname") String authorName,
+                                                   @RequestParam(value = "seriesID") int seriesID,
+                                                   @RequestParam(value = "seriesName") String seriesName,
+                                                   @RequestParam(value = "description") String description,
+                                                   @RequestParam(value = "thumbnail") String thumbnail,
+                                                   @RequestParam(value = "category") String category) {
+        System.out.println("view_Epi :series ID = " + seriesID);
+        System.out.println("view_Epi :series name = " + seriesName);
+        System.out.println("view_Epi :series des = " + description);
+        System.out.println("view_Epi :series thu = " + thumbnail.substring(0,10));
+        System.out.println("view_Epi :series category = " + category);
+
+
+        for (Series series : seriesRepository.findAll()) {
+            if (series.getSeriesID() == seriesID) {
+                series.setSeriesName(seriesName);
+                series.setDescription(description);
+                byte[] b = thumbnail.getBytes();
+                series.setThumbnail(b);
+                series.setCategories(category);
+            }
+        }
+
+        return getMySeries(req, authorName);
+    }*/
 
 
 

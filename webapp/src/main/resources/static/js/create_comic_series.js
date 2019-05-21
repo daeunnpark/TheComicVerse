@@ -15,6 +15,7 @@ $(".dropdown-menu a").click(function() {
   $("#categories").val($(this).data("value"));
 });
 
+
 function encodeImageFileAsURL() {
   var file = document.getElementById("fileThumbnailInput").files[0];
   var reader = new FileReader();
