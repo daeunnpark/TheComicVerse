@@ -340,7 +340,7 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="container">
           <h2>Browse</h2>
           <form id="updateBrowse"
@@ -511,13 +511,13 @@
 
 
       <!-- Series -->
-      <div class="col-sm-9">
+      <div class="col-sm-10">
         <div>
           <div th:if="${series} != null" class="row">
             <div
               th:each="serie : ${series}"
               class="col-sm-4"
-              style="margin:10px 0px;"
+              style="margin-top:10px;margin-bottom: 10px;"
             >
               <div class="card" style="height:300px;">
                 <img
@@ -525,6 +525,7 @@
                   id="thumbnail"
                   th:src="${serie.imageData}"
                   alt="Card image cap"
+                  style="height: 65%;"
                 />
 
                 <!--  <img
