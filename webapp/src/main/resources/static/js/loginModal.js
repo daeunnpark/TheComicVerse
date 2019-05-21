@@ -3,6 +3,7 @@ jQuery(document).ready(function() {
   console.log(window.sessionStorage.getItem("username"));
 
   if (window.sessionStorage.getItem("username") == null) {
+    $('#userNotLoggedInModal').modal({backdrop: 'static', keyboard: false});
     $("#userNotLoggedInModal").modal("show");
   }
 });
