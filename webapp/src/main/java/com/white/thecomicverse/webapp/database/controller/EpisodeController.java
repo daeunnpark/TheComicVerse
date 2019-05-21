@@ -76,8 +76,9 @@ public class EpisodeController {
     @RequestMapping(value = "/addEpisode") // Map ONLY GET Requests
     public ModelAndView addEpisode(HttpServletRequest req, @RequestParam(value = "seriesID") int SeriesID,
             @RequestParam(value = "episodeName") String episodeName,
-            @RequestParam(value = "thumbnail") String thumbnail, @RequestParam(value = "episodeImage") String image){
-                                   //@RequestParam(value = "canDerived") int canDerived) {
+            @RequestParam(value = "thumbnail") String thumbnail, @RequestParam(value = "canDerived") int canDerived,
+    @RequestParam(value = "episodeImage") String image){
+                                   // {
 
         //System.out.println("canDerived is "+ canDerived );
 
@@ -101,14 +102,14 @@ public class EpisodeController {
         epi.setThumbnail(thumbnailByteArr);
         epi.setDateCreated(d.toGMTString());
 
-/*
+
         if (canDerived == 0){
             epi.setCanDerive(false);
         }
         else{
             epi.setCanDerive(true);
         }
-*/
+
 
 
         int max = -1;
