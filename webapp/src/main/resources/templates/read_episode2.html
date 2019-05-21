@@ -314,19 +314,24 @@
       </div>
       </div>
       <div class="row">
-        <div style="margin:0 auto;">
-          <form id="submitPrev" th:action="@{/episodes/prevEp}">
-            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
-            <input name="episodeIndex" th:value="${episode.indices}" hidden/>
-          </form>
+      <div style="margin:0 auto;">
+        <form th:if="${firstEpi == false}" id="submitPrev" th:action="@{/episodes/prevEp}">
+          <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+          <input name="episodeIndex" th:value="${episode.indices}" hidden/>
+          <input name="username" id="userNameInput5" hidden/>
           <button type="button" onclick="this.form.submit();" class="btn btn-outline-success">Previous</button>
-          <form id="submitNext" th:action="@{/episodes/nextEp}">
-            <input name="episodeID" th:value="${episode.episodeID}" hidden/>
-            <input name="episodeIndex" th:value="${episode.indices}" hidden/>
-          </form>
+        </form>
+
+        <form th:if="${lastEpi == false}" id="submitNext" th:action="@{/episodes/nextEp}">
+          <input name="episodeID" th:value="${episode.episodeID}" hidden/>
+          <input name="episodeIndex" th:value="${episode.indices}" hidden/>
+          <input name="username" id="userNameInput6" hidden/>
           <button type="button" onclick="this.form.submit();" class="btn btn-outline-primary">Next</button>
+        </form>
+
         </div>
       </div>
+
       <div class="row">
         <div style="margin:0 auto;">
           <form id="submitLike" th:action="@{/episodes/addLike}">
