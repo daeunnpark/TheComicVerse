@@ -1,6 +1,11 @@
 $(document).ready(function () {
 
-  console.log(window.sessionStorage.getItem("username"))
+  if(window.sessionStorage.getItem("username") == null){
+    document.getElementById("likeButton").disabled = true;
+    document.getElementById("submitComic").style.visibility = 'hidden';
+  }
+
+  console.log(window.sessionStorage.getItem("username"));
 
   document.getElementById(
       "dummyUsernameForm1"
