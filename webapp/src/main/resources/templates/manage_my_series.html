@@ -218,7 +218,7 @@
           <div th:if="${series} != null" class="row">
             <div
               th:each="serie : ${series}"
-              class="col-sm-4"
+              class="col-sm"
               style="margin:10px 0px; "
             >
               <div class="card">
@@ -244,6 +244,24 @@
                         ></span>
                       </h5>
                     </div>
+                    <!--<form
+                            style="width: 100%; text-align: right"
+                            th:action="@{/series/editSeries}"
+                            method="GET"
+                    >
+                      <input
+                              type="number"
+                              name="seriesID"
+                              hidden
+                              th:value="${serie.SeriesID}"
+                      />
+                      <input
+                              class="btn btn-primary"
+                              type="button"
+                              onclick="this.form.submit();"
+                              value="Edit"
+                      />
+                    </form>-->
                     <form
                             style="width: 100%; text-align: right"
                       id="manageEpisodes"
