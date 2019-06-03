@@ -316,7 +316,7 @@
                     placeholder="Username"
                     aria-label="Username"
                     aria-describedby="usernameAddon"
-                  />
+                  >
                 </div>
 
                 <div class="input-group mb-3">
@@ -334,7 +334,7 @@
                     placeholder="Password"
                     aria-label="Password"
                     aria-describedby="passwordAddon"
-                  />
+                  >
                 </div>
               </form>
 
@@ -456,9 +456,9 @@
                               th:value="${serie.SeriesID}"
                       />
                       <input
-                              id="dummyUsername6"
                               hidden
-                              name="username"/>
+                              name="username"
+                              th:value="${username}"/>
                       <input
                               class="btn btn-primary"
                               type="button"

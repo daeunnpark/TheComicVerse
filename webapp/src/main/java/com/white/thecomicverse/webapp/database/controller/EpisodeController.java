@@ -198,6 +198,7 @@ public class EpisodeController {
         }
 
         mv.addObject("episodes", episodeList);
+        mv.addObject("episodes", episodeList);
         return mv;
     }
 

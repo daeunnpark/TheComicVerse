@@ -248,10 +248,14 @@
 
                   <div class="carousel-item" th:if="${dEpiList} != null" th:each="depi : ${dEpiList}">
                     <img class="d-block w-100" th:src="${depi.imageData}" alt="slide">
-                    <div class="carousel-caption d-none d-md-block">
-                      <span style = "color:black;"><strong>Author:</strong></span><span th:text="${depi.author}" style = "color:black;"></span>
-                      <br />
-                      <span style = "color:black;"><strong>Likes :</strong></span><span th:text="${depi.numLikes}" style = "color:black;"></span>
+                    <div class="carousel-caption d-none d-md-block" style = "bottom: 0; top: auto;">
+                      <div style= "display: inline-block;">
+                      <span style = "color:grey; font-size: 10pt;"><strong>Author:</strong></span><span th:text="${depi.author}" style = "color:grey; font-size: 10pt;"></span>
+                      </div>
+                      <div style= "display: inline-block;">
+                      <span style = "color:grey;  font-size: 10pt;"><strong>Likes :</strong></span><span th:text="${depi.numLikes}" style = "color:grey; font-size: 10pt;"></span>
+                      </div>
+                      <div style= "display: inline-block;">
                         <form id="submitDerivedLike" th:action="@{/episodes/addDerivedLikes}">
                             <input name="episodeID" th:value="${depi.derivedEpiID}" hidden/>
                             <input name="username" id="userNameInput3" hidden/>
@@ -259,6 +263,7 @@
                                 Like
                             </button>
                         </form>
+
                         <form id="submitDerivedUnlike" th:action="@{/episodes/removeDerivedLike}">
                             <input name="episodeID" th:value="${depi.derivedEpiID}" hidden/>
                             <input name="username" id="userNameInput4" hidden/>
@@ -266,7 +271,7 @@
                                 Unlike
                             </button>
                         </form>
-
+                      </div>
                     </div>
                   </div>
 

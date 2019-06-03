@@ -93,7 +93,7 @@ public class HomeController {
             public int compare(Series o1, Series o2) {
                 Integer num1 = o1.getSumLikes();
                 Integer num2 = o2.getSumLikes();
-                return num1.compareTo(num2);
+                return num2.compareTo(num1);
             }
         });
 
