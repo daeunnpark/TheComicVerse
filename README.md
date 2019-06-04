@@ -1,2 +1,4 @@
-# team_white_308_thecomicverse
+# TheComicVerse
 Spring Based Comic Web Application
+
+## SRS
